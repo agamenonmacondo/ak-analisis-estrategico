@@ -474,23 +474,24 @@ html, body {
 
 /* Mobile optimizations */
 @media (max-width: 480px) {
-  .slide { padding: 16px 14px 90px; gap: 12px; }
+  .slide { padding: 16px 12px 90px; gap: 12px; }
   .slide-title { font-size: 18px; padding-bottom: 6px; }
   .slide-subtitle { font-size: 14px; margin-top: -8px; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .kpi-card { padding: 10px 8px; border-radius: 8px; }
-  .kpi-label { font-size: 9px; letter-spacing: 0.06em; }
-  .kpi-value { font-size: 17px; }
+  .kpi-label { font-size: 9px; letter-spacing: 0.04em; }
+  .kpi-value { font-size: 16px; word-break: break-all; }
   .kpi-note { font-size: 9px; }
-  .data-table { font-size: 11px; }
-  .data-table th { font-size: 9px; padding: 4px 6px; }
-  .data-table td { padding: 4px 6px; }
-  .bar-label { min-width: 80px; font-size: 10px; }
-  .bar-track { height: 20px; }
+  .data-table { font-size: 11px; min-width: 320px; }
+  .data-table th { font-size: 9px; padding: 4px 6px; white-space: nowrap; }
+  .data-table td { padding: 4px 6px; white-space: nowrap; }
+  .bar-row { flex-wrap: wrap; gap: 4px 8px; }
+  .bar-label { min-width: 70px; font-size: 10px; }
+  .bar-track { height: 20px; flex: 1 1 100%; }
   .bar-fill { font-size: 9px; padding-left: 6px; }
   .insight-box { padding: 10px 12px; font-size: 12px; line-height: 1.45; }
   .insight-box .insight-label { font-size: 13px; }
-  .badge { font-size: 10px; padding: 2px 8px; }
+  .badge { font-size: 10px; padding: 2px 8px; white-space: nowrap; }
   .gap-item { padding: 8px 10px; font-size: 12px; line-height: 1.4; }
   .proposal-card { padding: 10px 12px; gap: 8px; }
   .proposal-num { font-size: 18px; width: 24px; }
@@ -500,13 +501,13 @@ html, body {
   .question-section { padding: 10px 12px; }
   .total-savings { padding: 12px; }
   .total-savings .kpi-value { font-size: 22px; }
-  .schedule-grid { font-size: 8px; }
+  .schedule-grid { font-size: 8px; min-width: 280px; }
   .schedule-grid th { font-size: 7px; padding: 2px 1px; }
   .schedule-grid td { padding: 1px 2px; }
-  .schedule-name { max-width: 60px; overflow: hidden; text-overflow: ellipsis; }
+  .schedule-name { max-width: 55px; overflow: hidden; text-overflow: ellipsis; font-size: 8px; }
   .section-label { font-size: 9px; margin-top: 8px; margin-bottom: 2px; }
   .cols-2 { grid-template-columns: 1fr; }
-  .cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .cols-4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .nav-dots { bottom: 10px; gap: 6px; padding: 6px 12px; }
   .nav-dot { width: 8px; height: 8px; }
   .nav-arrow { width: 32px; height: 32px; font-size: 15px; }
@@ -520,17 +521,22 @@ html, body {
   .portada-kpi .kpi-label { font-size: 9px; }
   .portada-kpis { gap: 16px; }
   .donut-legend { font-size: 10px; }
-  .donut-container { gap: 10px; }
+  .donut-container { gap: 10px; flex-direction: column; }
+  .donut-container svg { width: 140px !important; height: 140px !important; }
+  .heatmap-cell { padding: 4px 2px; font-size: 9px; }
+  .heatmap-grid { gap: 2px; }
 }
 
 @media (max-width: 360px) {
-  .slide { padding: 12px 10px 85px; }
+  .slide { padding: 12px 8px 85px; }
   .kpi-grid { grid-template-columns: 1fr; gap: 6px; }
-  .kpi-value { font-size: 16px; }
-  .portada-title { font-size: 24px; }
+  .kpi-value { font-size: 15px; }
+  .portada-title { font-size: 22px; }
   .portada-kpis { gap: 12px; }
-  .schedule-grid { font-size: 7px; }
-  .schedule-name { max-width: 50px; }
+  .schedule-grid { font-size: 7px; min-width: 250px; }
+  .schedule-name { max-width: 45px; }
+  .bar-label { min-width: 60px; }
+  .data-table { font-size: 10px; min-width: 300px; }
 }
 
 .section-label {
@@ -754,47 +760,47 @@ html, body {
     <div class="bar-row">
       <div class="bar-label">B. Cubillos</div>
       <div class="bar-track"><div class="bar-fill" data-pct="23.7" style="width:0%;background:linear-gradient(90deg,#C9A94E,#E5C96E)">23.7%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:65px">$112.6M</span>
+      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$112.6M</span>
     </div>
     <div class="bar-row">
       <div class="bar-label">E. Ruiz</div>
       <div class="bar-track"><div class="bar-fill" data-pct="19.8" style="width:0%;background:linear-gradient(90deg,#C9A94E,#D4BC5E)">19.8%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:65px">$94.0M</span>
+      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$94.0M</span>
     </div>
     <div class="bar-row">
       <div class="bar-label">Don Martin</div>
       <div class="bar-track"><div class="bar-fill" data-pct="14.8" style="width:0%;background:linear-gradient(90deg,#5A9EC4,#7ABDE0)">14.8%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:65px">$70.5M</span>
+      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$70.5M</span>
     </div>
     <div class="bar-row">
       <div class="bar-label">M. Orrego</div>
       <div class="bar-track"><div class="bar-fill" data-pct="13.0" style="width:0%;background:linear-gradient(90deg,#5A9EC4,#6DB3D8)">13.0%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:65px">$61.6M</span>
+      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$61.6M</span>
     </div>
     <div class="bar-row">
       <div class="bar-label">A. Cuentas</div>
       <div class="bar-track"><div class="bar-fill" data-pct="9.7" style="width:0%;background:linear-gradient(90deg,#A89788,#C4B8A8)">9.7%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:65px">$46.0M</span>
+      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$46.0M</span>
     </div>
     <div class="bar-row">
       <div class="bar-label">Ronald</div>
       <div class="bar-track"><div class="bar-fill" data-pct="8.9" style="width:0%;background:linear-gradient(90deg,#A89788,#B8ADA0)">8.9%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:65px">$42.3M</span>
+      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$42.3M</span>
     </div>
     <div class="bar-row">
       <div class="bar-label">L. Suarez</div>
       <div class="bar-track"><div class="bar-fill" data-pct="6.5" style="width:0%;background:linear-gradient(90deg,#6B5E52,#8A7D70)">6.5%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:65px">$31.0M</span>
+      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$31.0M</span>
     </div>
     <div class="bar-row">
       <div class="bar-label">Doble A</div>
       <div class="bar-track"><div class="bar-fill" data-pct="2.4" style="width:0%;background:linear-gradient(90deg,#6B5E52,#7A6E62)">2.4%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:65px">$11.3M</span>
+      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$11.3M</span>
     </div>
     <div class="bar-row">
       <div class="bar-label">Otros</div>
       <div class="bar-track"><div class="bar-fill" data-pct="1.2" style="width:0%;background:linear-gradient(90deg,#4A3F35,#5A4E42)">1.2%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:65px">&lt;$6M</span>
+      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">&lt;$6M</span>
     </div>
   </div>
 
@@ -969,17 +975,17 @@ html, body {
     <div class="bar-row">
       <div class="bar-label" style="min-width:80px">Cocina</div>
       <div class="bar-track"><div class="bar-fill" data-pct="19.4" style="width:0%;background:linear-gradient(90deg,#5A9EC4,#7ABDE0)">19.4%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:45px">182h</span>
+      <span style="font-size:10px;color:var(--muted);min-width:35px;flex-shrink:0">182h</span>
     </div>
     <div class="bar-row">
       <div class="bar-label" style="min-width:80px">Servicio</div>
       <div class="bar-track"><div class="bar-fill" data-pct="30.0" style="width:0%;background:linear-gradient(90deg,#C9A94E,#E5C96E)">30.0%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:45px">456h</span>
+      <span style="font-size:10px;color:var(--muted);min-width:35px;flex-shrink:0">456h</span>
     </div>
     <div class="bar-row">
       <div class="bar-label" style="min-width:80px">Barra</div>
       <div class="bar-track"><div class="bar-fill" data-pct="34.1" style="width:0%;background:linear-gradient(90deg,#C44D63,#E06B82)">34.1%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:45px">262h</span>
+      <span style="font-size:10px;color:var(--muted);min-width:35px;flex-shrink:0">262h</span>
     </div>
   </div>
 
