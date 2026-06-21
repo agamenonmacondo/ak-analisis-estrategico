@@ -472,6 +472,67 @@ html, body {
   .slide { max-width: 540px; }
 }
 
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .slide { padding: 16px 14px 90px; gap: 12px; }
+  .slide-title { font-size: 18px; padding-bottom: 6px; }
+  .slide-subtitle { font-size: 14px; margin-top: -8px; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .kpi-card { padding: 10px 8px; border-radius: 8px; }
+  .kpi-label { font-size: 9px; letter-spacing: 0.06em; }
+  .kpi-value { font-size: 17px; }
+  .kpi-note { font-size: 9px; }
+  .data-table { font-size: 11px; }
+  .data-table th { font-size: 9px; padding: 4px 6px; }
+  .data-table td { padding: 4px 6px; }
+  .bar-label { min-width: 80px; font-size: 10px; }
+  .bar-track { height: 20px; }
+  .bar-fill { font-size: 9px; padding-left: 6px; }
+  .insight-box { padding: 10px 12px; font-size: 12px; line-height: 1.45; }
+  .insight-box .insight-label { font-size: 13px; }
+  .badge { font-size: 10px; padding: 2px 8px; }
+  .gap-item { padding: 8px 10px; font-size: 12px; line-height: 1.4; }
+  .proposal-card { padding: 10px 12px; gap: 8px; }
+  .proposal-num { font-size: 18px; width: 24px; }
+  .proposal-title { font-size: 12px; }
+  .proposal-detail { font-size: 11px; }
+  .question-item { font-size: 12px; line-height: 1.4; }
+  .question-section { padding: 10px 12px; }
+  .total-savings { padding: 12px; }
+  .total-savings .kpi-value { font-size: 22px; }
+  .schedule-grid { font-size: 8px; }
+  .schedule-grid th { font-size: 7px; padding: 2px 1px; }
+  .schedule-grid td { padding: 1px 2px; }
+  .schedule-name { max-width: 60px; overflow: hidden; text-overflow: ellipsis; }
+  .section-label { font-size: 9px; margin-top: 8px; margin-bottom: 2px; }
+  .cols-2 { grid-template-columns: 1fr; }
+  .cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .nav-dots { bottom: 10px; gap: 6px; padding: 6px 12px; }
+  .nav-dot { width: 8px; height: 8px; }
+  .nav-arrow { width: 32px; height: 32px; font-size: 15px; }
+  .nav-arrow.left { left: 4px; }
+  .nav-arrow.right { right: 4px; }
+  .slide-counter { top: 8px; right: 10px; font-size: 10px; }
+  .portada-title { font-size: 28px; }
+  .portada-subtitle { font-size: 13px; }
+  .portada-meta { font-size: 14px; }
+  .portada-kpi .kpi-value { font-size: 22px; }
+  .portada-kpi .kpi-label { font-size: 9px; }
+  .portada-kpis { gap: 16px; }
+  .donut-legend { font-size: 10px; }
+  .donut-container { gap: 10px; }
+}
+
+@media (max-width: 360px) {
+  .slide { padding: 12px 10px 85px; }
+  .kpi-grid { grid-template-columns: 1fr; gap: 6px; }
+  .kpi-value { font-size: 16px; }
+  .portada-title { font-size: 24px; }
+  .portada-kpis { gap: 12px; }
+  .schedule-grid { font-size: 7px; }
+  .schedule-name { max-width: 50px; }
+}
+
 .section-label {
   font-size: 10px;
   font-weight: 700;
@@ -484,11 +545,6 @@ html, body {
 
 .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-
-@media (max-width: 480px) {
-  .cols-2 { grid-template-columns: 1fr; }
-  .cols-4 { grid-template-columns: repeat(2, 1fr); }
-}
 
 .donut-container {
   display: flex;
