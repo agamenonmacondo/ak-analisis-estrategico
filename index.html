@@ -637,36 +637,48 @@ html, body {
 
   <div class="kpi-grid animate-in delay-2">
     <div class="kpi-card">
-      <div class="kpi-label">Nomina Mensual (Salarios)</div>
+      <div class="kpi-label">Nómina Mensual (Salarios)</div>
       <div class="kpi-value" data-counter="79840000" data-prefix="$" data-format="short">$0</div>
+      <div class="kpi-note">Suma salarios base de 41 colaboradores &middot; Sin HE, sin propinas</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Ventas Mensuales</div>
       <div class="kpi-value gold" data-counter="712131699" data-prefix="$" data-format="short">$0</div>
+      <div class="kpi-note">Promedio Ene-May 2026</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">% Nomina / Ventas</div>
+      <div class="kpi-label">% Nómina / Ventas</div>
       <div class="kpi-value green">11.2%</div>
-      <div class="kpi-note">Salarios directos &middot; Ley: 20-30%</div>
+      <div class="kpi-note">Salarios directos sobre ventas &middot; Benchmark bar+comida: 20-30%</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Costo Empresa Real</div>
       <div class="kpi-value borgona" data-counter="141900000" data-prefix="$" data-format="short">$0</div>
-      <div class="kpi-note">Con prestaciones y aportes &middot; 1.78x</div>
+      <div class="kpi-note">Salarios + auxilios + prestaciones + aportes patronales &middot; Factor 1.78x sobre salario</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">HE Junio</div>
+      <div class="kpi-label">Recargos HE Junio</div>
       <div class="kpi-value borgona" data-counter="7430592" data-prefix="$" data-format="short">$0</div>
+      <div class="kpi-note">Nocturno 35%, dominical 75%, HE 25%/75% &middot; Solo junio</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Costo Total con HE</div>
       <div class="kpi-value" data-counter="149300000" data-prefix="$" data-format="short">$0</div>
+      <div class="kpi-note">Costo empresa + recargos HE del mes &middot; 21.0% de ventas</div>
     </div>
   </div>
 
   <div class="insight-box animate-in delay-4">
     <div class="insight-label">Benchmark</div>
-    Salarios directos: 11.2%. <strong style="color:var(--borgona)">Costo empresa real: 19.9%</strong> (con prestaciones, aportes, auxilios). Bar con comida: 20-30%. Con HE: 21.0%. Los fijos (admin+apoyo+lideres) son $53.6M &mdash; 37.8% de la nomina total.
+    <strong style="color:var(--gold)">Salarios directos: 11.2%</strong> de ventas. <strong style="color:var(--borgona)">Costo empresa real: 19.9%</strong> (incluye prestaciones sociales 16.5% + auxilios + aportes patronales). Benchmark bar+comida: 20-30%. Con HE variable: 21.0%. Los fijos (admin+apoyo+líderes) son $53.6M &mdash; 37.8% de la nómina total.
+  </div>
+
+  <div style="font-size:10px;color:var(--muted);margin-top:8px;padding:8px 10px;background:var(--card);border-radius:6px;line-height:1.5" class="animate-fade delay-5">
+    <strong style="color:var(--gold)">¿Qué incluye cada indicador?</strong><br>
+    <strong>Salarios ($79.8M):</strong> Contratos mensuales fijos, sin HE ni propinas.<br>
+    <strong>Costo Empresa ($141.9M):</strong> Salarios + auxilio transporte + auxilio no salarial + cesantías 8.33% + prima 8.33% + vacaciones 4.17% + intereses cesantías 1% + pensión patronal 12% + EPS 8.5% + ARL 0.522% + Caja 4% + SENA 2% + ICBF 3%. Factor 1.78x sobre salario base.<br>
+    <strong>HE ($7.4M):</strong> Recargos nocturnos 35%, dominicales 75%, HE diurnas 25%, HE nocturnas 75%. Solo junio.<br>
+    <strong>% Nómina/Ventas:</strong> Salarios / promedio ventas Ene-May. Benchmark industry bar+comida Colombia: 20-30%.
   </div>
 
   <div class="section-label animate-in delay-5">Crecimiento Mensual de Ventas</div>
@@ -699,26 +711,32 @@ html, body {
     <div class="kpi-card">
       <div class="kpi-label">Ventas / Empleado</div>
       <div class="kpi-value gold" data-counter="17369066" data-prefix="$" data-format="short">$0</div>
+      <div class="kpi-note">Revenue mensual dividido 41 personas</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Clientes / Empleado</div>
       <div class="kpi-value">41</div>
+      <div class="kpi-note">Cheques atendidos por colaborador en junio</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Horas / Millon Vendido</div>
+      <div class="kpi-label">Horas / Millón Vendido</div>
       <div class="kpi-value">6.8<span style="font-size:12px;color:var(--muted)">h/M$</span></div>
+      <div class="kpi-note">Horas-hombre de turnos por cada $1M en ventas</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Ventas / Hora</div>
       <div class="kpi-value" data-counter="1843510" data-prefix="$" data-format="short">$0</div>
+      <div class="kpi-note">Revenue promedio por hora operacional</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Ticket Prom. / Mesero</div>
       <div class="kpi-value" data-counter="293185" data-prefix="$" data-format="short">$0</div>
+      <div class="kpi-note">Venta total dividida entre número de meseros</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Cheques / Mesero</div>
       <div class="kpi-value">151</div>
+      <div class="kpi-note">Cuentas atendidas por mesero en junio</div>
     </div>
   </div>
 
@@ -748,7 +766,7 @@ html, body {
 
   <div class="insight-box animate-in delay-5">
     <div class="insight-label">Insight</div>
-    Barra genera <strong style="color:var(--borgona)">50% del revenue</strong> con solo 7 personas. Cocina aporta 40% con 15 personas. <strong style="color:var(--gold)">Barra es 1.3x mas productiva</strong> por persona que cocina.
+    Barra genera <strong style="color:var(--borgona)">50% del revenue</strong> con solo 7 personas &mdash; $20.2M costo empresa vs $2,069M en ventas. Cocina aporta 40% con 15 personas &mdash; $41.1M costo empresa. <strong style="color:var(--gold)">Barra es 1.3x más productiva</strong> por persona que cocina en revenue/costo.
   </div>
 </div>
 
@@ -864,7 +882,7 @@ html, body {
 
   <div class="insight-box animate-in delay-4">
     <div class="insight-label">Hallazgo</div>
-    A las 19:00 cada persona genera <strong style="color:var(--gold)">$70,714</strong>. A las 16:00 solo $6,790 &mdash; <strong style="color:var(--borgona)">10.4x menos eficiente</strong>. El personal pico entra 1h antes del revenue pico.
+    A las 19:00 cada persona genera <strong style="color:var(--gold)">$70,714</strong> en revenue. A las 16:00 solo $6,790 &mdash; <strong style="color:var(--borgona)">10.4x menos eficiente</strong>. El personal pico entra 1h antes del revenue pico. <em>$/persona = revenue del turno dividido entre staff asignado a esa hora.</em>
   </div>
 </div>
 
@@ -896,7 +914,7 @@ html, body {
 
   <div class="insight-box animate-in delay-4">
     <div class="insight-label">Insight</div>
-    <strong style="color:var(--gold)">Viernes 19:00</strong> es la hora mas productiva ($540K/persona). <strong style="color:var(--borgona)">Viernes 14:00</strong> es una sorpresa: $586K/persona &mdash; almuerzo Viernes es mas lucrativo por persona que la cena de Sabado.
+    <strong style="color:var(--gold)">Viernes 19:00</strong> es la hora más productiva ($540K/persona). <strong style="color:var(--borgona)">Viernes 14:00</strong> es una sorpresa: $586K/persona &mdash; el almuerzo del viernes es más lucrativo por persona que la cena del sábado. <em>Heatmap = revenue por persona asignada a esa hora.</em>
   </div>
 </div>
 
@@ -909,15 +927,17 @@ html, body {
     <div class="kpi-card" style="text-align:center">
       <div class="kpi-label">Total HE</div>
       <div class="kpi-value borgona">53</div>
-      <div class="kpi-note">ocurrencias</div>
+      <div class="kpi-note">Turnos con horas extra en junio</div>
     </div>
     <div class="kpi-card" style="text-align:center">
       <div class="kpi-label">Horas Extra</div>
       <div class="kpi-value">469h</div>
+      <div class="kpi-note">Total horas extra acumuladas</div>
     </div>
     <div class="kpi-card" style="text-align:center">
       <div class="kpi-label">Costo HE</div>
       <div class="kpi-value borgona" data-counter="7430592" data-prefix="$" data-format="short">$0</div>
+      <div class="kpi-note">Recargos: nocturno 35%, dominical 75%, HE 25%/75%</div>
     </div>
   </div>
 
@@ -958,7 +978,7 @@ html, body {
     </table>
   </div>
 
-  <div style="font-size:11px;color:var(--muted);margin-top:4px" class="animate-fade delay-5">Estimado anual: ~$89.2M en HE</div>
+  <div style="font-size:11px;color:var(--muted);margin-top:4px" class="animate-fade delay-5">Estimado anual: ~$89.2M en recargos HE &middot; Proyección basada en junio (mes parcial)</div>
 
   <div class="insight-box animate-in delay-5">
     <div class="insight-label">Insight</div>
@@ -969,7 +989,7 @@ html, body {
 <!-- SLIDE 8: HORAS NOCTURNAS -->
 <div class="slide" id="slide-7">
   <div class="slide-title animate-in">Horas Nocturnas</div>
-  <div class="slide-subtitle animate-fade delay-1">899h nocturnas &mdash; 27.9% del total (3,219h)</div>
+  <div class="slide-subtitle animate-fade delay-1">899h nocturnas &mdash; 27.9% del total (3,219h) &middot; Turnos entre 21:00 y 06:00</div>
 
   <div class="section-label animate-in delay-2">Por Area</div>
   <div class="animate-in delay-2">
@@ -1094,29 +1114,29 @@ html, body {
     <div class="kpi-card" style="border-color:rgba(201,169,78,0.3)">
       <div class="kpi-label" style="color:var(--gold)">Generador Directo</div>
       <div class="kpi-value gold" style="font-size:16px" data-counter="45000000" data-prefix="$" data-format="short">$0</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">15 personas: Meseros, Bartenders, Aux Bar</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">15 personas &middot; Costo empresa de meseros, bartenders y auxiliares de barra</div>
     </div>
     <div class="kpi-card" style="border-color:rgba(90,158,196,0.3)">
       <div class="kpi-label" style="color:var(--blue)">Soporte Operativo</div>
       <div class="kpi-value blue" style="font-size:16px" data-counter="43200000" data-prefix="$" data-format="short">$0</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">14 personas: Aux Cocina, Stewards, Cajera</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">14 personas &middot; Cocineros, stewards, cajera</div>
     </div>
     <div class="kpi-card" style="border-color:rgba(196,77,99,0.3)">
-      <div class="kpi-label" style="color:var(--borgona)">Estrategico</div>
+      <div class="kpi-label" style="color:var(--borgona)">Estratégico</div>
       <div class="kpi-value borgona" style="font-size:16px" data-counter="21400000" data-prefix="$" data-format="short">$0</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">4 lideres: Walter, Esneider, Rodrigo, Veronica</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">4 líderes &middot; Walter, Esneider, Rodrigo, Verónica</div>
     </div>
     <div class="kpi-card" style="border-color:rgba(168,151,136,0.2)">
       <div class="kpi-label" style="color:var(--muted)">Admin + Apoyo</div>
       <div class="kpi-value" style="font-size:16px;color:var(--muted)" data-counter="32200000" data-prefix="$" data-format="short">$0</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">8 personas: Admin, Servicios, Sonido</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">8 personas &middot; Administración, servicios generales, sonido</div>
     </div>
   </div>
 
   <div class="section-label animate-in delay-3">ROI &mdash; Top Generadores</div>
   <div class="animate-in delay-3" style="overflow-x:auto">
     <table class="data-table">
-      <thead><tr><th>Vendedor</th><th>Ventas</th><th>Costo</th><th>ROI</th></tr></thead>
+      <thead><tr><th>Vendedor</th><th>Ventas</th><th>Costo Empresa</th><th>ROI</th></tr></thead>
       <tbody>
         <tr><td style="font-weight:700;color:var(--gold)">Benjamin</td><td>$119.6M</td><td>$2.4M</td><td style="color:var(--green);font-weight:700">68.3x</td></tr>
         <tr><td style="font-weight:700;color:var(--gold)">Eduardo</td><td>$94.4M</td><td>$2.4M</td><td style="color:var(--green);font-weight:700">53.9x</td></tr>
@@ -1128,7 +1148,7 @@ html, body {
 
   <div class="insight-box animate-in delay-4">
     <div class="insight-label">Insight</div>
-    Los meseros top generan <strong style="color:var(--green)">40-68x su salario</strong> en ventas. Brandon, en cocina, genera solo 0.7x su costo &mdash; <strong style="color:var(--borgona)">no genera valor directo</strong> medible en revenue.
+    Los meseros top generan <strong style="color:var(--green)">40-68x su salario</strong> en ventas. Brandon, en cocina, genera solo 0.7x su costo &mdash; <strong style="color:var(--borgona)">no genera valor directo</strong> medible en revenue. <em>ROI = ventas asignadas al vendedor / costo empresa mensual.</em>
   </div>
 </div>
 
@@ -1223,6 +1243,7 @@ html, body {
     <div class="kpi-label">Ahorro Estimado Total</div>
     <div class="kpi-value gold" style="font-size:28px">~$2.85M<span style="font-size:16px;color:var(--muted)">/mes</span></div>
     <div style="font-size:12px;color:var(--green);margin-top:4px">+$5-10M/mes con turno puente</div>
+    <div style="font-size:10px;color:var(--muted);margin-top:6px;font-style:italic">Ahorro en costo empresa (no solo salarios) por reducción de HE y reasignación de personal.</div>
   </div>
 </div>
 
