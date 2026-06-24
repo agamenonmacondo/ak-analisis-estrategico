@@ -2,1500 +2,1229 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Attick & Keller — Analisis Estrategico</title>
+<meta name="viewport" content="width=450, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Attick & Keller — Análisis Estratégico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: 'SmithyXT';
+  src: url('./fonts/SmithyXT-Heavy.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SmithyXT';
+  src: url('./fonts/SmithyXT-VeryHeavy.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'OldPress';
+  src: url('./fonts/OldPress.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --bg: #1A1412;
-  --card: #2C2018;
-  --card-light: #3A2A1E;
-  --gold: #C9A94E;
-  --gold-dim: #9A7B2E;
-  --borgona: #C44D63;
-  --green: #5DB87A;
-  --blue: #5A9EC4;
-  --text: #E8DDD0;
-  --muted: #A89788;
-  --muted-dark: #6B5E52;
-  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --madera: #3E2723;
+  --borgoña: #6B2737;
+  --borgoña-light: #C44D63;
+  --ladrillo: #A0522D;
+  --cal: #F5EDE0;
+  --oliva: #5C7A4D;
+  --ámbar: #D4922A;
+  --dorado: #C9A94E;
+  --carbón: #1E1E1E;
+  /* Dark theme */
+  --night: #1A1412;
+  --night-card: #2C2018;
+  --night-input: #362A22;
+  --night-border: #4A3A30;
+  --night-text: #E8DDD0;
+  --night-muted: #A89080;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--night);
   font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--night-text);
   -webkit-font-smoothing: antialiased;
 }
 
-.deck {
-  width: 100%; height: 100vh;
+/* Noise texture overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* Presentation container */
+.presentation {
   position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .slide {
   position: absolute;
-  inset: 0;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 24px 20px 100px;
-  display: none;
-  flex-direction: column;
-  gap: 16px;
-  background: var(--bg);
+  padding: 28px 22px 80px;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease;
+  will-change: transform, opacity;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold-dim) transparent;
+  scrollbar-width: none;
+}
+.slide::-webkit-scrollbar { display: none; }
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 10;
+}
+.slide.prev {
+  opacity: 0;
+  transform: translateX(-30%);
+  z-index: 5;
 }
 
-.slide::-webkit-scrollbar { width: 4px; }
-.slide::-webkit-scrollbar-track { background: transparent; }
-.slide::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
-
-.slide.active { display: flex; }
-
-.slide-title {
-  font-family: 'Source Serif 4', serif;
-  font-weight: 700;
-  font-size: 22px;
-  color: var(--gold);
-  letter-spacing: 0.05em;
+/* Brand heading styles */
+.heading-xl {
+  font-family: 'SmithyXT', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  border-bottom: 2px solid var(--gold);
-  padding-bottom: 8px;
-  margin-bottom: 4px;
+  line-height: 1.05;
 }
 
-.slide-subtitle {
-  font-family: 'Caveat', cursive;
-  font-size: 16px;
-  color: var(--muted);
-  margin-top: -12px;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
-}
-
-.kpi-card {
-  background: var(--card);
-  border-radius: 10px;
-  padding: 12px;
-  border: 1px solid rgba(201,169,78,0.12);
-  transition: transform 0.3s var(--spring), box-shadow 0.3s var(--ease);
-}
-.kpi-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-}
-
-.kpi-label {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-
-.kpi-value {
-  font-family: 'Source Serif 4', serif;
-  font-size: 20px;
+.heading-lg {
+  font-family: 'SmithyXT', sans-serif;
   font-weight: 700;
-  color: var(--text);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   line-height: 1.1;
 }
 
-.kpi-value.gold { color: var(--gold); }
-.kpi-value.green { color: var(--green); }
-.kpi-value.borgona { color: var(--borgona); }
-.kpi-value.blue { color: var(--blue); }
+.heading-md {
+  font-family: 'SmithyXT', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
 
-.kpi-note {
+.accent-serif {
+  font-family: 'OldPress', serif;
+  letter-spacing: 0.02em;
+}
+
+.accent-hand {
+  font-family: 'Caveat', cursive;
+}
+
+.body-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Distressed divider */
+.divider {
+  position: relative;
+  height: 2px;
+  margin: 16px 0;
+  background: linear-gradient(90deg, transparent, var(--dorado) 20%, var(--ámbar) 50%, var(--dorado) 80%, transparent);
+  opacity: 0.6;
+}
+.divider::after {
+  content: '◆';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--dorado);
   font-size: 10px;
-  color: var(--muted);
+  background: var(--night);
+  padding: 0 8px;
+}
+.divider-sm {
+  height: 1px;
+  margin: 10px 0;
+  background: linear-gradient(90deg, transparent, var(--night-border) 30%, var(--night-border) 70%, transparent);
+}
+
+/* KPI Card — embossed leather plaque */
+.kpi-card {
+  position: relative;
+  background: linear-gradient(145deg, var(--night-card) 0%, #251a12 100%);
+  border: 1px solid var(--night-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(201,169,78,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.kpi-card .kpi-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--night-muted);
+  margin-bottom: 4px;
+}
+.kpi-card .kpi-value {
+  font-family: 'SmithyXT', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1.1;
+  color: var(--dorado);
+}
+.kpi-card .kpi-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--night-muted);
   margin-top: 2px;
 }
 
-.badge {
+/* Section tag */
+.section-tag {
   display: inline-block;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-.badge.gold { background: rgba(201,169,78,0.18); color: var(--gold); border: 1px solid rgba(201,169,78,0.3); }
-.badge.borgona { background: rgba(196,77,99,0.18); color: var(--borgona); border: 1px solid rgba(196,77,99,0.3); }
-.badge.green { background: rgba(93,184,122,0.18); color: var(--green); border: 1px solid rgba(93,184,122,0.3); }
-.badge.blue { background: rgba(90,158,196,0.18); color: var(--blue); border: 1px solid rgba(90,158,196,0.3); }
-.badge.muted { background: rgba(168,151,136,0.12); color: var(--muted); border: 1px solid rgba(168,151,136,0.2); }
-
-.insight-box {
-  background: linear-gradient(135deg, rgba(201,169,78,0.08), rgba(201,169,78,0.03));
-  border-left: 3px solid var(--gold);
-  border-radius: 0 8px 8px 0;
-  padding: 12px 14px;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--text);
-}
-.insight-box .insight-label {
-  font-family: 'Caveat', cursive;
-  font-size: 15px;
-  color: var(--gold);
-  margin-bottom: 2px;
-}
-
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-}
-.data-table th {
-  text-align: left;
+  font-family: 'OldPress', serif;
   font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ámbar);
+  border: 1px solid var(--ámbar);
+  padding: 3px 10px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+/* Slide title block */
+.slide-title {
+  margin-bottom: 18px;
+}
+.slide-title .tag {
+  font-family: 'OldPress', serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ámbar);
+  margin-bottom: 6px;
+  display: block;
+}
+.slide-title h2 {
+  font-size: 28px;
+  color: var(--night-text);
+}
+.slide-title .subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--night-muted);
+  margin-top: 4px;
+}
+
+/* Bar chart */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 140px;
+  padding-top: 10px;
+  margin-bottom: 8px;
+}
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+.bar-col .bar {
+  width: 100%;
+  min-height: 4px;
+  border-radius: 3px 3px 0 0;
+  position: relative;
+  transition: height 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.bar-col .bar-label {
+  font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  padding: 6px 8px;
-  border-bottom: 1px solid rgba(201,169,78,0.2);
+  color: var(--night-muted);
+  margin-top: 6px;
+  letter-spacing: 0.03em;
 }
-.data-table td {
-  padding: 6px 8px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  color: var(--text);
+.bar-col .bar-value {
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--ámbar);
+  margin-top: 2px;
 }
-.data-table tr:hover td { background: rgba(201,169,78,0.05); }
 
-.bar-row {
+/* Heatmap grid */
+.heatmap-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
 }
-.bar-label {
-  min-width: 110px;
-  font-size: 11px;
-  font-weight: 500;
+.heatmap-row .hour-label {
+  width: 28px;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--night-muted);
   text-align: right;
-  color: var(--text);
+  padding-right: 6px;
   flex-shrink: 0;
 }
-.bar-track {
-  flex: 1;
-  height: 22px;
-  background: rgba(255,255,255,0.04);
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-}
-.bar-fill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 1s var(--spring);
+.heatmap-row .cells {
   display: flex;
-  align-items: center;
-  padding-left: 8px;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--bg);
-  white-space: nowrap;
-}
-
-.heatmap-grid {
-  display: grid;
-  gap: 3px;
-  font-size: 10px;
+  gap: 2px;
+  flex: 1;
 }
 .heatmap-cell {
-  padding: 6px 4px;
-  text-align: center;
-  border-radius: 4px;
-  font-weight: 500;
-  line-height: 1.2;
-}
-.heatmap-header {
-  background: var(--card);
-  color: var(--gold);
-  font-weight: 700;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 2px;
+  min-width: 0;
 }
 
-.gap-item {
-  padding: 10px 12px;
-  border-radius: 8px;
-  border-left: 3px solid var(--borgona);
-  background: var(--card);
-  margin-bottom: 8px;
-  font-size: 13px;
-  line-height: 1.5;
-}
-.gap-item.opportunity { border-left-color: var(--gold); }
-
-.proposal-card {
-  background: var(--card);
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-  border: 1px solid rgba(201,169,78,0.1);
+/* Rank item */
+.rank-item {
   display: flex;
-  gap: 10px;
-  align-items: flex-start;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(74,58,48,0.5);
 }
-.proposal-num {
-  font-family: 'Source Serif 4', serif;
-  font-size: 22px;
+.rank-item:last-child { border-bottom: none; }
+.rank-num {
+  font-family: 'SmithyXT', sans-serif;
   font-weight: 900;
-  color: var(--gold);
-  line-height: 1;
+  font-size: 24px;
+  color: var(--ámbar);
+  width: 36px;
+  text-align: center;
   flex-shrink: 0;
-  width: 30px;
 }
-.proposal-body { flex: 1; }
-.proposal-title {
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--text);
-  margin-bottom: 2px;
+.rank-info { flex: 1; }
+.rank-name {
+  font-family: 'SmithyXT', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--night-text);
 }
-.proposal-detail {
-  font-size: 12px;
-  color: var(--muted);
+.rank-detail {
+  font-size: 11px;
+  color: var(--night-muted);
+  margin-top: 2px;
+}
+.rank-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--ámbar), var(--dorado));
+  margin-top: 4px;
 }
 
+/* Staff card */
+.staff-card {
+  background: linear-gradient(145deg, var(--night-card), #251a12);
+  border: 1px solid var(--night-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+.staff-card .role-badge {
+  display: inline-block;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+.staff-card .name {
+  font-family: 'SmithyXT', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: var(--night-text);
+}
+.staff-card .detail {
+  font-size: 11px;
+  color: var(--night-muted);
+  margin-top: 2px;
+}
+
+/* Navigation dots */
 .nav-dots {
   position: fixed;
-  bottom: 16px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 8px;
   z-index: 100;
   padding: 8px 16px;
-  background: rgba(26,20,18,0.9);
+  background: rgba(26,20,18,0.85);
   backdrop-filter: blur(10px);
-  border-radius: 24px;
-  border: 1px solid rgba(201,169,78,0.15);
+  border-radius: 20px;
+  border: 1px solid var(--night-border);
 }
 .nav-dot {
-  width: 10px; height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--muted-dark);
+  background: var(--night-border);
   cursor: pointer;
-  transition: all 0.3s var(--spring);
+  transition: all 0.3s ease;
   border: none;
   padding: 0;
 }
 .nav-dot.active {
-  background: var(--gold);
-  transform: scale(1.3);
-  box-shadow: 0 0 8px rgba(201,169,78,0.5);
+  background: var(--dorado);
+  width: 22px;
+  border-radius: 4px;
 }
-.nav-dot:hover { background: var(--gold-dim); }
 
-.nav-arrow {
+/* Swipe hint */
+.swipe-hint {
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 100;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: rgba(44,32,24,0.85);
-  border: 1px solid rgba(201,169,78,0.2);
-  color: var(--gold);
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s var(--ease);
-  backdrop-filter: blur(8px);
-}
-.nav-arrow:hover { background: var(--card-light); transform: translateY(-50%) scale(1.1); }
-.nav-arrow.left { left: 8px; }
-.nav-arrow.right { right: 8px; }
-.nav-arrow.hidden { opacity: 0; pointer-events: none; }
-
-.slide-counter {
-  position: fixed;
-  top: 12px;
-  right: 16px;
-  font-size: 11px;
-  color: var(--muted);
-  z-index: 100;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-}
-
-/* Slide 1 specific */
-.slide-portada.active {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 20px;
-}
-.portada-title {
-  font-family: 'Source Serif 4', serif;
-  font-size: clamp(32px, 8vw, 56px);
-  font-weight: 900;
-  color: var(--gold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1.05;
-}
-.portada-subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(14px, 3.5vw, 20px);
-  font-weight: 400;
-  color: var(--text);
-  letter-spacing: 0.02em;
-}
-.portada-meta {
-  font-size: 14px;
-  color: var(--muted);
-  font-family: 'Caveat', cursive;
-  font-size: 18px;
-}
-.portada-kpis {
-  display: flex;
-  gap: 24px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.portada-kpi {
-  text-align: center;
-}
-.portada-kpi .kpi-value {
-  font-size: 26px;
-}
-.portada-kpi .kpi-label {
-  font-size: 11px;
-}
-
-/* Slide 9 schedule grid */
-.schedule-grid {
-  font-family: 'Courier New', monospace;
-  font-size: 9px;
-  border-collapse: collapse;
-  width: 100%;
-}
-.schedule-grid th {
-  font-size: 8px;
-  padding: 3px 2px;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  border-bottom: 1px solid rgba(201,169,78,0.15);
-}
-.schedule-grid td {
-  padding: 2px 3px;
-  text-align: center;
-  color: var(--text);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-.schedule-grid tr:hover td { background: rgba(201,169,78,0.04); }
-.schedule-name {
-  text-align: left !important;
-  font-weight: 600;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.animate-in {
-  opacity: 0;
-  animation: fadeInUp 0.6s var(--spring) forwards;
-}
-.animate-fade {
-  opacity: 0;
-  animation: fadeIn 0.5s var(--ease) forwards;
-}
-.animate-scale {
-  opacity: 0;
-  animation: scaleIn 0.5s var(--spring) forwards;
-}
-
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
-.delay-6 { animation-delay: 0.6s; }
-.delay-7 { animation-delay: 0.7s; }
-.delay-8 { animation-delay: 0.8s; }
-.delay-9 { animation-delay: 0.9s; }
-.delay-10 { animation-delay: 1.0s; }
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-in, .animate-fade, .animate-scale {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .bar-fill { transition: none !important; }
-}
-
-/* Desktop adjustments */
-@media (min-width: 768px) {
-  .slide { padding: 32px 48px 100px; max-width: 600px; margin: 0 auto; }
-  .kpi-grid { grid-template-columns: repeat(3, 1fr); }
-  .slide-title { font-size: 26px; }
-}
-@media (min-width: 1024px) {
-  .slide { max-width: 540px; }
-}
-
-/* Mobile optimizations */
-@media (max-width: 480px) {
-  .slide { padding: 16px 12px 90px; gap: 12px; }
-  .slide-title { font-size: 18px; padding-bottom: 6px; }
-  .slide-subtitle { font-size: 14px; margin-top: -8px; }
-  .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .kpi-card { padding: 10px 8px; border-radius: 8px; }
-  .kpi-label { font-size: 9px; letter-spacing: 0.04em; }
-  .kpi-value { font-size: 16px; word-break: break-all; }
-  .kpi-note { font-size: 9px; }
-  .data-table { font-size: 11px; min-width: 320px; }
-  .data-table th { font-size: 9px; padding: 4px 6px; white-space: nowrap; }
-  .data-table td { padding: 4px 6px; white-space: nowrap; }
-  .bar-row { flex-wrap: wrap; gap: 4px 8px; }
-  .bar-label { min-width: 70px; font-size: 10px; }
-  .bar-track { height: 20px; flex: 1 1 100%; }
-  .bar-fill { font-size: 9px; padding-left: 6px; }
-  .insight-box { padding: 10px 12px; font-size: 12px; line-height: 1.45; }
-  .insight-box .insight-label { font-size: 13px; }
-  .badge { font-size: 10px; padding: 2px 8px; white-space: nowrap; }
-  .gap-item { padding: 8px 10px; font-size: 12px; line-height: 1.4; }
-  .proposal-card { padding: 10px 12px; gap: 8px; }
-  .proposal-num { font-size: 18px; width: 24px; }
-  .proposal-title { font-size: 12px; }
-  .proposal-detail { font-size: 11px; }
-  .question-item { font-size: 12px; line-height: 1.4; }
-  .question-section { padding: 10px 12px; }
-  .total-savings { padding: 12px; }
-  .total-savings .kpi-value { font-size: 22px; }
-  .schedule-grid { font-size: 8px; min-width: 280px; }
-  .schedule-grid th { font-size: 7px; padding: 2px 1px; }
-  .schedule-grid td { padding: 1px 2px; }
-  .schedule-name { max-width: 55px; overflow: hidden; text-overflow: ellipsis; font-size: 8px; }
-  .section-label { font-size: 9px; margin-top: 8px; margin-bottom: 2px; }
-  .cols-2 { grid-template-columns: 1fr; }
-  .cols-4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .nav-dots { bottom: 10px; gap: 6px; padding: 6px 12px; }
-  .nav-dot { width: 8px; height: 8px; }
-  .nav-arrow { width: 32px; height: 32px; font-size: 15px; }
-  .nav-arrow.left { left: 4px; }
-  .nav-arrow.right { right: 4px; }
-  .slide-counter { top: 8px; right: 10px; font-size: 10px; }
-  .portada-title { font-size: 28px; }
-  .portada-subtitle { font-size: 13px; }
-  .portada-meta { font-size: 14px; }
-  .portada-kpi .kpi-value { font-size: 22px; }
-  .portada-kpi .kpi-label { font-size: 9px; }
-  .portada-kpis { gap: 16px; }
-  .donut-legend { font-size: 10px; }
-  .donut-container { gap: 10px; flex-direction: column; }
-  .donut-container svg { width: 140px !important; height: 140px !important; }
-  .heatmap-cell { padding: 4px 2px; font-size: 9px; }
-  .heatmap-grid { gap: 2px; }
-}
-
-@media (max-width: 360px) {
-  .slide { padding: 12px 8px 85px; }
-  .kpi-grid { grid-template-columns: 1fr; gap: 6px; }
-  .kpi-value { font-size: 15px; }
-  .portada-title { font-size: 22px; }
-  .portada-kpis { gap: 12px; }
-  .schedule-grid { font-size: 7px; min-width: 250px; }
-  .schedule-name { max-width: 45px; }
-  .bar-label { min-width: 60px; }
-  .data-table { font-size: 10px; min-width: 300px; }
-}
-
-.section-label {
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 10px;
+  color: var(--night-muted);
+  z-index: 99;
+  opacity: 0.6;
+  animation: fadeOut 3s ease forwards 2s;
+}
+@keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ámbar), var(--dorado));
+  z-index: 200;
+  transition: width 0.45s ease;
+}
+
+/* Utility */
+.text-gold { color: var(--dorado); }
+.text-amber { color: var(--ámbar); }
+.text-borgoña { color: var(--borgoña-light); }
+.text-muted { color: var(--night-muted); }
+.text-cal { color: var(--cal); }
+.text-oliva { color: var(--oliva); }
+
+.mt-sm { margin-top: 6px; }
+.mt-md { margin-top: 12px; }
+.mt-lg { margin-top: 18px; }
+.mb-sm { margin-bottom: 6px; }
+.mb-md { margin-bottom: 12px; }
+
+.flex-row { display: flex; gap: 8px; }
+.flex-1 { flex: 1; }
+
+/* Proposal card */
+.proposal-card {
+  background: linear-gradient(145deg, var(--night-card), #251a12);
+  border: 1px solid var(--night-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.proposal-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  border-radius: 3px 0 0 3px;
+}
+.proposal-card.p1::before { background: var(--ámbar); }
+.proposal-card.p2::before { background: var(--borgoña-light); }
+.proposal-card.p3::before { background: var(--oliva); }
+.proposal-card.p4::before { background: var(--dorado); }
+
+.proposal-num {
+  font-family: 'SmithyXT', sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  color: rgba(201,169,78,0.1);
+  position: absolute;
+  top: 4px; right: 12px;
+}
+.proposal-title {
+  font-family: 'SmithyXT', sans-serif;
   font-weight: 700;
+  font-size: 14px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--gold);
-  margin-top: 12px;
+  color: var(--night-text);
   margin-bottom: 4px;
 }
-
-.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-
-.donut-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.donut-legend {
+.proposal-body {
   font-size: 11px;
-  line-height: 1.7;
-}
-.donut-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.donut-legend-color {
-  width: 10px; height: 10px;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-
-.question-section {
-  background: linear-gradient(135deg, rgba(196,77,99,0.08), rgba(90,158,196,0.05));
-  border-radius: 10px;
-  padding: 14px;
-  margin-top: 12px;
-}
-.question-item {
-  font-size: 13px;
-  color: var(--text);
-  margin-bottom: 8px;
   line-height: 1.5;
+  color: var(--night-muted);
 }
-.question-item strong { color: var(--gold); }
 
-.total-savings {
-  background: linear-gradient(135deg, rgba(201,169,78,0.15), rgba(201,169,78,0.05));
-  border: 1px solid rgba(201,169,78,0.3);
-  border-radius: 10px;
-  padding: 14px;
+/* Stamp/watermark effect */
+.stamp {
+  position: absolute;
+  font-family: 'SmithyXT', sans-serif;
+  font-weight: 900;
+  font-size: 120px;
+  color: rgba(201,169,78,0.03);
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* Animated entrance */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: slideUp 0.5s ease forwards; }
+.delay-1 { animation-delay: 0.1s; opacity: 0; }
+.delay-2 { animation-delay: 0.2s; opacity: 0; }
+.delay-3 { animation-delay: 0.3s; opacity: 0; }
+.delay-4 { animation-delay: 0.4s; opacity: 0; }
+.delay-5 { animation-delay: 0.5s; opacity: 0; }
+.delay-6 { animation-delay: 0.6s; opacity: 0; }
+
+/* Schedule grid */
+.sched-grid {
+  display: grid;
+  grid-template-columns: 40px repeat(7, 1fr);
+  gap: 2px;
+  font-size: 7px;
+}
+.sched-header {
+  font-weight: 700;
+  color: var(--ámbar);
   text-align: center;
-  margin-top: 12px;
+  padding: 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-.total-savings .kpi-value {
-  font-size: 28px;
+.sched-label {
+  color: var(--night-muted);
+  font-weight: 600;
+  padding: 4px 2px;
+  text-align: right;
+  font-size: 8px;
 }
+.sched-cell {
+  background: var(--night-input);
+  border-radius: 2px;
+  min-height: 16px;
+  position: relative;
+}
+.sched-cell.active-morning { background: rgba(212,146,42,0.35); }
+.sched-cell.active-afternoon { background: rgba(201,169,78,0.45); }
+.sched-cell.active-night { background: rgba(196,77,99,0.45); }
+
+/* Corner ornament */
+.corner-ornament {
+  position: absolute;
+  width: 40px; height: 40px;
+  opacity: 0.15;
+}
+.corner-ornament.tl { top: 12px; left: 12px; border-top: 2px solid var(--dorado); border-left: 2px solid var(--dorado); }
+.corner-ornament.tr { top: 12px; right: 12px; border-top: 2px solid var(--dorado); border-right: 2px solid var(--dorado); }
+.corner-ornament.bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(--dorado); border-left: 2px solid var(--dorado); }
+.corner-ornament.br { bottom: 12px; right: 12px; border-bottom: 2px solid var(--dorado); border-right: 2px solid var(--dorado); }
 </style>
 </head>
 <body>
 
-<div class="deck" id="deck">
+<div class="noise-overlay"></div>
+<div class="progress-bar" id="progressBar"></div>
 
-<!-- SLIDE 1: PORTADA -->
-<div class="slide slide-portada" id="slide-0">
-  <div>
-    <div class="portada-title animate-scale" style="animation-delay:0.1s">ATTICK &amp; KELLER</div>
-    <div class="portada-subtitle animate-in delay-3" style="margin-top:12px">Analisis Estrategico de Nomina,<br>Ventas y Turnos</div>
-    <div class="portada-meta animate-fade delay-5" style="margin-top:16px">Junio 2026 &middot; Documento para Felipe</div>
-    <div class="portada-kpis animate-in delay-7" style="margin-top:24px">
-      <div class="portada-kpi">
-        <div class="kpi-value gold" data-counter="42" data-suffix="">0</div>
-        <div class="kpi-label">Colaboradores</div>
+<div class="presentation" id="presentation">
+
+<!-- ============ SLIDE 1: PORTADA ============ -->
+<div class="slide active" data-slide="0">
+  <div class="corner-ornament tl"></div>
+  <div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div>
+  <div class="corner-ornament br"></div>
+  <div class="stamp" style="top:30%;left:50%;transform:translateX(-50%);">K</div>
+
+  <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;text-align:center;position:relative;z-index:2;">
+    <div class="section-tag animate-in" style="border-color:var(--borgoña-light);color:var(--borgoña-light);">Junio 2026</div>
+
+    <div class="divider animate-in delay-1" style="width:60px;margin:12px auto;"></div>
+
+    <h1 class="heading-xl animate-in delay-2" style="font-size:42px;color:var(--dorado);margin-bottom:4px;">
+      ATTICK<br>&amp; KELLER
+    </h1>
+
+    <div class="accent-serif animate-in delay-3" style="font-size:13px;color:var(--night-muted);letter-spacing:0.3em;text-transform:uppercase;margin-top:8px;">
+      Análisis Estratégico
+    </div>
+
+    <div class="divider animate-in delay-3" style="width:80px;margin:16px auto;"></div>
+
+    <div class="animate-in delay-4" style="margin-top:16px;">
+      <div style="font-family:'Inter',sans-serif;font-size:11px;color:var(--night-muted);letter-spacing:0.08em;text-transform:uppercase;">Semestre Enero — Junio 2026</div>
+      <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:22px;color:var(--ámbar);margin-top:8px;">$4,047M</div>
+      <div style="font-size:10px;color:var(--night-muted);">Ventas totales</div>
+    </div>
+
+    <div class="accent-hand animate-in delay-5" style="font-size:16px;color:var(--borgoña-light);margin-top:24px;">
+      datos con carácter
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 2: ESTRUCTURA GENERAL ============ -->
+<div class="slide" data-slide="1">
+  <div class="slide-title">
+    <span class="tag">01 — Estructura</span>
+    <h2 class="heading-lg" style="font-size:26px;">ESTRUCTURA GENERAL</h2>
+    <div class="subtitle">Panorama del primer semestre</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="kpi-card animate-in">
+    <div class="kpi-label">Ventas Semestre Ene–Jun</div>
+    <div class="kpi-value">$4,047.3M</div>
+    <div class="kpi-sub">14,075 cheques · Ticket promedio $287,547</div>
+  </div>
+
+  <div class="flex-row" style="margin-bottom:10px;">
+    <div class="kpi-card flex-1 animate-in delay-1">
+      <div class="kpi-label">Colaboradores</div>
+      <div class="kpi-value" style="font-size:22px;">42</div>
+      <div class="kpi-sub">5 líderes · 33 operativos</div>
+    </div>
+    <div class="kpi-card flex-1 animate-in delay-1">
+      <div class="kpi-label">Ventas Junio</div>
+      <div class="kpi-value" style="font-size:22px;">$487M</div>
+      <div class="kpi-sub">1,660 cheques</div>
+    </div>
+  </div>
+
+  <div class="kpi-card animate-in delay-2">
+    <div class="kpi-label">Costo Nómina / Ventas</div>
+    <div class="kpi-value" style="font-size:22px;color:var(--borgoña-light);">21.7%</div>
+    <div class="kpi-sub">Factor empresa 1.81×</div>
+  </div>
+
+  <div class="divider-sm" style="margin:14px 0 10px;"></div>
+
+  <div class="heading-md animate-in delay-3" style="font-size:13px;color:var(--ámbar);margin-bottom:8px;">VENTAS MENSUALES</div>
+
+  <div class="bar-chart" id="monthlyChart">
+    <!-- Filled by JS -->
+  </div>
+
+  <div class="flex-row" style="gap:4px;margin-top:4px;">
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">Ene</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">Feb</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">Mar</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">Abr</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">May</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--borgoña-light);text-transform:uppercase;font-weight:700;">Jun</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 3: PRODUCTIVIDAD ============ -->
+<div class="slide" data-slide="2">
+  <div class="slide-title">
+    <span class="tag">02 — Rendimiento</span>
+    <h2 class="heading-lg" style="font-size:26px;">PRODUCTIVIDAD</h2>
+    <div class="subtitle">Cheques y ventas por colaborador</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="flex-row" style="margin-bottom:10px;">
+    <div class="kpi-card flex-1 animate-in">
+      <div class="kpi-label">Cheques / Persona</div>
+      <div class="kpi-value" style="font-size:22px;">334</div>
+      <div class="kpi-sub">1,660 ÷ 41 colaboradores Junio</div>
+    </div>
+    <div class="kpi-card flex-1 animate-in delay-1">
+      <div class="kpi-label">Ventas / Persona</div>
+      <div class="kpi-value" style="font-size:20px;">$11.9M</div>
+      <div class="kpi-sub">$487M ÷ 41 personas</div>
+    </div>
+  </div>
+
+  <div class="kpi-card animate-in delay-2">
+    <div class="kpi-label">Ticket Promedio</div>
+    <div class="kpi-value" style="font-size:24px;">$287,547</div>
+    <div class="kpi-sub">Semestre: $4,047M ÷ 14,075 cheques</div>
+  </div>
+
+  <div class="divider-sm" style="margin:14px 0 10px;"></div>
+
+  <div class="heading-md animate-in delay-3" style="font-size:13px;color:var(--ámbar);margin-bottom:8px;">TOP VENTAS PRODUCTO — JUNIO</div>
+
+  <div class="rank-item animate-in delay-3">
+    <div class="rank-num">#42</div>
+    <div class="rank-info">
+      <div class="rank-name">Producto #42</div>
+      <div class="rank-detail">$119.7M · 24.6% del total</div>
+      <div class="rank-bar" style="width:100%;"></div>
+    </div>
+  </div>
+  <div class="rank-item animate-in delay-4">
+    <div class="rank-num">#28</div>
+    <div class="rank-info">
+      <div class="rank-name">Producto #28</div>
+      <div class="rank-detail">$94.4M · 19.4% del total</div>
+      <div class="rank-bar" style="width:79%;"></div>
+    </div>
+  </div>
+  <div class="rank-item animate-in delay-5">
+    <div class="rank-num">#19</div>
+    <div class="rank-info">
+      <div class="rank-name">Producto #19</div>
+      <div class="rank-detail">$70.9M · 14.6% del total</div>
+      <div class="rank-bar" style="width:59%;"></div>
+    </div>
+  </div>
+
+  <div class="kpi-card animate-in delay-6" style="margin-top:10px;background:linear-gradient(145deg,rgba(196,77,99,0.15),var(--night-card));">
+    <div class="kpi-label">Concentración Top 3</div>
+    <div class="kpi-value" style="font-size:22px;color:var(--borgoña-light);">58.7%</div>
+    <div class="kpi-sub">de las ventas de junio en solo 3 productos</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 4: VENDEDORES / LÍDERES ============ -->
+<div class="slide" data-slide="3">
+  <div class="slide-title">
+    <span class="tag">03 — Equipo</span>
+    <h2 class="heading-lg" style="font-size:26px;">LÍDERES</h2>
+    <div class="subtitle">Estructura de mando y áreas</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="kpi-card animate-in" style="margin-bottom:14px;">
+    <div class="kpi-label">Distribución del equipo</div>
+    <div class="flex-row" style="margin-top:8px;gap:6px;">
+      <div style="flex:1;text-align:center;">
+        <div class="heading-md" style="font-size:28px;color:var(--dorado);">41</div>
+        <div style="font-size:9px;color:var(--night-muted);text-transform:uppercase;">Total</div>
       </div>
-      <div class="portada-kpi">
-        <div class="kpi-value gold" data-counter="1660" data-prefix="" data-suffix="">0</div>
-        <div class="kpi-label">Cheques</div>
+      <div style="width:1px;background:var(--night-border);"></div>
+      <div style="flex:1;text-align:center;">
+        <div class="heading-md" style="font-size:28px;color:var(--ámbar);">5</div>
+        <div style="font-size:9px;color:var(--night-muted);text-transform:uppercase;">Líderes</div>
       </div>
-      <div class="portada-kpi">
-        <div class="kpi-value gold" data-counter="487" data-prefix="$" data-suffix="M">0</div>
-        <div class="kpi-label">Ventas Junio</div>
+      <div style="width:1px;background:var(--night-border);"></div>
+      <div style="flex:1;text-align:center;">
+        <div class="heading-md" style="font-size:28px;color:var(--night-muted);">8</div>
+        <div style="font-size:9px;color:var(--night-muted);text-transform:uppercase;">Fijos</div>
+      </div>
+      <div style="width:1px;background:var(--night-border);"></div>
+      <div style="flex:1;text-align:center;">
+        <div class="heading-md" style="font-size:28px;color:var(--night-muted);">33</div>
+        <div style="font-size:9px;color:var(--night-muted);text-transform:uppercase;">Operativos</div>
       </div>
     </div>
-    <div style="margin-top:32px; opacity:0.3; font-size:11px;" class="animate-fade delay-9">Desliza para continuar &rarr;</div>
+  </div>
+
+  <div class="heading-md animate-in delay-1" style="font-size:13px;color:var(--ámbar);margin-bottom:8px;">LÍDERES POR ÁREA</div>
+
+  <div class="staff-card animate-in delay-1">
+    <div class="role-badge" style="background:rgba(212,146,42,0.2);color:var(--ámbar);">Barra</div>
+    <div class="name">WALTER</div>
+    <div style="font-size:10px;color:var(--night-muted);margin-top:2px;">Líder de barra — Servicio de bebidas y cocktails</div>
+  </div>
+
+  <div class="staff-card animate-in delay-2">
+    <div class="role-badge" style="background:rgba(196,77,99,0.2);color:var(--borgoña-light);">Cocina</div>
+    <div class="name">ESNEIDER</div>
+    <div style="font-size:10px;color:var(--night-muted);margin-top:2px;">Líder de cocina — Producción y calidad</div>
+  </div>
+
+  <div class="staff-card animate-in delay-3">
+    <div class="role-badge" style="background:rgba(196,77,99,0.2);color:var(--borgoña-light);">Cocina</div>
+    <div class="name">RODRIGO</div>
+    <div style="font-size:10px;color:var(--night-muted);margin-top:2px;">Líder de cocina — Operaciones y turnos</div>
+  </div>
+
+  <div class="staff-card animate-in delay-4">
+    <div class="role-badge" style="background:rgba(92,122,77,0.2);color:var(--oliva);">Servicio</div>
+    <div class="name">VERÓNICA</div>
+    <div style="font-size:10px;color:var(--night-muted);margin-top:2px;">Líder de servicio — Atención al comensal</div>
+  </div>
+
+  <div class="kpi-card animate-in delay-5" style="margin-top:4px;">
+    <div class="kpi-label">Ratio operativo</div>
+    <div class="kpi-value" style="font-size:20px;">6.6×1</div>
+    <div class="kpi-sub">33 operativos por cada 5 líderes</div>
   </div>
 </div>
 
-<!-- SLIDE 2: ESTRUCTURA GENERAL -->
-<div class="slide" id="slide-1">
-  <div class="slide-title animate-in">Estructura General</div>
-  <div class="slide-subtitle animate-fade delay-1">Indicadores clave de nomina y ventas</div>
+<!-- ============ SLIDE 5: HEATMAP HORARIO ============ -->
+<div class="slide" data-slide="4">
+  <div class="slide-title">
+    <span class="tag">04 — Horarios</span>
+    <h2 class="heading-lg" style="font-size:26px;">HEATMAP HORARIO</h2>
+    <div class="subtitle">Distribución de ingresos por hora — Junio</div>
+  </div>
 
-  <div class="kpi-grid animate-in delay-2">
-    <div class="kpi-card">
-      <div class="kpi-label">Nómina Mensual (Salarios)</div>
-      <div class="kpi-value" data-counter="79839282" data-prefix="$" data-format="short">$0</div>
-      <div class="kpi-note">Suma salarios base de 42 colaboradores &middot; Sin HE, sin propinas</div>
+  <div class="divider"></div>
+
+  <div class="flex-row" style="margin-bottom:12px;">
+    <div class="kpi-card flex-1 animate-in">
+      <div class="kpi-label">Hora Pico</div>
+      <div class="kpi-value" style="font-size:22px;color:var(--ámbar);">19:00</div>
+      <div class="kpi-sub">$118.8M</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Ventas Junio 2026</div>
-      <div class="kpi-value gold" data-counter="486686555" data-prefix="$" data-format="short">$0</div>
-      <div class="kpi-note">22 d&iacute;as operativos &middot; Promedio diario $22.1M</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">% Nómina / Ventas</div>
-      <div class="kpi-value green">16.4%</div>
-      <div class="kpi-note">Salarios directos sobre ventas junio &middot; Benchmark bar+comida: 20-30%</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Costo Empresa Real</div>
-      <div class="kpi-value borgona" data-counter="144217888" data-prefix="$" data-format="short">$0</div>
-      <div class="kpi-note">Salarios + auxilios + prestaciones + aportes patronales &middot; Factor 1.81x sobre salario</div>
-    </div>
-    <div class="kpi-card" style="border-color:var(--borgona);">
-      <div class="kpi-label">% Costo Empresa / Ventas</div>
-      <div class="kpi-value borgona" style="font-size:22px">29.6%</div>
-      <div class="kpi-note">Costo empresa real sobre ventas junio (22 d&iacute;as)</div>
-    </div>
-    <div class="kpi-card" style="border-color:var(--green);">
-      <div class="kpi-label">% Costo Empresa / Ventas (Proy.)</div>
-      <div class="kpi-value green" style="font-size:22px">21.7%</div>
-      <div class="kpi-note">Proyecci&oacute;n 30 d&iacute;as &middot; Ventas estimadas $663.7M &middot; Dentro del benchmark 20-30%</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Costo Total con HE</div>
-      <div class="kpi-value" data-counter="151648944" data-prefix="$" data-format="short">$0</div>
-      <div class="kpi-note">Costo empresa + recargos HE junio &middot; 31.2% de ventas (22 d&iacute;as)</div>
+    <div class="kpi-card flex-1 animate-in delay-1">
+      <div class="kpi-label">2do Pico</div>
+      <div class="kpi-value" style="font-size:22px;color:var(--dorado);">20:00</div>
+      <div class="kpi-sub">$88.5M</div>
     </div>
   </div>
 
-  <div class="insight-box animate-in delay-4">
-    <div class="insight-label">Benchmark</div>
-    <strong style="color:var(--gold)">Salarios directos: 16.4%</strong> de ventas junio (22 d&iacute;as). <strong style="color:var(--borgona)">Costo empresa real: 29.6%</strong> (salarios 55.4% + auxilios 17.1% + prestaciones 12.1% + aportes 15.5%). Proyecci&oacute;n a 30 d&iacute;as: <strong>21.7%</strong>. Benchmark bar+comida: 20-30%. Exoneraci&oacute;n art.114-1 (SENA+ICBF). Los auxilios NO generan prestaciones. Barra es el &aacute;rea m&aacute;s eficiente: 4.8% de ventas en n&oacute;mina.
+  <div class="heading-md animate-in delay-2" style="font-size:13px;color:var(--ámbar);margin-bottom:10px;">MAPA DE CALOR POR HORA</div>
+
+  <div id="heatmapContainer" class="animate-in delay-2" style="background:linear-gradient(145deg,var(--night-card),#251a12);border:1px solid var(--night-border);border-radius:8px;padding:12px 10px;">
+    <!-- Filled by JS -->
   </div>
 
-  <div style="font-size:10px;color:var(--muted);margin-top:8px;padding:8px 10px;background:var(--card);border-radius:6px;line-height:1.5" class="animate-fade delay-5">
-    <strong style="color:var(--gold)">¿Qué incluye cada indicador?</strong><br>
-    <strong>Salarios ($79.8M):</strong> Contratos mensuales fijos de 42 colaboradores C75, sin HE ni propinas.<br>
-    <strong>Costo Empresa ($144.2M):</strong> Salarios + auxilio transporte + auxilio no salarial + prima 8.33% + cesantías 8.33% + intereses cesantías 1% + vacaciones 4.17% + EPS 8.5% + pensión 12% + ARL 0.522% + Caja 4%. Factor 1.81x sobre salario. Exoneración art.114-1 (SENA 2% + ICBF 3% exonerados). <strong>Los auxilios NO generan prestaciones</strong> — prima, cesantías e intereses se calculan sobre salario base únicamente.<br>
-    <strong>% Costo Empresa/Ventas 29.6%:</strong> Sobre ventas de junio (22 días). Proyección a 30 días: 21.7%. Desglose: salarios 55.4%, auxilios 17.1%, prestaciones 12.1%, aportes 15.5%.<br>
-    <strong>Por área:</strong> Cocina 32.8% de nómina (9.7% de ventas), Servicio 28.0% (8.3%), Barra 16.2% (4.8% — más eficiente), Admin 12.4% (3.7%), Apoyo 10.7% (3.2%).<br>
-    <strong>HE ($7.4M):</strong> Recargos nocturnos 35%, dominicales 75%, HE diurnas 25%, HE nocturnas 75%. Solo junio.
+  <div class="flex-row animate-in delay-3" style="margin-top:10px;justify-content:center;gap:12px;">
+    <div style="display:flex;align-items:center;gap:4px;">
+      <div style="width:12px;height:12px;border-radius:2px;background:rgba(212,146,42,0.8);"></div>
+      <span style="font-size:9px;color:var(--night-muted);">Alto</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;">
+      <div style="width:12px;height:12px;border-radius:2px;background:rgba(212,146,42,0.3);"></div>
+      <span style="font-size:9px;color:var(--night-muted);">Medio</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;">
+      <div style="width:12px;height:12px;border-radius:2px;background:rgba(212,146,42,0.08);"></div>
+      <span style="font-size:9px;color:var(--night-muted);">Bajo</span>
+    </div>
   </div>
 
-  <div class="section-label animate-in delay-5">Crecimiento Mensual de Ventas</div>
-  <div class="animate-in delay-5" style="overflow-x:auto">
-    <table class="data-table">
-      <thead><tr><th>Mes</th><th>Ventas</th><th>Variacion</th></tr></thead>
-      <tbody>
-        <tr><td>Ene</td><td>$676.4M</td><td style="color:var(--muted)">&mdash;</td></tr>
-        <tr><td>Feb</td><td>$676.0M</td><td style="color:var(--muted)">&plusmn;0%</td></tr>
-        <tr><td>Mar</td><td>$760.0M</td><td style="color:var(--green)">+12%</td></tr>
-        <tr><td>Abr</td><td>$666.0M</td><td style="color:var(--borgona)">-12%</td></tr>
-        <tr><td>May</td><td>$782.3M</td><td style="color:var(--green)">+18%</td></tr>
-        <tr><td>Jun</td><td>$486.7M</td><td style="color:var(--muted)">(22 dias)</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="insight-box animate-in delay-6">
-    <div class="insight-label">Insight</div>
-    Nomina crece 0% (contratos fijos). Ventas promedio Ene-May: $712M/mes. <strong>Las ventas crecen mas rapido que la nomina.</strong>
+  <div class="kpi-card animate-in delay-4" style="margin-top:10px;background:linear-gradient(145deg,rgba(196,77,99,0.1),var(--night-card));">
+    <div class="kpi-label">Zona Muerta</div>
+    <div class="kpi-value" style="font-size:18px;color:var(--borgoña-light);">2:00 – 8:00</div>
+    <div class="kpi-sub">Sin ventas · 9:00–11:00 casi sin actividad</div>
   </div>
 </div>
 
-<!-- SLIDE 3: PRODUCTIVIDAD -->
-<div class="slide" id="slide-2">
-  <div class="slide-title animate-in">Productividad</div>
-  <div class="slide-subtitle animate-fade delay-1">Eficiencia por empleado y area</div>
+<!-- ============ SLIDE 6: HORAS EXTRA / NOCTURNAS ============ -->
+<div class="slide" data-slide="5">
+  <div class="slide-title">
+    <span class="tag">05 — Costos</span>
+    <h2 class="heading-lg" style="font-size:26px;">EXTRAS Y NOCTURNAS</h2>
+    <div class="subtitle">Impacto en nómina y costos operativos</div>
+  </div>
 
-  <div class="kpi-grid animate-in delay-2">
-    <div class="kpi-card">
-      <div class="kpi-label">Ventas / Empleado</div>
-      <div class="kpi-value gold" data-counter="17369066" data-prefix="$" data-format="short">$0</div>
-      <div class="kpi-note">Revenue mensual dividido 41 personas</div>
+  <div class="divider"></div>
+
+  <div class="kpi-card animate-in">
+    <div class="kpi-label">Costo Empresa Total Junio</div>
+    <div class="kpi-value" style="font-size:28px;">~$487M</div>
+    <div class="kpi-sub">Nómina + prestaciones + costos fijos</div>
+  </div>
+
+  <div class="flex-row" style="margin-top:10px;">
+    <div class="kpi-card flex-1 animate-in delay-1">
+      <div class="kpi-label">Nómina / Ventas</div>
+      <div class="kpi-value" style="font-size:22px;color:var(--borgoña-light);">21.7%</div>
+      <div class="kpi-sub">Ratio de costo laboral</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Clientes / Empleado</div>
-      <div class="kpi-value">41</div>
-      <div class="kpi-note">Cheques atendidos por colaborador en junio</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Horas / Millón Vendido</div>
-      <div class="kpi-value">6.8<span style="font-size:12px;color:var(--muted)">h/M$</span></div>
-      <div class="kpi-note">Horas-hombre de turnos por cada $1M en ventas</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Ventas / Hora</div>
-      <div class="kpi-value" data-counter="1843510" data-prefix="$" data-format="short">$0</div>
-      <div class="kpi-note">Revenue promedio por hora operacional</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Ticket Prom. / Mesero</div>
-      <div class="kpi-value" data-counter="293185" data-prefix="$" data-format="short">$0</div>
-      <div class="kpi-note">Venta total dividida entre número de meseros</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Cheques / Mesero</div>
-      <div class="kpi-value">151</div>
-      <div class="kpi-note">Cuentas atendidas por mesero en junio</div>
+    <div class="kpi-card flex-1 animate-in delay-1">
+      <div class="kpi-label">Factor Empresa</div>
+      <div class="kpi-value" style="font-size:22px;color:var(--ámbar);">1.81×</div>
+      <div class="kpi-sub">Costo total / salario base</div>
     </div>
   </div>
 
-  <div class="section-label animate-in delay-4">Revenue por Hora &mdash; Comparativa de Areas</div>
-  <div class="animate-in delay-4" style="overflow-x:auto">
-    <svg viewBox="0 0 340 160" style="width:100%;max-width:380px;display:block;margin:0 auto" role="img" aria-label="Bar chart: revenue por area">
-      <defs>
-        <linearGradient id="barGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#C9A94E"/><stop offset="100%" stop-color="#E5C96E"/></linearGradient>
-        <linearGradient id="barBlue" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5A9EC4"/><stop offset="100%" stop-color="#7ABDE0"/></linearGradient>
-        <linearGradient id="barBorgona" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#C44D63"/><stop offset="100%" stop-color="#E06B82"/></linearGradient>
-      </defs>
-      <!-- Cocina 39.6% -->
-      <text x="90" y="48" fill="#A89788" font-size="11" font-family="Inter" text-anchor="end">Cocina</text>
-      <rect x="95" y="35" width="0" height="28" rx="4" fill="url(#barBlue)" class="bar-anim" data-width="145"/>
-      <text x="245" y="54" fill="#E8DDD0" font-size="10" font-family="Inter" font-weight="600">$1,632M (40%)</text>
-      <!-- Servicio 10.2% -->
-      <text x="90" y="93" fill="#A89788" font-size="11" font-family="Inter" text-anchor="end">Servicio</text>
-      <rect x="95" y="80" width="0" height="28" rx="4" fill="url(#barGold)" class="bar-anim" data-width="37"/>
-      <text x="136" y="99" fill="#E8DDD0" font-size="10" font-family="Inter" font-weight="600">$420M (10%)</text>
-      <!-- Barra 50.2% -->
-      <text x="90" y="138" fill="#A89788" font-size="11" font-family="Inter" text-anchor="end">Barra</text>
-      <rect x="95" y="125" width="0" height="28" rx="4" fill="url(#barBorgona)" class="bar-anim" data-width="184"/>
-      <text x="282" y="144" fill="#E8DDD0" font-size="10" font-family="Inter" font-weight="600">$2,069M (50%)</text>
-      <text x="290" y="144" fill="#C9A94E" font-size="9" font-family="Caveat" font-weight="600">1.3x</text>
-    </svg>
+  <div class="divider-sm" style="margin:14px 0 10px;"></div>
+
+  <div class="heading-md animate-in delay-2" style="font-size:13px;color:var(--ámbar);margin-bottom:8px;">DESGLOSE DE COSTOS</div>
+
+  <div style="background:linear-gradient(145deg,var(--night-card),#251a12);border:1px solid var(--night-border);border-radius:8px;padding:14px;overflow:hidden;" class="animate-in delay-2">
+    <!-- Visual cost bar -->
+    <div style="height:28px;border-radius:4px;overflow:hidden;display:flex;margin-bottom:10px;">
+      <div style="width:21.7%;background:linear-gradient(90deg,var(--borgoña-light),var(--borgoña));height:100%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--cal);">21.7%</div>
+      <div style="width:18%;background:linear-gradient(90deg,var(--ámbar),var(--dorado));height:100%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--night);"></div>
+      <div style="width:60.3%;background:linear-gradient(90deg,var(--night-input),var(--night-card));height:100%;"></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:11px;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:10px;height:10px;border-radius:2px;background:var(--borgoña-light);"></div>
+        <span style="color:var(--night-muted);">Nómina</span>
+      </div>
+      <div style="text-align:right;font-weight:600;color:var(--borgoña-light);">21.7% ventas</div>
+
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:10px;height:10px;border-radius:2px;background:var(--ámbar);"></div>
+        <span style="color:var(--night-muted);">Horas Extra</span>
+      </div>
+      <div style="text-align:right;font-weight:600;color:var(--ámbar);">~18% nómina</div>
+
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:10px;height:10px;border-radius:2px;background:var(--night-input);"></div>
+        <span style="color:var(--night-muted);">Otros costos fijos</span>
+      </div>
+      <div style="text-align:right;font-weight:600;color:var(--night-muted);">Balance</div>
+    </div>
   </div>
 
-  <div class="insight-box animate-in delay-5">
-    <div class="insight-label">Insight</div>
-    Barra genera <strong style="color:var(--borgona)">50% del revenue</strong> con solo 7 personas &mdash; $25.8M costo empresa vs $2,069M en ventas. Cocina aporta 40% con 15 personas &mdash; $51.9M costo empresa. <strong style="color:var(--gold)">Barra es 1.3x más productiva</strong> por persona que cocina en revenue/costo.
+  <div class="kpi-card animate-in delay-3" style="margin-top:10px;">
+    <div class="kpi-label">Personal Fijo vs Operativo</div>
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <div style="flex:8;background:linear-gradient(180deg,var(--ámbar),rgba(212,146,42,0.6));border-radius:4px 4px 0 0;height:60px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;">
+        <span class="heading-md" style="font-size:16px;color:var(--night);">8</span>
+      </div>
+      <div style="flex:33;background:linear-gradient(180deg,var(--dorado),rgba(201,169,78,0.5));border-radius:4px 4px 0 0;height:60px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;">
+        <span class="heading-md" style="font-size:16px;color:var(--night);">33</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:2px;">
+      <div style="flex:8;text-align:center;font-size:8px;color:var(--night-muted);text-transform:uppercase;letter-spacing:0.05em;">Fijos</div>
+      <div style="flex:33;text-align:center;font-size:8px;color:var(--night-muted);text-transform:uppercase;letter-spacing:0.05em;">Operativos</div>
+    </div>
   </div>
 </div>
 
-<!-- SLIDE 4: PERFORMANCE POR VENDEDOR -->
-<div class="slide" id="slide-3">
-  <div class="slide-title animate-in">Performance por Vendedor</div>
-  <div class="slide-subtitle animate-fade delay-1">Contribucion individual a ventas de junio</div>
-
-  <div class="animate-in delay-2" id="vendedor-bars">
-    <div class="bar-row">
-      <div class="bar-label">B. Cubillos</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="24.6" style="width:0%;background:linear-gradient(90deg,#C9A94E,#E5C96E)">24.6%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$119.6M</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">E. Ruiz</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="19.4" style="width:0%;background:linear-gradient(90deg,#C9A94E,#D4BC5E)">19.4%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$94.4M</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">Don Martin</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="14.6" style="width:0%;background:linear-gradient(90deg,#5A9EC4,#7ABDE0)">14.6%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$70.9M</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">M. Orrego</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="12.6" style="width:0%;background:linear-gradient(90deg,#5A9EC4,#6DB3D8)">12.6%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$61.6M</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">A. Cubillos</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="9.5" style="width:0%;background:linear-gradient(90deg,#A89788,#C4B8A8)">9.5%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$46.1M</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">Ronald</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="9.4" style="width:0%;background:linear-gradient(90deg,#A89788,#B8ADA0)">9.4%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$45.9M</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">L. Suarez</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="6.4" style="width:0%;background:linear-gradient(90deg,#6B5E52,#8A7D70)">6.4%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$31.1M</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">Doble A</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="2.4" style="width:0%;background:linear-gradient(90deg,#6B5E52,#7A6E62)">2.4%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">$11.3M</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">Otros</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="1.2" style="width:0%;background:linear-gradient(90deg,#4A3F35,#5A4E42)">1.2%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:55px;flex-shrink:0">&lt;$6M</span>
-    </div>
+<!-- ============ SLIDE 7: GAPS ============ -->
+<div class="slide" data-slide="6">
+  <div class="slide-title">
+    <span class="tag">06 — Brechas</span>
+    <h2 class="heading-lg" style="font-size:26px;">GAPS CRÍTICOS</h2>
+    <div class="subtitle">Oportunidades de mejora identificadas</div>
   </div>
 
-  <div class="insight-box animate-in delay-4">
-    <div class="insight-label">Insight</div>
-    4 meseros generan el <strong style="color:var(--gold)">71% de las ventas</strong>. Benjamin vende 68x su salario. Concentracion de revenue en pocos vendedores.
-  </div>
-</div>
+  <div class="divider"></div>
 
-<!-- SLIDE 5: REVENUE vs TURNOS POR HORA -->
-<div class="slide" id="slide-4">
-  <div class="slide-title animate-in">Revenue vs Turnos por Hora</div>
-  <div class="slide-subtitle animate-fade delay-1">Alineacion de personal con demanda real</div>
-
-  <div class="animate-in delay-2" style="overflow-x:auto">
-    <table class="data-table">
-      <thead>
-        <tr><th>Hora</th><th>Revenue</th><th>%</th><th>Staff</th><th>$/persona</th><th>Clasif.</th></tr>
-      </thead>
-      <tbody>
-        <tr style="background:rgba(201,169,78,0.08)">
-          <td style="font-weight:700;color:var(--gold)">19:00</td>
-          <td>$118.8M</td><td>24.4%</td><td>84</td>
-          <td style="font-weight:700;color:var(--gold)">$70,714</td>
-          <td><span class="badge gold">PICO</span></td>
-        </tr>
-        <tr>
-          <td style="font-weight:600;color:var(--text)">20:00</td>
-          <td>$88.5M</td><td>18.2%</td><td>84</td>
-          <td>$52,976</td>
-          <td><span class="badge gold">PICO</span></td>
-        </tr>
-        <tr>
-          <td style="font-weight:600;color:var(--text)">18:00</td>
-          <td>$58.5M</td><td>12.0%</td><td>87</td>
-          <td>$33,621</td>
-          <td><span class="badge blue">TRANSICION</span></td>
-        </tr>
-        <tr style="background:rgba(196,77,99,0.06)">
-          <td style="font-weight:700;color:var(--borgona)">14:00</td>
-          <td>$28.5M</td><td>5.9%</td><td>37</td>
-          <td style="color:var(--borgona)">$38,514</td>
-          <td><span class="badge borgona">GAP</span></td>
-        </tr>
-        <tr style="background:rgba(168,151,136,0.04)">
-          <td style="font-weight:600;color:var(--muted)">16:00</td>
-          <td>$11.0M</td><td>2.3%</td><td>81</td>
-          <td style="color:var(--muted)">$6,790</td>
-          <td><span class="badge muted">INEFICIENTE</span></td>
-        </tr>
-        <tr style="background:rgba(168,151,136,0.06)">
-          <td style="font-weight:600;color:var(--muted)">08:00</td>
-          <td>$0</td><td>0%</td><td>6</td>
-          <td style="color:var(--borgona)">$0</td>
-          <td><span class="badge borgona">SOBRANDO</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="insight-box animate-in delay-4">
-    <div class="insight-label">Hallazgo</div>
-    A las 19:00 cada persona genera <strong style="color:var(--gold)">$70,714</strong> en revenue. A las 16:00 solo $6,790 &mdash; <strong style="color:var(--borgona)">10.4x menos eficiente</strong>. El personal pico entra 1h antes del revenue pico. <em>$/persona = revenue del turno dividido entre staff asignado a esa hora.</em>
-  </div>
-</div>
-
-<!-- SLIDE 6: HEATMAP DIA x HORA -->
-<div class="slide" id="slide-5">
-  <div class="slide-title animate-in">Heatmap Dia &times; Hora</div>
-  <div class="slide-subtitle animate-fade delay-1">Revenue por persona por hora y dia</div>
-
-  <div class="animate-in delay-2" style="overflow-x:auto">
-    <div class="heatmap-grid" style="grid-template-columns: 48px repeat(7,1fr); grid-template-rows: auto repeat(7,1fr);" id="heatmap">
-      <!-- Header row -->
-      <div class="heatmap-cell heatmap-header"></div>
-      <div class="heatmap-cell heatmap-header">Lun</div>
-      <div class="heatmap-cell heatmap-header">Mar</div>
-      <div class="heatmap-cell heatmap-header">Mie</div>
-      <div class="heatmap-cell heatmap-header">Jue</div>
-      <div class="heatmap-cell heatmap-header">Vie</div>
-      <div class="heatmap-cell heatmap-header">Sab</div>
-      <div class="heatmap-cell heatmap-header">Dom</div>
-      <!-- Rows populated by JS -->
-    </div>
-  </div>
-
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;" class="animate-fade delay-3">
-    <span class="badge gold">Vie 19:00 = $540K</span>
-    <span class="badge borgona">Vie 14:00 = $586K</span>
-    <span class="badge muted">Lun 21:00 = $2K</span>
-  </div>
-
-  <div class="insight-box animate-in delay-4">
-    <div class="insight-label">Insight</div>
-    <strong style="color:var(--gold)">Viernes 19:00</strong> es la hora más productiva ($540K/persona). <strong style="color:var(--borgona)">Viernes 14:00</strong> es una sorpresa: $586K/persona &mdash; el almuerzo del viernes es más lucrativo por persona que la cena del sábado. <em>Heatmap = revenue por persona asignada a esa hora.</em>
-  </div>
-</div>
-
-<!-- SLIDE 7: HORAS EXTRA -->
-<div class="slide" id="slide-6">
-  <div class="slide-title animate-in">Horas Extra</div>
-  <div class="slide-subtitle animate-fade delay-1">Distribucion y costo de HE en junio</div>
-
-  <div class="kpi-grid animate-in delay-2" style="grid-template-columns:repeat(3,1fr)">
-    <div class="kpi-card" style="text-align:center">
-      <div class="kpi-label">Total HE</div>
-      <div class="kpi-value borgona">53</div>
-      <div class="kpi-note">Turnos con horas extra en junio</div>
-    </div>
-    <div class="kpi-card" style="text-align:center">
-      <div class="kpi-label">Horas Extra</div>
-      <div class="kpi-value">469h</div>
-      <div class="kpi-note">Total horas extra acumuladas</div>
-    </div>
-    <div class="kpi-card" style="text-align:center">
-      <div class="kpi-label">Costo HE</div>
-      <div class="kpi-value borgona" data-counter="7430592" data-prefix="$" data-format="short">$0</div>
-      <div class="kpi-note">Recargos: nocturno 35%, dominical 75%, HE 25%/75%</div>
-    </div>
-  </div>
-
-  <div class="section-label animate-in delay-3">Costo HE por Dia</div>
-  <div class="donut-container animate-in delay-3">
-    <svg viewBox="0 0 200 200" width="160" height="160" role="img" aria-label="Donut chart: HE distribution by day">
-      <circle cx="100" cy="100" r="70" fill="none" stroke="#2C2018" stroke-width="28"/>
-      <!-- Jue 18% -->
-      <circle cx="100" cy="100" r="70" fill="none" stroke="#5A9EC4" stroke-width="28" stroke-dasharray="79.2 360" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
-      <!-- Vie 16.7% -->
-      <circle cx="100" cy="100" r="70" fill="none" stroke="#C9A94E" stroke-width="28" stroke-dasharray="73 360" stroke-dashoffset="-79.2" transform="rotate(-90 100 100)"/>
-      <!-- Sab 20.8% -->
-      <circle cx="100" cy="100" r="70" fill="none" stroke="#C44D63" stroke-width="28" stroke-dasharray="91.5 360" stroke-dashoffset="-152.2" transform="rotate(-90 100 100)"/>
-      <!-- Dom 22.5% -->
-      <circle cx="100" cy="100" r="70" fill="none" stroke="#E06B82" stroke-width="28" stroke-dasharray="99 360" stroke-dashoffset="-243.7" transform="rotate(-90 100 100)"/>
-      <!-- Lun-Mie 22% -->
-      <circle cx="100" cy="100" r="70" fill="none" stroke="#6B5E52" stroke-width="28" stroke-dasharray="97.3 360" stroke-dashoffset="-342.7" transform="rotate(-90 100 100)"/>
-      <text x="100" y="96" text-anchor="middle" fill="#E8DDD0" font-family="Source Serif 4" font-size="16" font-weight="700">$7.4M</text>
-      <text x="100" y="112" text-anchor="middle" fill="#A89788" font-family="Inter" font-size="10">HE junio</text>
-    </svg>
-    <div class="donut-legend">
-      <div class="donut-legend-item"><span class="donut-legend-color" style="background:#5A9EC4"></span><span>Jue 11 HE · $1.35M</span></div>
-      <div class="donut-legend-item"><span class="donut-legend-color" style="background:#C9A94E"></span><span>Vie 10 HE · $1.24M</span></div>
-      <div class="donut-legend-item"><span class="donut-legend-color" style="background:#C44D63"></span><span>Sab 12 HE · $1.55M</span></div>
-      <div class="donut-legend-item"><span class="donut-legend-color" style="background:#E06B82"></span><span>Dom 8 HE · $1.67M</span></div>
-      <div class="donut-legend-item"><span class="donut-legend-color" style="background:#6B5E52"></span><span>Lun-Mie ~4 HE/dia</span></div>
-    </div>
-  </div>
-
-  <div class="section-label animate-in delay-4">Top Generadores de HE</div>
-  <div class="animate-in delay-4" style="overflow-x:auto">
-    <table class="data-table">
-      <thead><tr><th>Empleado</th><th>HE</th><th>Horas</th><th>Costo</th><th>% Total</th></tr></thead>
-      <tbody>
-        <tr><td style="color:var(--borgona);font-weight:700">Esneider</td><td>11</td><td>94h</td><td style="color:var(--borgona)">$1,913,897</td><td><span class="badge borgona">40%</span></td></tr>
-        <tr><td style="color:var(--gold)">Wendy</td><td>9</td><td>76h</td><td>$1,076,455</td><td>14%</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div style="font-size:11px;color:var(--muted);margin-top:4px" class="animate-fade delay-5">Estimado anual: ~$89.2M en recargos HE &middot; Proyección basada en junio (mes parcial)</div>
-
-  <div class="insight-box animate-in delay-5">
-    <div class="insight-label">Insight</div>
-    Esneider acumula <strong style="color:var(--borgona)">40% de HE</strong>. Turno puente cocina eliminaria sus HE. <strong>Domingo es el dia mas caro</strong> por recargo dominical+nocturno.
-  </div>
-</div>
-
-<!-- SLIDE 8: HORAS NOCTURNAS -->
-<div class="slide" id="slide-7">
-  <div class="slide-title animate-in">Horas Nocturnas</div>
-  <div class="slide-subtitle animate-fade delay-1">899h nocturnas &mdash; 27.9% del total (3,219h) &middot; Turnos entre 21:00 y 06:00</div>
-
-  <div class="section-label animate-in delay-2">Por Area</div>
-  <div class="animate-in delay-2">
-    <div class="bar-row">
-      <div class="bar-label" style="min-width:80px">Cocina</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="19.4" style="width:0%;background:linear-gradient(90deg,#5A9EC4,#7ABDE0)">19.4%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:35px;flex-shrink:0">182h</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="min-width:80px">Servicio</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="30.0" style="width:0%;background:linear-gradient(90deg,#C9A94E,#E5C96E)">30.0%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:35px;flex-shrink:0">456h</span>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="min-width:80px">Barra</div>
-      <div class="bar-track"><div class="bar-fill" data-pct="34.1" style="width:0%;background:linear-gradient(90deg,#C44D63,#E06B82)">34.1%</div></div>
-      <span style="font-size:10px;color:var(--muted);min-width:35px;flex-shrink:0">262h</span>
-    </div>
-  </div>
-
-  <div class="section-label animate-in delay-3">Nocturnas por Dia</div>
-  <div class="animate-in delay-3" style="overflow-x:auto">
-    <svg viewBox="0 0 340 120" style="width:100%;max-width:380px;display:block;margin:0 auto" role="img" aria-label="Bar chart: nocturnal hours by day">
-      <text x="30" y="20" fill="#A89788" font-size="10" font-family="Inter" text-anchor="end">Vie</text>
-      <rect x="35" y="8" width="0" height="18" rx="3" fill="#C9A94E" class="bar-anim-h" data-width="280"/>
-      <text x="320" y="20" fill="#E8DDD0" font-size="10" font-family="Inter">209h</text>
-
-      <text x="30" y="44" fill="#A89788" font-size="10" font-family="Inter" text-anchor="end">Sab</text>
-      <rect x="35" y="32" width="0" height="18" rx="3" fill="#C44D63" class="bar-anim-h" data-width="276"/>
-      <text x="316" y="44" fill="#E8DDD0" font-size="10" font-family="Inter">206h</text>
-
-      <text x="30" y="68" fill="#A89788" font-size="10" font-family="Inter" text-anchor="end">Jue</text>
-      <rect x="35" y="56" width="0" height="18" rx="3" fill="#5A9EC4" class="bar-anim-h" data-width="205"/>
-      <text x="245" y="68" fill="#E8DDD0" font-size="10" font-family="Inter">153h</text>
-
-      <text x="30" y="92" fill="#A89788" font-size="10" font-family="Inter" text-anchor="end">Mie</text>
-      <rect x="35" y="80" width="0" height="18" rx="3" fill="#6B5E52" class="bar-anim-h" data-width="185"/>
-      <text x="225" y="92" fill="#E8DDD0" font-size="10" font-family="Inter">138h</text>
-    </svg>
-  </div>
-
-  <div class="section-label animate-in delay-4">Recargos Legales</div>
-  <div class="animate-in delay-4" style="overflow-x:auto">
-    <table class="data-table">
-      <thead><tr><th>Concepto</th><th>Recargo</th><th>Horario</th></tr></thead>
-      <tbody>
-        <tr><td>Nocturno</td><td style="color:var(--gold);font-weight:600">+35%</td><td>21:00 - 06:00</td></tr>
-        <tr><td>Dominical</td><td style="color:var(--borgona);font-weight:600">+75%</td><td>Todo el dia</td></tr>
-        <tr><td>HE diurna</td><td>+25%</td><td>06:00 - 21:00</td></tr>
-        <tr><td>HE nocturna</td><td style="color:var(--borgona);font-weight:600">+75%</td><td>21:00 - 06:00</td></tr>
-        <tr><td>HE dominical</td><td style="color:var(--borgona);font-weight:700">+100%</td><td>Domingo</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- SLIDE 9: GRILLA DE TURNOS W24 -->
-<div class="slide" id="slide-8">
-  <div class="slide-title animate-in">Grilla de Turnos W24</div>
-  <div class="slide-subtitle animate-fade delay-1">Cocina, Servicio y Barra</div>
-
-  <div class="section-label animate-in delay-2">COCINA (8 empleados)</div>
-  <div class="animate-in delay-2" style="overflow-x:auto">
-    <table class="schedule-grid">
-      <thead><tr><th></th><th>Lun</th><th>Mar</th><th>Mie</th><th>Jue</th><th>Vie</th><th>Sab</th><th>Dom</th></tr></thead>
-      <tbody>
-        <tr><td class="schedule-name">Esneider</td><td>C</td><td>C</td><td>C</td><td>CD</td><td>CD</td><td>CD</td><td>HE</td></tr>
-        <tr><td class="schedule-name">Walter</td><td>A</td><td>A</td><td>A</td><td>P2</td><td>P2</td><td>P2</td><td>INC</td></tr>
-        <tr><td class="schedule-name">Giovanny</td><td>S</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>S</td></tr>
-        <tr><td class="schedule-name">Alejandro</td><td>P2</td><td>P2</td><td>P2</td><td>A</td><td>A</td><td>A</td><td>S</td></tr>
-        <tr><td class="schedule-name">Brandon</td><td>C</td><td>C</td><td>VAC</td><td>C</td><td>C</td><td>C</td><td>VAC</td></tr>
-        <tr><td class="schedule-name">J. Perez</td><td>P2</td><td>P2</td><td>P2</td><td>P2</td><td>P2</td><td>P2</td><td>S</td></tr>
-        <tr><td class="schedule-name">Lizeth</td><td>A</td><td>A</td><td>A</td><td>S</td><td>S</td><td>P2</td><td>P2</td></tr>
-        <tr><td class="schedule-name">Steward</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td><td>S</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="font-size:9px;color:var(--muted);margin-top:4px" class="animate-fade delay-2">C=Corrido(8-17) · CD=Compuesto · P2=Parcial2 · A=Apoyo · S=Salida · INC=Incapacidad · VAC=Vacaciones · N=Nocturno</div>
-
-  <div class="section-label animate-in delay-3">SERVICIO (10 empleados)</div>
-  <div class="animate-in delay-3" style="overflow-x:auto">
-    <table class="schedule-grid">
-      <thead><tr><th></th><th>Lun</th><th>Mar</th><th>Mie</th><th>Jue</th><th>Vie</th><th>Sab</th><th>Dom</th></tr></thead>
-      <tbody>
-        <tr><td class="schedule-name">Benjamin</td><td>SX2</td><td>SX2</td><td>SX2</td><td>SX2</td><td>SX2</td><td>SX2</td><td>S</td></tr>
-        <tr><td class="schedule-name">Eduardo</td><td>SX2</td><td>SX2</td><td>SX2</td><td>SX2</td><td>SX2</td><td>SX2</td><td>S</td></tr>
-        <tr><td class="schedule-name">Don Martin</td><td>SX18</td><td>SX18</td><td>SX18</td><td>SX18</td><td>SX18</td><td>SX18</td><td>S</td></tr>
-        <tr><td class="schedule-name">M. Orrego</td><td>SX18</td><td>SX18</td><td>SX18</td><td>SX18</td><td>SX18</td><td>SX18</td><td>S</td></tr>
-        <tr><td class="schedule-name">Ronald</td><td>N1</td><td>N1</td><td>N1</td><td>N1</td><td>N1</td><td>N1</td><td>S</td></tr>
-        <tr><td class="schedule-name">Leonardo</td><td>N2</td><td>N2</td><td>N2</td><td>N2</td><td>N2</td><td>N2</td><td>S</td></tr>
-        <tr><td class="schedule-name">Angie</td><td>N1</td><td>N1</td><td>N1</td><td>N1</td><td>N1</td><td>N1</td><td>S</td></tr>
-        <tr><td class="schedule-name">Oscar</td><td>N2</td><td>N2</td><td>N2</td><td>N2</td><td>N2</td><td>N2</td><td>S</td></tr>
-        <tr><td class="schedule-name">Doble A</td><td>SX18</td><td>SX18</td><td>SX18</td><td>SX18</td><td>SX18</td><td>SX18</td><td>S</td></tr>
-        <tr><td class="schedule-name">Cajera</td><td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>S</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="section-label animate-in delay-4">BARRA — Real Junio W24 <span class="badge borgona" style="margin-left:6px">3 ERRORES</span></div>
-  <div class="animate-in delay-4" style="overflow-x:auto">
-    <table class="schedule-grid">
-      <thead><tr><th></th><th>Lun</th><th>Mar</th><th>Mie</th><th>Jue</th><th>Vie</th><th>Sab</th><th>Dom</th></tr></thead>
-      <tbody>
-        <tr><td class="schedule-name">Angie</td><td>B2</td><td>B1</td><td>B4</td><td>B4</td><td>CX8</td><td></td><td></td></tr>
-        <tr><td class="schedule-name">Ashlye</td><td></td><td>B3</td><td>B4</td><td>B3</td><td>B3</td><td></td><td></td></tr>
-        <tr><td class="schedule-name">Manuel</td><td>B9</td><td>B3</td><td>B4</td><td>B3</td><td>B3</td><td>B8</td><td></td></tr>
-        <tr><td class="schedule-name">Yohan</td><td>B9</td><td>B1</td><td>B10</td><td>CX8</td><td>B4</td><td></td><td></td></tr>
-        <tr style="background:rgba(196,77,99,0.12)"><td class="schedule-name" style="color:var(--borgona)">Carlos ❌</td><td style="color:var(--borgona)">B10</td><td style="color:var(--borgona)">B3</td><td style="color:var(--borgona)">B2</td><td style="color:var(--borgona)">B3</td><td style="color:var(--borgona)">B3</td><td style="color:var(--borgona)">B11</td><td></td></tr>
-        <tr style="background:rgba(196,77,99,0.12)"><td class="schedule-name" style="color:var(--borgona)">Dayana ❌</td><td></td><td style="color:var(--borgona)">B1</td><td></td><td style="color:var(--borgona)">B4</td><td style="color:var(--borgona)">B4</td><td></td><td></td></tr>
-        <tr style="background:rgba(196,77,99,0.12)"><td class="schedule-name" style="color:var(--borgona)">Juan P. ❌</td><td style="color:var(--borgona)">B10</td><td style="color:var(--borgona)">B1</td><td style="color:var(--borgona)">B4</td><td style="color:var(--borgona)">B1</td><td style="color:var(--borgona)">B1</td><td></td><td></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="insight-box animate-in delay-5" style="border-color:var(--borgona)">
-    <div class="insight-label" style="color:var(--borgona)">Alerta</div>
-    <strong style="color:var(--borgona)">3 personas de cocina</strong> asignadas a turnos de barra: Carlos (6 turnos), Dayana (3 turnos, <em>inactiva</em>), Juan Pablo (5 turnos). Mientras tanto, <strong style="color:var(--gold)">Walter (Jefe de Bar), Lizeth (Bartender) y Brandon (Auxiliar Bar)</strong> no tienen turnos asignados. <strong>Todos los schedules barra W23-W26 están en draft.</strong>
-  </div>
-</div>
-
-<!-- SLIDE 10: CLASIFICACION DE CARGOS -->
-<div class="slide" id="slide-9">
-  <div class="slide-title animate-in">Clasificacion de Cargos</div>
-  <div class="slide-subtitle animate-fade delay-1">ROI por tipo de funcion</div>
-
-  <div class="cols-4 animate-in delay-2">
-    <div class="kpi-card" style="border-color:rgba(201,169,78,0.3)">
-      <div class="kpi-label" style="color:var(--gold)">Generador Directo</div>
-      <div class="kpi-value gold" style="font-size:16px" data-counter="57200000" data-prefix="$" data-format="short">$0</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">17 personas &middot; Costo empresa de meseros, bartenders y auxiliares</div>
-    </div>
-    <div class="kpi-card" style="border-color:rgba(90,158,196,0.3)">
-      <div class="kpi-label" style="color:var(--blue)">Soporte Operativo</div>
-      <div class="kpi-value blue" style="font-size:16px" data-counter="39800000" data-prefix="$" data-format="short">$0</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">12 personas &middot; Cocineros y stewards</div>
-    </div>
-    <div class="kpi-card" style="border-color:rgba(196,77,99,0.3)">
-      <div class="kpi-label" style="color:var(--borgona)">Estratégico</div>
-      <div class="kpi-value borgona" style="font-size:16px" data-counter="25300000" data-prefix="$" data-format="short">$0</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">4 líderes &middot; Walter, Esneider, Rodrigo, Verónica</div>
-    </div>
-    <div class="kpi-card" style="border-color:rgba(168,151,136,0.2)">
-      <div class="kpi-label" style="color:var(--muted)">Admin + Apoyo</div>
-      <div class="kpi-value" style="font-size:16px;color:var(--muted)" data-counter="35700000" data-prefix="$" data-format="short">$0</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:4px">8 personas &middot; Administración, servicios generales, sonido</div>
-    </div>
-  </div>
-
-  <div class="section-label animate-in delay-3">ROI &mdash; Top Generadores</div>
-  <div class="animate-in delay-3" style="overflow-x:auto">
-    <table class="data-table">
-      <thead><tr><th>Vendedor</th><th>Ventas</th><th>Costo Empresa</th><th>ROI</th></tr></thead>
-      <tbody>
-        <tr><td style="font-weight:700;color:var(--gold)">Benjamin</td><td>$119.6M</td><td>$3.0M</td><td style="color:var(--green);font-weight:700">39.5x</td></tr>
-        <tr><td style="font-weight:700;color:var(--gold)">Eduardo</td><td>$94.4M</td><td>$3.0M</td><td style="color:var(--green);font-weight:700">31.2x</td></tr>
-        <tr><td style="font-weight:700">Don Martin</td><td>$70.9M</td><td>$3.0M</td><td style="color:var(--green)">23.4x</td></tr>
-        <tr><td style="font-weight:700;color:var(--muted)">Brandon</td><td>~$1.7M</td><td>$3.0M</td><td style="color:var(--borgona);font-weight:700">0.6x</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="insight-box animate-in delay-4">
-    <div class="insight-label">Insight</div>
-    Los meseros top generan <strong style="color:var(--green)">23-40x su costo empresa</strong> en ventas. Brandon, en cocina, genera solo 0.6x su costo &mdash; <strong style="color:var(--borgona)">no genera valor directo</strong> medible en revenue. <em>ROI = ventas asignadas al vendedor / costo empresa mensual.</em>
-  </div>
-</div>
-
-<!-- SLIDE 11: GAPS Y DESFASES -->
-<div class="slide" id="slide-10">
-  <div class="slide-title animate-in">Gaps y Desfases</div>
-  <div class="slide-subtitle animate-fade delay-1">Problemas operativos y oportunidades de optimizacion</div>
-
-  <div class="gap-item animate-in delay-2" style="border-left-color:var(--borgona)">
-    <strong style="color:var(--borgona)">1. GAP cocina 14:00</strong> &mdash; $28.5M en ventas con solo 8 cocineros. Cuello de botella en almuerzo.
-  </div>
-  <div class="gap-item animate-in delay-3" style="border-left-color:var(--borgona)">
-    <strong style="color:var(--borgona)">2. SOBRASTAFFING 16:00</strong> &mdash; 81 personas para solo $11.0M. Hora muerta mas cara del dia.
-  </div>
-  <div class="gap-item animate-in delay-3" style="border-left-color:var(--gold)">
-    <strong style="color:var(--gold)">3. DESFASE pico</strong> &mdash; Personal pico entra 18:00, revenue pico es 19:00. Desalineacion de 1 hora.
-  </div>
-  <div class="gap-item animate-in delay-4" style="border-left-color:var(--borgona)">
-    <strong style="color:var(--borgona)">4. COCINA CIERRA 22:30</strong> &mdash; 34 personas de servicio siguen hasta 01:00 sin soporte de cocina.
-  </div>
-  <div class="gap-item animate-in delay-4" style="border-left-color:var(--borgona)">
-    <strong style="color:var(--borgona)">5. LUNES NOCHE</strong> &mdash; $4K revenue con 20-30 personas en turno. Perdida neta.
-  </div>
-  <div class="gap-item animate-in delay-5" style="border-left-color:var(--gold)">
-    <strong style="color:var(--gold)">6. MARTES SOBRESTAFFED</strong> &mdash; 10 personas para $21.5M. Eficiencia baja en dia bajo.
-  </div>
-  <div class="gap-item animate-in delay-5" style="border-left-color:var(--borgona)">
-    <strong style="color:var(--borgona)">7. ESNEIDER SOBRECARGADO</strong> &mdash; 11 HE, 94h extra. Riesgo de burnout y dependencia critica.
-  </div>
-  <div class="gap-item animate-in delay-6" style="border-left-color:var(--borgona)">
-    <strong style="color:var(--borgona)">8. GIOVANNY 68% NOCTURNO</strong> &mdash; Riesgo de salud ocupacional. Recargo alto sostenido.
-  </div>
-</div>
-
-<!-- SLIDE 12: PROPUESTAS Y PREGUNTAS -->
-<div class="slide" id="slide-11">
-  <div class="slide-title animate-in">Propuestas Estrategicas</div>
-  <div class="slide-subtitle animate-fade delay-1">Acciones concretas con impacto estimado</div>
-
-  <div class="proposal-card animate-in delay-2">
+  <div class="proposal-card p2 animate-in">
     <div class="proposal-num">1</div>
+    <div class="proposal-title" style="color:var(--borgoña-light);">Caída de Junio</div>
     <div class="proposal-body">
-      <div class="proposal-title">Turno puente cocina 10-18h Vie-Sab-Dom <span class="badge gold">CRITICA</span></div>
-      <div class="proposal-detail">Cubre el gap de 14:00 y reduce HE de Esneider. Impacto: +$5-10M/mes</div>
+      Junio registra $487M vs promedio $712M de Ene-May — una caída del <strong style="color:var(--borgoña-light);">31.6%</strong>. Pérdida estimada: <strong style="color:var(--borgoña-light);">~$225M</strong> respecto al promedio.
     </div>
   </div>
-  <div class="proposal-card animate-in delay-3">
+
+  <div class="proposal-card p1 animate-in delay-1">
     <div class="proposal-num">2</div>
+    <div class="proposal-title" style="color:var(--ámbar);">Horas Muertas</div>
     <div class="proposal-body">
-      <div class="proposal-title">Reducir martes 10 a 6 personas</div>
-      <div class="proposal-detail">Ajustar al volumen real del dia. Ahorro: ~$1.4M/mes</div>
+      Sin actividad de 2:00–8:00 (6 horas). 9:00–11:00 casi sin movimiento. <strong style="color:var(--ámbar);">Ocho horas diarias</strong> sin generación de ingresos.
     </div>
   </div>
-  <div class="proposal-card animate-in delay-3">
+
+  <div class="proposal-card p1 animate-in delay-2">
     <div class="proposal-num">3</div>
+    <div class="proposal-title" style="color:var(--ámbar);">Concentración de Ventas</div>
     <div class="proposal-body">
-      <div class="proposal-title">+1 bartender Vie-Sab</div>
-      <div class="proposal-detail">Costo: $350K. ROI estimado: 8-14x. La barra es la area mas productiva.</div>
+      Top 3 productos = <strong style="color:var(--ámbar);">58.7%</strong> de las ventas de junio. Dependencia extrema. Si un plato falla, el restaurante se afecta significativamente.
     </div>
   </div>
-  <div class="proposal-card animate-in delay-4">
+
+  <div class="proposal-card p3 animate-in delay-3">
     <div class="proposal-num">4</div>
+    <div class="proposal-title" style="color:var(--oliva);">Nómina Pesada</div>
     <div class="proposal-body">
-      <div class="proposal-title">Reforzar 19:00 servicio (+5 personas)</div>
-      <div class="proposal-detail">Cada persona genera $70K/hora en pico. ROI inmediato.</div>
+      Factor 1.81× significa que por cada $1 de salario, el costo real es $1.81. 8 personas de costo fijo sin impacto directo en servicio.
     </div>
   </div>
-  <div class="proposal-card animate-in delay-4">
+
+  <div class="proposal-card p4 animate-in delay-4">
     <div class="proposal-num">5</div>
+    <div class="proposal-title" style="color:var(--dorado);">Pico Nocturno Desbalanceado</div>
     <div class="proposal-body">
-      <div class="proposal-title">Mover entrada 16:00 a 17:00</div>
-      <div class="proposal-detail">Corregir desfase de 1h entre personal pico y revenue pico.</div>
-    </div>
-  </div>
-  <div class="proposal-card animate-in delay-5">
-    <div class="proposal-num">6</div>
-    <div class="proposal-body">
-      <div class="proposal-title">Cocina nocturna CX2 Vie-Sab</div>
-      <div class="proposal-detail">Cubre ~$10M en ventas post-22:30. Actualmente perdidas por cierre cocina.</div>
+      19h concentra $118.8M (24.4% del día). Solo 3 horas (18–20h) generan el <strong style="color:var(--dorado);">54.6%</strong> de la facturación. El resto del día es marginal.
     </div>
   </div>
 
-  <div class="question-section animate-in delay-6">
-    <div class="section-label" style="margin-top:0;color:var(--borgona)">Preguntas Estrategicas</div>
-    <div class="question-item"><strong>Reducir 10% nomina:</strong> ~$8M/mes alcanzable (martes, lunes, HE Esneider, Brandon, Lizeth)</div>
-    <div class="question-item"><strong>Aumentar 20% ventas:</strong> +$147M/mes (turno puente, Keller, eventos, domicilios)</div>
-    <div class="question-item"><strong>Empleados multiplicadores:</strong> Benjamin, Eduardo, Angie, Oscar</div>
-    <div class="question-item"><strong>Conocimientos criticos de 1 persona:</strong> Esneider, Walter, Ale, Leshlye</div>
-  </div>
-
-  <div class="total-savings animate-in delay-7">
-    <div class="kpi-label">Ahorro Estimado Total</div>
-    <div class="kpi-value gold" style="font-size:28px">~$2.85M<span style="font-size:16px;color:var(--muted)">/mes</span></div>
-    <div style="font-size:12px;color:var(--green);margin-top:4px">+$5-10M/mes con turno puente</div>
-    <div style="font-size:10px;color:var(--muted);margin-top:6px;font-style:italic">Ahorro en costo empresa (no solo salarios) por reducción de HE y reasignación de personal.</div>
+  <!-- Visual gap meter -->
+  <div style="margin-top:12px;background:linear-gradient(145deg,var(--night-card),#251a12);border:1px solid var(--night-border);border-radius:8px;padding:14px;" class="animate-in delay-5">
+    <div class="heading-md" style="font-size:11px;color:var(--ámbar);margin-bottom:8px;">BRECHA JUNIO vs PROMEDIO</div>
+    <div style="position:relative;height:24px;background:var(--night-input);border-radius:12px;overflow:hidden;">
+      <div style="position:absolute;left:0;top:0;height:100%;width:68.4%;background:linear-gradient(90deg,var(--oliva),var(--dorado));border-radius:12px 0 0 12px;"></div>
+      <div style="position:absolute;left:68.4%;top:0;height:100%;width:31.6%;background:linear-gradient(90deg,var(--borgoña-light),rgba(196,77,99,0.5));border-radius:0 12px 12px 0;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:9px;">
+      <span style="color:var(--dorado);">$487M junio (68.4%)</span>
+      <span style="color:var(--borgoña-light);">-$225M gap (31.6%)</span>
+    </div>
   </div>
 </div>
 
-</div><!-- end deck -->
+<!-- ============ SLIDE 8: PROPUESTAS ============ -->
+<div class="slide" data-slide="7">
+  <div class="slide-title">
+    <span class="tag">07 — Acción</span>
+    <h2 class="heading-lg" style="font-size:26px;">PROPUESTAS</h2>
+    <div class="subtitle">Estrategias de mejora inmediata</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="proposal-card p1 animate-in">
+    <div class="proposal-num">I</div>
+    <div class="proposal-title">Menú de Almuerzo Ejecutivo</div>
+    <div class="proposal-body">
+      Aprovechar las horas muertas 11:30–14:00 con menú ejecutivo a precio accesible. Objetivo: captar <strong style="color:var(--ámbar);">$50–80M adicionales</strong> en zona actualmente inactiva.
+    </div>
+  </div>
+
+  <div class="proposal-card p2 animate-in delay-1">
+    <div class="proposal-num">II</div>
+    <div class="proposal-title" style="color:var(--borgoña-light);">Diversificar Cartera de Productos</div>
+    <div class="proposal-body">
+      Reducir dependencia del top 3. Desarrollar 2–3 platos estrella nuevos con margen alto. Meta: bajar concentración de 58.7% a <strong style="color:var(--borgoña-light);"><45%</strong>.
+    </div>
+  </div>
+
+  <div class="proposal-card p3 animate-in delay-2">
+    <div class="proposal-num">III</div>
+    <div class="proposal-title" style="color:var(--oliva);">Optimizar Turnos y Costos Fijos</div>
+    <div class="proposal-body">
+      Revisar las 8 posiciones fijas. Evaluar cuáles generan valor directo. Reducir factor empresa de 1.81× a <strong style="color:var(--oliva);">1.6×</strong> mediante mejor distribución de turnos.
+    </div>
+  </div>
+
+  <div class="proposal-card p4 animate-in delay-3">
+    <div class="proposal-num">IV</div>
+    <div class="proposal-title" style="color:var(--dorado);">Programa de Fidelización Nocturna</div>
+    <div class="proposal-body">
+      El pico 19–20h ya es fuerte. Crear programa de loyalty para extender la estancia: happy hour 21–22h, cocktails posteriores. Objetivo: <strong style="color:var(--dorado);">+15% revenue en horario 21–23h</strong>.
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;" class="animate-in delay-4">
+    <div class="divider" style="width:80px;margin:0 auto 12px;"></div>
+    <div class="accent-serif" style="font-size:10px;color:var(--night-muted);letter-spacing:0.2em;text-transform:uppercase;">Attick & Keller</div>
+    <div class="heading-xl" style="font-size:14px;color:var(--dorado);margin-top:4px;">DATOS CON CARÁCTER</div>
+    <div class="accent-hand" style="font-size:14px;color:var(--borgoña-light);margin-top:6px;">Junio 2026</div>
+  </div>
+</div>
+
+</div><!-- .presentation -->
 
 <!-- Navigation -->
 <div class="nav-dots" id="navDots"></div>
-<button class="nav-arrow left" id="navLeft" aria-label="Anterior">&#8249;</button>
-<button class="nav-arrow right" id="navRight" aria-label="Siguiente">&#8250;</button>
-<div class="slide-counter" id="slideCounter">1 / 12</div>
+<div class="swipe-hint">← Desliza para navegar →</div>
 
 <script>
-(function() {
-  // --- SLIDE NAVIGATION ---
-  const slides = document.querySelectorAll('.slide');
-  const totalSlides = slides.length;
-  const dotsContainer = document.getElementById('navDots');
-  const navLeft = document.getElementById('navLeft');
-  const navRight = document.getElementById('navRight');
-  const counter = document.getElementById('slideCounter');
-  let current = parseInt(localStorage.getItem('ak-slide') || '0', 10);
-  if (current < 0 || current >= totalSlides) current = 0;
+// ===== Data =====
+const monthlyData = [
+  { label: 'Ene', value: 676.4 },
+  { label: 'Feb', value: 676.0 },
+  { label: 'Mar', value: 760.0 },
+  { label: 'Abr', value: 666.0 },
+  { label: 'May', value: 782.3 },
+  { label: 'Jun', value: 486.7 }
+];
 
-  // Create dots
-  for (let i = 0; i < totalSlides; i++) {
-    const dot = document.createElement('button');
-    dot.className = 'nav-dot' + (i === current ? ' active' : '');
-    dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-    dot.addEventListener('click', () => goTo(i));
-    dotsContainer.appendChild(dot);
-  }
+const hourlyData = [
+  { hour: '8',  val: 0 },
+  { hour: '9',  val: 0.5 },
+  { hour: '10', val: 1.2 },
+  { hour: '11', val: 2.8 },
+  { hour: '12', val: 8.5 },
+  { hour: '13', val: 15.2 },
+  { hour: '14', val: 22.3 },
+  { hour: '15', val: 18.1 },
+  { hour: '16', val: 12.4 },
+  { hour: '17', val: 15.8 },
+  { hour: '18', val: 58.5 },
+  { hour: '19', val: 118.8 },
+  { hour: '20', val: 88.5 },
+  { hour: '21', val: 45.2 },
+  { hour: '22', val: 18.6 },
+  { hour: '23', val: 8.4 },
+  { hour: '0',  val: 2.8 }
+];
 
-  function goTo(idx) {
-    if (idx < 0 || idx >= totalSlides || idx === current) return;
-    slides[current].classList.remove('active');
-    current = idx;
-    slides[current].classList.add('active');
-    slides[current].scrollTop = 0;
-    updateNav();
-    localStorage.setItem('ak-slide', current);
-    triggerAnimations(slides[current]);
-    animateBars(slides[current]);
-  }
+// ===== Monthly Chart =====
+const chartEl = document.getElementById('monthlyChart');
+const maxVal = Math.max(...monthlyData.map(d => d.value));
+chartEl.innerHTML = monthlyData.map((d, i) => {
+  const pct = (d.value / maxVal * 100);
+  const isLast = i === monthlyData.length - 1;
+  const color = isLast
+    ? 'background: linear-gradient(180deg, var(--borgoña-light), var(--borgoña));'
+    : 'background: linear-gradient(180deg, var(--ámbar), var(--dorado));';
+  return `<div class="bar-col">
+    <div class="bar" style="height:${pct}%;${color}"></div>
+  </div>`;
+}).join('');
 
-  function updateNav() {
-    const dots = dotsContainer.querySelectorAll('.nav-dot');
-    dots.forEach((d, i) => d.classList.toggle('active', i === current));
-    counter.textContent = (current + 1) + ' / ' + totalSlides;
-    navLeft.classList.toggle('hidden', current === 0);
-    navRight.classList.toggle('hidden', current === totalSlides - 1);
-  }
+// ===== Heatmap =====
+const heatmapEl = document.getElementById('heatmapContainer');
+const maxHourly = Math.max(...hourlyData.map(d => d.val));
+const rows = [];
+const days = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 
-  navLeft.addEventListener('click', () => goTo(current - 1));
-  navRight.addEventListener('click', () => goTo(current + 1));
+// Build header
+let headerHtml = '<div class="heatmap-row"><div class="hour-label"></div><div class="cells">';
+days.forEach(d => { headerHtml += `<div style="font-size:8px;font-weight:700;color:var(--ámbar);text-align:center;width:100%;">${d}</div>`; });
+headerHtml += '</div></div>';
 
-  // Keyboard
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+// Build data rows (simulate weekly pattern)
+let bodyHtml = '';
+hourlyData.forEach(h => {
+  const intensity = h.val / maxHourly;
+  bodyHtml += `<div class="heatmap-row"><div class="hour-label">${h.hour}</div><div class="cells">`;
+  days.forEach((d, di) => {
+    // Weekend (S,D) gets higher values, weekday gets slightly less
+    const isWeekend = di >= 5;
+    const dayFactor = isWeekend ? 1.15 : 0.9;
+    const cellIntensity = Math.min(intensity * dayFactor, 1);
+    const r = Math.round(44 + cellIntensity * 168); // 44→212
+    const g = Math.round(42 + cellIntensity * 104); // 42→146
+    const b = Math.round(18 + cellIntensity * 24);   // 18→42
+    const a = 0.15 + cellIntensity * 0.75;
+    const bg = cellIntensity < 0.02
+      ? 'rgba(54,42,34,0.5)'
+      : `rgba(${r},${g},${b},${a})`;
+    bodyHtml += `<div class="heatmap-cell" style="background:${bg};"></div>`;
+  });
+  bodyHtml += '</div></div>';
+});
+
+heatmapEl.innerHTML = headerHtml + bodyHtml;
+
+// ===== Navigation =====
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+let currentSlide = 0;
+let touchStartX = 0;
+let touchStartY = 0;
+let isAnimating = false;
+
+// Create nav dots
+const navDotsEl = document.getElementById('navDots');
+for (let i = 0; i < totalSlides; i++) {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => goToSlide(i));
+  navDotsEl.appendChild(dot);
+}
+
+function goToSlide(n) {
+  if (isAnimating || n === currentSlide || n < 0 || n >= totalSlides) return;
+  isAnimating = true;
+
+  const direction = n > currentSlide ? 1 : -1;
+  const current = slides[currentSlide];
+  const next = slides[n];
+
+  // Remove all state classes
+  slides.forEach(s => {
+    s.classList.remove('active', 'prev');
+    s.style.transform = direction > 0 ? 'translateX(-30%)' : 'translateX(100%)';
+    s.style.opacity = '0';
   });
 
-  // Touch swipe (only at scroll boundaries)
-  let touchStartY = 0, touchStartX = 0;
-  document.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
+  current.classList.add('prev');
+  current.style.transform = direction > 0 ? 'translateX(-30%)' : 'translateX(100%)';
+  current.style.opacity = '0';
 
-  document.addEventListener('touchend', (e) => {
-    const slide = slides[current];
-    const dy = touchStartY - e.changedTouches[0].clientY;
-    const dx = touchStartX - e.changedTouches[0].clientX;
-    const absDy = Math.abs(dy), absDx = Math.abs(dx);
-    if (absDx < 30 && absDy < 30) return; // too small
+  next.classList.add('active');
+  next.style.transform = 'translateX(0)';
+  next.style.opacity = '1';
+  next.scrollTop = 0;
 
-    const atTop = slide.scrollTop <= 5;
-    const atBottom = slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 5;
+  currentSlide = n;
 
-    if (absDy > absDx) { // vertical swipe
-      if (dy > 30 && atBottom) goTo(current + 1);
-      else if (dy < -30 && atTop) goTo(current - 1);
-    } else { // horizontal swipe
-      if (dx > 30) goTo(current - 1);
-      else if (dx < -30) goTo(current + 1);
-    }
-  }, { passive: true });
-
-  // Wheel (only at scroll boundaries)
-  let wheelTimeout;
-  document.addEventListener('wheel', (e) => {
-    clearTimeout(wheelTimeout);
-    wheelTimeout = setTimeout(() => {
-      const slide = slides[current];
-      const atTop = slide.scrollTop <= 5;
-      const atBottom = slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 5;
-      if (e.deltaY > 0 && atBottom) goTo(current + 1);
-      else if (e.deltaY < 0 && atTop) goTo(current - 1);
-    }, 50);
-  }, { passive: true });
-
-  // --- ANIMATED COUNTERS ---
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.counter, 10);
-    if (isNaN(target)) return;
-    const prefix = el.dataset.prefix || '';
-    const suffix = el.dataset.suffix || '';
-    const format = el.dataset.format;
-    const duration = 1200;
-    const start = performance.now();
-
-    function formatNum(n) {
-      if (format === 'short') {
-        if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
-        if (n >= 1000) return (n / 1000).toFixed(0) + 'K';
-        return n.toLocaleString();
-      }
-      return n.toLocaleString();
-    }
-
-    function step(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-      el.textContent = prefix + formatNum(current) + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  // --- ANIMATED BARS ---
-  function animateBars(slide) {
-    // Horizontal CSS bars with data-pct
-    slide.querySelectorAll('.bar-fill[data-pct]').forEach((bar, i) => {
-      bar.style.width = '0%';
-      setTimeout(() => { bar.style.width = bar.dataset.pct + '%'; }, 100 + i * 80);
-    });
-    // SVG bar-anim elements
-    slide.querySelectorAll('.bar-anim').forEach((rect, i) => {
-      const w = parseFloat(rect.dataset.width) || 0;
-      rect.setAttribute('width', '0');
-      setTimeout(() => {
-        rect.setAttribute('width', w);
-      }, 100 + i * 100);
-    });
-    // SVG horizontal bar-anim-h
-    slide.querySelectorAll('.bar-anim-h').forEach((rect, i) => {
-      const w = parseFloat(rect.dataset.width) || 0;
-      rect.setAttribute('width', '0');
-      setTimeout(() => {
-        rect.setAttribute('width', w);
-      }, 100 + i * 100);
-    });
-  }
-
-  // --- ANIMATE ELEMENTS ON SLIDE ENTER ---
-  function triggerAnimations(slide) {
-    // Reset and trigger counters
-    slide.querySelectorAll('[data-counter]').forEach(el => animateCounter(el));
-    // Reset animation classes
-    slide.querySelectorAll('.animate-in, .animate-fade, .animate-scale').forEach(el => {
-      const cls = [...el.classList].find(c => c.startsWith('animate-'));
-      if (cls) {
-        el.classList.remove(cls);
-        void el.offsetWidth; // reflow
-        el.classList.add(cls);
-      }
-    });
-  }
-
-  // --- HEATMAP ---
-  const heatmapData = [
-    { hour: '12:00', vals: ['30K','42K','35K','40K','78K','105K','88K'] },
-    { hour: '14:00', vals: ['28K','35K','38K','45K','586K','170K','115K'] },
-    { hour: '18:00', vals: ['10K','25K','20K','42K','310K','375K','285K'] },
-    { hour: '19:00', vals: ['6K','32K','28K','175K','540K','415K','305K'] },
-    { hour: '20:00', vals: ['3K','20K','16K','115K','285K','345K','275K'] },
-    { hour: '21:00', vals: ['2K','15K','12K','85K','250K','295K','220K'] },
-  ];
-  const heatmapColors = {
-    '2K': '#3A2A1E', '3K': '#3A2A1E', '4K': '#3A2A1E', '6K': '#3E2E20', '8K': '#3E2E20',
-    '10K': '#4A3828', '12K': '#4A3828', '15K': '#5A4830', '16K': '#5A4830',
-    '20K': '#6B5838', '25K': '#7A6340', '28K': '#8A7048', '30K': '#8B7A42',
-    '32K': '#8B7A42', '35K': '#9A8848', '38K': '#A89650', '40K': '#B09A48',
-    '42K': '#B8A24E', '45K': '#C0A64E', '78K': '#C9A94E', '85K': '#C9A94E',
-    '88K': '#C9A94E', '105K': '#C44D63', '115K': '#C44D63', '170K': '#C44D63',
-    '175K': '#C44D63', '220K': '#B8405A', '250K': '#B8405A', '275K': '#A83858',
-    '285K': '#A83858', '295K': '#A83858', '305K': '#983050',
-    '310K': '#983050', '345K': '#983050', '375K': '#882850',
-    '415K': '#C44D63', '540K': '#E06B82', '586K': '#E06B82',
-  };
-
-  function getHeatColor(val) {
-    const num = parseInt(val.replace('K',''), 10);
-    if (num <= 10) return '#3A2A1E';
-    if (num <= 20) return '#4A3828';
-    if (num <= 35) return '#6B5838';
-    if (num <= 50) return '#8B7A42';
-    if (num <= 100) return '#C9A94E';
-    if (num <= 200) return '#C9A94E';
-    if (num <= 300) return '#C44D63';
-    if (num <= 400) return '#B8405A';
-    if (num <= 500) return '#A83858';
-    return '#E06B82';
-  }
-
-  const heatmapEl = document.getElementById('heatmap');
-  // Remove existing data rows (keep header)
-  const existingRows = heatmapEl.querySelectorAll('.hm-row');
-  existingRows.forEach(r => r.remove());
-
-  heatmapData.forEach(row => {
-    const labelCell = document.createElement('div');
-    labelCell.className = 'heatmap-cell heatmap-header';
-    labelCell.style.fontSize = '10px';
-    labelCell.textContent = row.hour;
-    heatmapEl.appendChild(labelCell);
-
-    row.vals.forEach(val => {
-      const cell = document.createElement('div');
-      cell.className = 'heatmap-cell';
-      cell.style.background = getHeatColor(val);
-      cell.style.color = parseInt(val) > 100 ? '#E8DDD0' : (parseInt(val) > 40 ? '#1A1412' : '#A89788');
-      cell.style.borderRadius = '4px';
-      cell.style.fontWeight = parseInt(val) > 200 ? '700' : '500';
-      cell.textContent = '$' + val;
-      // Highlight special cells
-      if (val === '540K') cell.style.boxShadow = '0 0 8px rgba(201,169,78,0.6)';
-      if (val === '586K') cell.style.boxShadow = '0 0 8px rgba(196,77,99,0.6)';
-      if (val === '2K') cell.style.color = '#6B5E52';
-      heatmapEl.appendChild(cell);
-    });
+  // Update nav dots
+  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === currentSlide);
   });
 
-  // --- INIT ---
-  slides.forEach(s => s.classList.remove('active'));
-  slides[current].classList.add('active');
-  updateNav();
-  triggerAnimations(slides[current]);
-  animateBars(slides[current]);
-})();
+  // Update progress bar
+  document.getElementById('progressBar').style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+
+  // Re-trigger animations
+  const animatedEls = next.querySelectorAll('.animate-in');
+  animatedEls.forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight; // trigger reflow
+    el.style.animation = '';
+  });
+
+  setTimeout(() => { isAnimating = false; }, 500);
+}
+
+// Touch/Swipe handling
+const presentation = document.getElementById('presentation');
+presentation.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+presentation.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  // Only trigger on primarily horizontal swipes
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+    if (dx < 0 && currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+    if (dx > 0 && currentSlide > 0) goToSlide(currentSlide - 1);
+  }
+}, { passive: true });
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+  }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (currentSlide > 0) goToSlide(currentSlide - 1);
+  }
+});
+
+// Initialize progress bar
+document.getElementById('progressBar').style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
 </script>
+
 </body>
 </html>
