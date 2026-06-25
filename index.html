@@ -43,19 +43,19 @@
   --slate-grey: #4A6274;  /* Muted: logo page 2 */
 
   /* Accents — rust/terracotta family from logo */
-  --rust: #9B4738;        /* Primary accent: K backdrop EXACT */
-  --rust-red: #A5423A;    /* Secondary: story-tipo borders */
+  --rust: #A0522D;        /* Primary accent: K backdrop EXACT */
+  --rust-red: #A0522D;    /* Secondary: story-tipo borders */
   --ampersand: #A65D4A;   /* Highlight: ampersand from logo p2 */
-  --brick: #B2473D;       /* Danger: mancha roja */
+  --brick: #B24D42;       /* Danger: mancha roja */
   --foxing: #A67B5B;      /* Muted accent: paper foxing spots */
   --oliva: #5C7A4D;       /* Success */
   --oliva-light: #7BA86A;
 
   /* Surfaces — like the logo on paper */
   --card-bg: #F2EBE1;
-  --card-border: rgba(155,71,56,0.2);
+  --card-border: rgba(160,82,45,0.2);
   --card-shadow: 0 2px 8px rgba(52,73,94,0.08);
-  --divider-line: rgba(165,66,58,0.3);
+  --divider-line: rgba(160,82,45,0.3);
 
   /* Semantic tokens — theme-aware */
   --bg: var(--white);
@@ -80,11 +80,11 @@
   --progress-start: var(--rust);
   --progress-mid: var(--ampersand);
   --progress-end: var(--oliva);
-  --bar-gradient: linear-gradient(180deg, #9B4738, #A65D4A);
-  --bar-last: linear-gradient(180deg, #B2473D, #9B4738);
+  --bar-gradient: linear-gradient(180deg, #A0522D, #A65D4A);
+  --bar-last: linear-gradient(180deg, #B24D42, #A0522D);
   --heatmap-cold: #F2EBE1;
   --heatmap-mid: #A67B5B;
-  --heatmap-hot: #9B4738;
+  --heatmap-hot: #A0522D;
 }
 
 /* ===== DARK THEME — flyer palette ===== */
@@ -96,7 +96,7 @@
   --accent: #8C4434;
   --accent-secondary: #E48C04;
   --surface: #161B22;
-  --surface-dark: #1C2128;
+  --surface-dark: #1E2733;
   --border: rgba(140,68,52,0.2);
   --shadow: 0 2px 8px rgba(0,0,0,0.4);
   --k-backdrop-opacity: 0.08;
@@ -191,8 +191,8 @@ html, body {
 [data-theme="dark"] .slide div[style*="color: #2C435B"] {
   color: #F4ECE4 !important;
 }
-[data-theme="dark"] .slide span[style*="color:#9B4738"],
-[data-theme="dark"] .slide div[style*="color:#9B4738"] {
+[data-theme="dark"] .slide span[style*="color:#A0522D"],
+[data-theme="dark"] .slide div[style*="color:#A0522D"] {
   color: #E48C04 !important;
 }
 [data-theme="dark"] .slide span[style*="color:#A65D4A"],
@@ -211,14 +211,14 @@ html, body {
 [data-theme="dark"] .slide div[style*="color: #4A6274"] {
   color: #9BA8B7 !important;
 }
-[data-theme="dark"] .slide span[style*="color:#B2473D"],
-[data-theme="dark"] .slide div[style*="color:#B2473D"],
-[data-theme="dark"] .slide span[style*="color: #B2473D"],
-[data-theme="dark"] .slide div[style*="color: #B2473D"] {
+[data-theme="dark"] .slide span[style*="color:#B24D42"],
+[data-theme="dark"] .slide div[style*="color:#B24D42"],
+[data-theme="dark"] .slide span[style*="color: #B24D42"],
+[data-theme="dark"] .slide div[style*="color: #B24D42"] {
   color: #B24D42 !important;
 }
-[data-theme="dark"] .slide div[style*="background:#9B4738"],
-[data-theme="dark"] .slide div[style*="background: #9B4738"] {
+[data-theme="dark"] .slide div[style*="background:#A0522D"],
+[data-theme="dark"] .slide div[style*="background: #A0522D"] {
   background-color: #8C4434 !important;
 }
 [data-theme="dark"] .slide div[style*="background:#A67B5B"],
@@ -239,11 +239,11 @@ html, body {
 [data-theme="dark"] .slide div[style*="background:linear-gradient(180deg, #34495E"] {
   background: linear-gradient(180deg, #3C4C5C, rgba(60,76,92,0.5)) !important;
 }
-[data-theme="dark"] .slide div[style*="background:linear-gradient(180deg,#9B4738"],
-[data-theme="dark"] .slide div[style*="background:linear-gradient(180deg, #9B4738"] {
+[data-theme="dark"] .slide div[style*="background:linear-gradient(180deg,#A0522D"],
+[data-theme="dark"] .slide div[style*="background:linear-gradient(180deg, #A0522D"] {
   background: linear-gradient(180deg, #8C4434, rgba(140,68,52,0.5)) !important;
 }
-[data-theme="dark"] .slide div[style*="background:linear-gradient(90deg,#9B4738"] {
+[data-theme="dark"] .slide div[style*="background:linear-gradient(90deg,#A0522D"] {
   background: linear-gradient(90deg, #8C4434, #B24D42) !important;
 }
 [data-theme="dark"] .slide div[style*="background:linear-gradient(90deg,#A67B5B"] {
@@ -252,10 +252,10 @@ html, body {
 [data-theme="dark"] .slide div[style*="background:linear-gradient(90deg,#5C7A4D"] {
   background: linear-gradient(90deg, #5C7A4D, #8C4434) !important;
 }
-[data-theme="dark"] .slide div[style*="background:linear-gradient(90deg,transparent,#A5423A"] {
+[data-theme="dark"] .slide div[style*="background:linear-gradient(90deg,transparent,#A0522D"] {
   background: linear-gradient(90deg, transparent, #8C4434, transparent) !important;
 }
-[data-theme="dark"] .slide div[style*="border:1px solid rgba(155,71,56"] {
+[data-theme="dark"] .slide div[style*="border:1px solid rgba(160,82,45"] {
   border-color: rgba(140,68,52,0.3) !important;
 }
 [data-theme="dark"] .slide div[style*="border:1px solid var(--card-border)"],
@@ -271,12 +271,12 @@ html, body {
 [data-theme="dark"] .slide div[style*="border-bottom:2px solid"] {
   border-bottom-color: #8C4434 !important;
 }
-[data-theme="dark"] .slide strong[style*="color:#B2473D"],
-[data-theme="dark"] .slide strong[style*="color: #B2473D"] {
+[data-theme="dark"] .slide strong[style*="color:#B24D42"],
+[data-theme="dark"] .slide strong[style*="color: #B24D42"] {
   color: #B24D42 !important;
 }
-[data-theme="dark"] .slide strong[style*="color:#9B4738"],
-[data-theme="dark"] .slide strong[style*="color: #9B4738"] {
+[data-theme="dark"] .slide strong[style*="color:#A0522D"],
+[data-theme="dark"] .slide strong[style*="color: #A0522D"] {
   color: #E48C04 !important;
 }
 [data-theme="dark"] .slide span[style*="color:#FFF"],
@@ -285,20 +285,20 @@ html, body {
   color: #F4ECE4 !important;
 }
 /* K backdrop letter */
-[data-theme="dark"] .slide div[style*="color:#9B4738;opacity:0.10"],
-[data-theme="dark"] .slide div[style*="color:#9B4738; opacity"] {
+[data-theme="dark"] .slide div[style*="color:#A0522D;opacity:0.10"],
+[data-theme="dark"] .slide div[style*="color:#A0522D; opacity"] {
   color: #E48C04 !important;
   opacity: 0.06 !important;
 }
 /* Bar chart last bar gradient */
-[data-theme="dark"] .slide div[style*="background:linear-gradient(180deg,#B2473D,#9B4738)"] {
+[data-theme="dark"] .slide div[style*="background:linear-gradient(180deg,#B24D42,#A0522D)"] {
   background: linear-gradient(180deg, #B24D42, #8C4434) !important;
 }
 /* Cost bar parchment-dark override */
 [data-theme="dark"] .slide div[style*="background:var(--parchment-dark)"] {
-  background-color: #1C2128 !important;
+  background-color: #1E2733 !important;
 }
-[data-theme="dark"] .slide div[style*="width:1px;background:rgba(165,66,58,0.2)"] {
+[data-theme="dark"] .slide div[style*="width:1px;background:rgba(160,82,45,0.2)"] {
   background: rgba(140,68,52,0.3) !important;
 }
 
@@ -400,7 +400,7 @@ html, body {
 .divider-dotted {
   height: 0;
   margin: 12px 0;
-  border-top: 2px dotted rgba(165,66,58,0.25);
+  border-top: 2px dotted rgba(160,82,45,0.25);
 }
 
 /* ====== KPI CARDS ====== */
@@ -420,7 +420,7 @@ html, body {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: linear-gradient(135deg, rgba(155,71,56,0.03) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(160,82,45,0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 .kpi-card .kpi-label {
@@ -459,7 +459,7 @@ html, body {
   border-radius: 4px;
 }
 .badge-danger {
-  background: rgba(178,71,61,0.12);
+  background: rgba(178,77,66,0.12);
   color: var(--brick);
 }
 .badge-warning {
@@ -541,7 +541,7 @@ html, body {
   align-items: center;
   gap: 12px;
   padding: 10px 0;
-  border-bottom: 1px dashed rgba(155,71,56,0.15);
+  border-bottom: 1px dashed rgba(160,82,45,0.15);
 }
 .rank-item:last-child { border-bottom: none; }
 .rank-num {
@@ -614,7 +614,7 @@ html, body {
   font-family: 'SmithyXT', sans-serif;
   font-weight: 900;
   font-size: 32px;
-  color: rgba(155,71,56,0.06);
+  color: rgba(160,82,45,0.06);
   position: absolute;
   top: 4px; right: 12px;
   line-height: 1;
@@ -832,7 +832,7 @@ html, body {
   <div class="corner-ornament br"></div>
 
   <!-- GIANT K BACKDROP — exact logo K color at 10% opacity on white -->
-  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:'SmithyXT',sans-serif;font-weight:900;font-size:280px;color:#9B4738;opacity:0.10;line-height:1;pointer-events:none;z-index:1;user-select:none;">K</div>
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:'SmithyXT',sans-serif;font-weight:900;font-size:280px;color:#A0522D;opacity:0.10;line-height:1;pointer-events:none;z-index:1;user-select:none;">K</div>
 
   <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;text-align:center;position:relative;z-index:2;">
     <!-- Old Press date stamp -->
@@ -844,13 +844,13 @@ html, body {
     <div class="anim d2" style="margin-top:4px;">
       <span style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:2.8rem;letter-spacing:0.12em;text-transform:uppercase;color:#34495E;opacity:0.7;filter:blur(0.5px);">ATTIC</span>
     </div>
-    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:#9B4738;opacity:1;margin:2px 0;">◆</div>
+    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:#A0522D;opacity:1;margin:2px 0;">◆</div>
     <div class="anim d2">
       <span style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:2.8rem;letter-spacing:0.05em;text-transform:uppercase;color:#34495E;">KELLER</span>
     </div>
 
     <!-- Tagline -->
-    <div class="anim d3" style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:#9B4738;margin-top:12px;">
+    <div class="anim d3" style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:#A0522D;margin-top:12px;">
       ANÁLISIS ESTRATÉGICO
     </div>
 
@@ -864,15 +864,15 @@ html, body {
     <!-- KPI counters — values in rust, labels in slate blue -->
     <div class="anim d5" style="display:flex;gap:24px;margin-top:28px;">
       <div style="text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#9B4738;line-height:1;">$4,047M</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#A0522D;line-height:1;">$4,047M</div>
         <div style="font-family:'Inter',sans-serif;font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#34495E;margin-top:3px;">Ventas</div>
       </div>
       <div style="text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#9B4738;line-height:1;">42</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#A0522D;line-height:1;">42</div>
         <div style="font-family:'Inter',sans-serif;font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#34495E;margin-top:3px;">Colaboradores</div>
       </div>
       <div style="text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#9B4738;line-height:1;">1,660</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#A0522D;line-height:1;">1,660</div>
         <div style="font-family:'Inter',sans-serif;font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#34495E;margin-top:3px;">Cheques Junio</div>
       </div>
     </div>
@@ -901,14 +901,14 @@ html, body {
     </div>
     <div class="kpi-card flex-1">
       <div class="kpi-label">Ventas Junio</div>
-      <div class="kpi-value" style="font-size:1.5rem;color:#B2473D;">$487M</div>
+      <div class="kpi-value" style="font-size:1.5rem;color:#B24D42;">$487M</div>
       <div class="kpi-sub"><span class="badge badge-danger">31.6% caída</span></div>
     </div>
   </div>
 
   <div class="kpi-card anim d3">
     <div class="kpi-label">Nómina / Ventas</div>
-    <div class="kpi-value" style="font-size:1.5rem;color:#B2473D;">21.7%</div>
+    <div class="kpi-value" style="font-size:1.5rem;color:#B24D42;">21.7%</div>
     <div class="kpi-sub">Factor empresa 1.81×</div>
   </div>
 
@@ -924,7 +924,7 @@ html, body {
     <div style="flex:1;text-align:center;font-size:9px;color:#4A6274;text-transform:uppercase;">Mar</div>
     <div style="flex:1;text-align:center;font-size:9px;color:#4A6274;text-transform:uppercase;">Abr</div>
     <div style="flex:1;text-align:center;font-size:9px;color:#4A6274;text-transform:uppercase;">May</div>
-    <div style="flex:1;text-align:center;font-size:9px;color:#B2473D;text-transform:uppercase;font-weight:700;">Jun</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:#B24D42;text-transform:uppercase;font-weight:700;">Jun</div>
   </div>
 </div>
 
@@ -984,9 +984,9 @@ html, body {
     </div>
   </div>
 
-  <div class="kpi-card anim d6" style="margin-top:10px;border-color:rgba(178,71,61,0.25);">
+  <div class="kpi-card anim d6" style="margin-top:10px;border-color:rgba(178,77,66,0.25);">
     <div class="kpi-label">Concentración Top 3</div>
-    <div class="kpi-value" style="font-size:1.5rem;color:#B2473D;">58.7%</div>
+    <div class="kpi-value" style="font-size:1.5rem;color:#B24D42;">58.7%</div>
     <div class="kpi-sub"><span class="badge badge-danger">Alta dependencia</span></div>
   </div>
 </div>
@@ -1003,20 +1003,20 @@ html, body {
     <div class="kpi-label">Distribución del equipo</div>
     <div class="flex-row" style="margin-top:8px;gap:6px;">
       <div style="flex:1;text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#9B4738;line-height:1;">42</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#A0522D;line-height:1;">42</div>
         <div style="font-family:'Inter',sans-serif;font-size:9px;color:#34495E;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Total</div>
       </div>
-      <div style="width:1px;background:rgba(165,66,58,0.2);"></div>
+      <div style="width:1px;background:rgba(160,82,45,0.2);"></div>
       <div style="flex:1;text-align:center;">
         <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#A65D4A;line-height:1;">5</div>
         <div style="font-family:'Inter',sans-serif;font-size:9px;color:#34495E;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Líderes</div>
       </div>
-      <div style="width:1px;background:rgba(165,66,58,0.2);"></div>
+      <div style="width:1px;background:rgba(160,82,45,0.2);"></div>
       <div style="flex:1;text-align:center;">
         <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#34495E;line-height:1;">8</div>
         <div style="font-family:'Inter',sans-serif;font-size:9px;color:#34495E;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Fijos</div>
       </div>
-      <div style="width:1px;background:rgba(165,66,58,0.2);"></div>
+      <div style="width:1px;background:rgba(160,82,45,0.2);"></div>
       <div style="flex:1;text-align:center;">
         <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:#34495E;line-height:1;">33</div>
         <div style="font-family:'Inter',sans-serif;font-size:9px;color:#34495E;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Operativos</div>
@@ -1068,7 +1068,7 @@ html, body {
   <div class="flex-row anim d2" style="margin-bottom:12px;">
     <div class="kpi-card flex-1">
       <div class="kpi-label">Hora Pico</div>
-      <div class="kpi-value" style="font-size:1.5rem;color:#9B4738;">19:00</div>
+      <div class="kpi-value" style="font-size:1.5rem;color:#A0522D;">19:00</div>
       <div class="kpi-sub">$118.8M <span class="badge badge-danger" style="margin-left:4px;">PICO</span></div>
     </div>
     <div class="kpi-card flex-1">
@@ -1086,7 +1086,7 @@ html, body {
 
   <div class="flex-row anim d4" style="margin-top:10px;justify-content:center;gap:12px;">
     <div style="display:flex;align-items:center;gap:4px;">
-      <div style="width:12px;height:12px;border-radius:2px;background:#9B4738;"></div>
+      <div style="width:12px;height:12px;border-radius:2px;background:#A0522D;"></div>
       <span style="font-size:9px;color:#4A6274;">Alto</span>
     </div>
     <div style="display:flex;align-items:center;gap:4px;">
@@ -1094,14 +1094,14 @@ html, body {
       <span style="font-size:9px;color:#4A6274;">Medio</span>
     </div>
     <div style="display:flex;align-items:center;gap:4px;">
-      <div style="width:12px;height:12px;border-radius:2px;background:#F2EBE1;border:1px solid rgba(155,71,56,0.2);"></div>
+      <div style="width:12px;height:12px;border-radius:2px;background:#F2EBE1;border:1px solid rgba(160,82,45,0.2);"></div>
       <span style="font-size:9px;color:#4A6274;">Bajo</span>
     </div>
   </div>
 
-  <div class="kpi-card anim d5" style="margin-top:10px;border-color:rgba(178,71,61,0.25);">
+  <div class="kpi-card anim d5" style="margin-top:10px;border-color:rgba(178,77,66,0.25);">
     <div class="kpi-label">Zona Muerta</div>
-    <div class="kpi-value" style="font-size:1.25rem;color:#B2473D;">2:00 – 8:00</div>
+    <div class="kpi-value" style="font-size:1.25rem;color:#B24D42;">2:00 – 8:00</div>
     <div class="kpi-sub">Sin ventas · 9:00–11:00 casi sin actividad</div>
   </div>
 </div>
@@ -1123,12 +1123,12 @@ html, body {
   <div class="flex-row anim d3" style="margin-top:10px;">
     <div class="kpi-card flex-1">
       <div class="kpi-label">Nómina / Ventas</div>
-      <div class="kpi-value" style="font-size:1.5rem;color:#B2473D;">21.7%</div>
+      <div class="kpi-value" style="font-size:1.5rem;color:#B24D42;">21.7%</div>
       <div class="kpi-sub">Ratio de costo laboral</div>
     </div>
     <div class="kpi-card flex-1">
       <div class="kpi-label">Factor Empresa</div>
-      <div class="kpi-value" style="font-size:1.5rem;color:#9B4738;">1.81×</div>
+      <div class="kpi-value" style="font-size:1.5rem;color:#A0522D;">1.81×</div>
       <div class="kpi-sub">Costo total / salario base</div>
     </div>
   </div>
@@ -1140,17 +1140,17 @@ html, body {
   <!-- Cost bar -->
   <div class="anim d4" style="background:var(--parchment);border:1px solid var(--card-border);border-radius:10px;padding:14px;overflow:hidden;box-shadow:0 2px 8px rgba(52,73,94,0.08);">
     <div style="height:28px;border-radius:4px;overflow:hidden;display:flex;margin-bottom:10px;">
-      <div style="width:21.7%;background:linear-gradient(90deg,#9B4738,#B2473D);height:100%;display:flex;align-items:center;justify-content:center;font-family:'SmithyXT',sans-serif;font-weight:700;font-size:9px;color:#FFF;">21.7%</div>
+      <div style="width:21.7%;background:linear-gradient(90deg,#A0522D,#B24D42);height:100%;display:flex;align-items:center;justify-content:center;font-family:'SmithyXT',sans-serif;font-weight:700;font-size:9px;color:#FFF;">21.7%</div>
       <div style="width:18%;background:linear-gradient(90deg,#A67B5B,#A65D4A);height:100%;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:8px;font-weight:600;color:#FFF;"></div>
       <div style="width:60.3%;background:var(--parchment-dark);height:100%;"></div>
     </div>
 
     <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-family:'Inter',sans-serif;font-size:11px;">
       <div style="display:flex;align-items:center;gap:6px;">
-        <div style="width:10px;height:10px;border-radius:2px;background:#B2473D;"></div>
+        <div style="width:10px;height:10px;border-radius:2px;background:#B24D42;"></div>
         <span style="color:#34495E;">Nómina</span>
       </div>
-      <div style="text-align:right;font-weight:600;color:#B2473D;">21.7% ventas</div>
+      <div style="text-align:right;font-weight:600;color:#B24D42;">21.7% ventas</div>
 
       <div style="display:flex;align-items:center;gap:6px;">
         <div style="width:10px;height:10px;border-radius:2px;background:#A67B5B;"></div>
@@ -1176,7 +1176,7 @@ html, body {
         </div>
       </div>
       <div style="flex:33;display:flex;flex-direction:column;align-items:center;">
-        <div style="width:100%;background:linear-gradient(180deg,#9B4738,rgba(155,71,56,0.5));border-radius:4px 4px 0 0;height:48px;display:flex;align-items:center;justify-content:center;">
+        <div style="width:100%;background:linear-gradient(180deg,#A0522D,rgba(160,82,45,0.5));border-radius:4px 4px 0 0;height:48px;display:flex;align-items:center;justify-content:center;">
           <span style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:16px;color:#FFF;">33</span>
         </div>
       </div>
@@ -1198,25 +1198,25 @@ html, body {
 
   <div class="gap-card g1 anim d2">
     <div class="gap-num">1</div>
-    <div class="gap-title" style="color:#B2473D;">Caída de Junio</div>
+    <div class="gap-title" style="color:#B24D42;">Caída de Junio</div>
     <div class="gap-body">
-      Junio registra $487M vs promedio $712M de Ene-May — una caída del <strong style="color:#B2473D;">31.6%</strong>. Pérdida estimada: <strong style="color:#B2473D;">~$225M</strong> respecto al promedio.
+      Junio registra $487M vs promedio $712M de Ene-May — una caída del <strong style="color:#B24D42;">31.6%</strong>. Pérdida estimada: <strong style="color:#B24D42;">~$225M</strong> respecto al promedio.
     </div>
   </div>
 
   <div class="gap-card g2 anim d3">
     <div class="gap-num">2</div>
-    <div class="gap-title" style="color:#9B4738;">Horas Muertas</div>
+    <div class="gap-title" style="color:#A0522D;">Horas Muertas</div>
     <div class="gap-body">
-      Sin actividad de 2:00–8:00 (6 horas). 9:00–11:00 casi sin movimiento. <strong style="color:#9B4738;">Ocho horas diarias</strong> sin generación de ingresos.
+      Sin actividad de 2:00–8:00 (6 horas). 9:00–11:00 casi sin movimiento. <strong style="color:#A0522D;">Ocho horas diarias</strong> sin generación de ingresos.
     </div>
   </div>
 
   <div class="gap-card g3 anim d3">
     <div class="gap-num">3</div>
-    <div class="gap-title" style="color:#9B4738;">Concentración de Ventas</div>
+    <div class="gap-title" style="color:#A0522D;">Concentración de Ventas</div>
     <div class="gap-body">
-      Top 3 productos = <strong style="color:#9B4738;">58.7%</strong> de las ventas de junio. Dependencia extrema. Si un plato falla, el restaurante se afecta significativamente.
+      Top 3 productos = <strong style="color:#A0522D;">58.7%</strong> de las ventas de junio. Dependencia extrema. Si un plato falla, el restaurante se afecta significativamente.
     </div>
   </div>
 
@@ -1230,9 +1230,9 @@ html, body {
 
   <div class="gap-card g5 anim d5">
     <div class="gap-num">5</div>
-    <div class="gap-title" style="color:#9B4738;">Pico Nocturno Desbalanceado</div>
+    <div class="gap-title" style="color:#A0522D;">Pico Nocturno Desbalanceado</div>
     <div class="gap-body">
-      19h concentra $118.8M (24.4% del día). Solo 3 horas (18–20h) generan el <strong style="color:#9B4738;">54.6%</strong> de la facturación. El resto del día es marginal.
+      19h concentra $118.8M (24.4% del día). Solo 3 horas (18–20h) generan el <strong style="color:#A0522D;">54.6%</strong> de la facturación. El resto del día es marginal.
     </div>
   </div>
 
@@ -1240,12 +1240,12 @@ html, body {
   <div class="anim d6" style="margin-top:12px;background:var(--parchment);border:1px solid var(--card-border);border-radius:10px;padding:14px;box-shadow:0 2px 8px rgba(52,73,94,0.08);">
     <div class="slide-label" style="font-size:0.6875rem;margin-bottom:8px;">BRECHA JUNIO vs PROMEDIO</div>
     <div style="position:relative;height:24px;background:var(--parchment-dark);border-radius:12px;overflow:hidden;">
-      <div style="position:absolute;left:0;top:0;height:100%;width:68.4%;background:linear-gradient(90deg,#5C7A4D,#9B4738);border-radius:12px 0 0 12px;"></div>
-      <div style="position:absolute;left:68.4%;top:0;height:100%;width:31.6%;background:linear-gradient(90deg,#B2473D,rgba(178,71,61,0.4));border-radius:0 12px 12px 0;"></div>
+      <div style="position:absolute;left:0;top:0;height:100%;width:68.4%;background:linear-gradient(90deg,#5C7A4D,#A0522D);border-radius:12px 0 0 12px;"></div>
+      <div style="position:absolute;left:68.4%;top:0;height:100%;width:31.6%;background:linear-gradient(90deg,#B24D42,rgba(178,77,66,0.4));border-radius:0 12px 12px 0;"></div>
     </div>
     <div style="display:flex;justify-content:space-between;margin-top:6px;font-family:'Inter',sans-serif;font-size:9px;">
-      <span style="color:#9B4738;">$487M junio (68.4%)</span>
-      <span style="color:#B2473D;">-$225M gap (31.6%)</span>
+      <span style="color:#A0522D;">$487M junio (68.4%)</span>
+      <span style="color:#B24D42;">-$225M gap (31.6%)</span>
     </div>
   </div>
 </div>
@@ -1262,15 +1262,15 @@ html, body {
     <div class="proposal-num">I</div>
     <div class="proposal-title" style="color:#34495E;">Menú de Almuerzo Ejecutivo</div>
     <div class="proposal-body">
-      Aprovechar las horas muertas 11:30–14:00 con menú ejecutivo a precio accesible. Objetivo: captar <strong style="color:#9B4738;">$50–80M adicionales</strong> en zona actualmente inactiva.
+      Aprovechar las horas muertas 11:30–14:00 con menú ejecutivo a precio accesible. Objetivo: captar <strong style="color:#A0522D;">$50–80M adicionales</strong> en zona actualmente inactiva.
     </div>
   </div>
 
   <div class="proposal-card pii anim d3">
     <div class="proposal-num">II</div>
-    <div class="proposal-title" style="color:#9B4738;">Diversificar Cartera de Productos</div>
+    <div class="proposal-title" style="color:#A0522D;">Diversificar Cartera de Productos</div>
     <div class="proposal-body">
-      Reducir dependencia del top 3. Desarrollar 2–3 platos estrella nuevos con margen alto. Meta: bajar concentración de 58.7% a <strong style="color:#B2473D;">&lt;45%</strong>.
+      Reducir dependencia del top 3. Desarrollar 2–3 platos estrella nuevos con margen alto. Meta: bajar concentración de 58.7% a <strong style="color:#B24D42;">&lt;45%</strong>.
     </div>
   </div>
 
@@ -1284,9 +1284,9 @@ html, body {
 
   <div class="proposal-card piv anim d5">
     <div class="proposal-num">IV</div>
-    <div class="proposal-title" style="color:#B2473D;">Programa de Fidelización Nocturna</div>
+    <div class="proposal-title" style="color:#B24D42;">Programa de Fidelización Nocturna</div>
     <div class="proposal-body">
-      El pico 19–20h ya es fuerte. Crear programa de loyalty para extender la estancia: happy hour 21–22h, cocktails posteriores. Objetivo: <strong style="color:#9B4738;">+15% revenue en horario 21–23h</strong>.
+      El pico 19–20h ya es fuerte. Crear programa de loyalty para extender la estancia: happy hour 21–22h, cocktails posteriores. Objetivo: <strong style="color:#A0522D;">+15% revenue en horario 21–23h</strong>.
     </div>
   </div>
 
@@ -1295,7 +1295,7 @@ html, body {
     <div class="divider" style="width:80px;margin:0 auto 12px;"></div>
     <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.05em;text-transform:uppercase;color:#34495E;margin-bottom:2px;">
       <span style="opacity:0.7;filter:blur(0.5px);letter-spacing:0.12em;">ATTIC</span>
-      <span style="opacity:1;margin:0 4px;color:#9B4738;">◆</span>
+      <span style="opacity:1;margin:0 4px;color:#A0522D;">◆</span>
       <span>KELLER</span>
     </div>
     <div style="font-family:'OldPress',serif;font-size:10px;color:#2C435B;letter-spacing:0.2em;text-transform:uppercase;">est. 2024</div>
@@ -1353,8 +1353,8 @@ chartEl.innerHTML = monthlyData.map((d, i) => {
   const pct = (d.value / maxVal * 100);
   const isLast = i === monthlyData.length - 1;
   const bg = isLast
-    ? 'background:linear-gradient(180deg, #B2473D, #9B4738);'
-    : 'background:linear-gradient(180deg, #9B4738, #A65D4A);';
+    ? 'background:linear-gradient(180deg, #B24D42, #A0522D);'
+    : 'background:linear-gradient(180deg, #A0522D, #A65D4A);';
   return `<div class="bar-col">
     <div class="bar" style="height:${pct}%;${bg}"></div>
   </div>`;
