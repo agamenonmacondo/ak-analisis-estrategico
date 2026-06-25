@@ -248,12 +248,40 @@ All 4 flyers share: **deep black background**, **warm cream text**, and **rust/t
 - Logo text: **Flyer Cream `#F4ECE4`** (cal) or **White `#FFFFFF`** — matches Logo 4 (white on black)
 - Logo accent (K shape, &): **Rust `#8C4434`** or **Amber `#E48C04`**
 
-**Light theme (emails, print, formal documents):**
+**Light theme (app light mode, emails, print):**
 - Logo text: **Slate Blue `#34495E`** — matches Logos 1 & 2
-- Logo accent (K shape, &): **Rust Red `#A0522D`** or **Rust `#9A4335`**
-- Background: **Cream `#F7F3E9`** or **White**
+- Logo accent (K shape, &): **Rust `#9A4335`** (K backdrop) or **Ampersand Rust `#A65D4A`**
+- Background: **Cream `#F7F3E9`** (primary bg) or **White `#FFFFFF`** (cards)
+- Text primary: **Slate Blue `#34495E`**
+- Text secondary: **Slate Blue-Grey `#4A6274`** (Logo 2)
+- Text muted: **`#6B7B8D`**
+- Borders: **Rust `rgba(154,67,53,0.2)`**
+- Shadows: **Slate-blue `rgba(52,73,94,0.08)`**
+- Danger: **Brick Red `#B2473D`** (mancha roja)
+- Accent: **Rust `#9A4335`** (K backdrop from Logo 1)
 
 **Never mix**: Do not use slate-blue (#34495E) in dark theme, or flyer-cream (#F4ECE4) in light theme logos.
+
+### CSS Variable Mapping (light ↔ dark)
+
+| Variable | Light (logo palette) | Dark (flyer palette) |
+|----------|----------------------|---------------------|
+| `--bg-primary` | `#F7F3E9` cream | `#0D1015` night |
+| `--bg-card` | `#FFFFFF` white | `#161B22` night-card |
+| `--bg-input` | `#F2EBE1` parchment | `#1E2733` night-input |
+| `--text-primary` | `#34495E` slate-blue | `#F4ECE4` cream |
+| `--text-secondary` | `#4A6274` slate-grey | `#9BA8B7` muted |
+| `--text-muted` | `#6B7B8D` | `#6B7B8D` |
+| `--accent-primary` | `#9A4335` logo rust | `#E48C04` amber |
+| `--color-accent` | `#9A4335` logo rust | `#E48C04` amber |
+| `--color-danger` | `#B2473D` brick red | `#EF5350` |
+| `--border-default` | `rgba(154,67,53,0.2)` | `#2D3748` |
+| `--shadow-sm` | `rgba(52,73,94,0.08)` | `rgba(0,0,0,0.4)` |
+| `--color-ak-madera` | `#34495E` slate-blue | `#9BA8B7` steel |
+| `--color-ak-cal` | `#34495E` slate-blue | `#F4ECE4` cream |
+| `--color-ak-borgona` | `#9A4335` logo rust | `#8C4434` flyer rust |
+| `--color-ak-carbon` | `#34495E` slate-blue | `#0D1015` night |
+| `--color-ak-ladrillo` | `#A65D4A` ampersand rust | `#A0522D` |
 
 ### Accent Relationships
 
@@ -404,6 +432,8 @@ Title in SmithyXT Heavy uppercase, body in Inter.
 - Include the "K" backdrop letter in RUST on the portada slide
 - Use cream (#F4ECE4) or white (#FFFFFF) for logo text in dark theme
 - Use slate-blue (#34495E) for logo text in light theme only
+- **HOME DARK-FIRST**: The home page (`page.tsx`) is ALWAYS dark — wrapped in `<div className="dark">`. Logo, hero, navbar, and footer use night/cream/rust palette unconditionally. No light-mode fallbacks on home.
+- Logo dual identity: ATTIC = SmithyXT Heavy (700) at opacity 0.6 + wider letter-spacing (0.08em). KELLER = SmithyXT VeryHeavy (900) full opacity. ◆ diamond in gold (#FCCC04) between them.
 
 ### Don't
 - Never use SmithyXT below 14px — it becomes illegible noise
