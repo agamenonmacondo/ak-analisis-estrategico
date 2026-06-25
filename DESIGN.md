@@ -1,16 +1,19 @@
 ---
-version: "2.0"
+version: "2.1"
 name: Attick & Keller Brand
-description: "Dark premium grunge — the dual identity of ATTIC (raw, distressed) and KELLER (clean, refined). Built from the actual A&K flyers: deep black backgrounds, warm cream text, rust/terracotta accents, and golden amber highlights. SmithyXT typography, grunge textures, and the signature K backdrop."
+description: "Dark premium grunge — the dual identity of ATTIC (raw, distressed) and KELLER (clean, refined). Built from the actual A&K logos and flyers: deep black backgrounds, warm cream text, rust/terracotta accents, and golden amber highlights. SmithyXT typography, grunge textures, and the signature K backdrop."
 colors:
-  # — Core brand (from logos) —
+  # — Logo colors (from actual logo files, pixel analysis) —
+  # Logo 1 (K backdrop, white bg): text slate-blue #34495E, K shape rust #9A4335
+  # Logo 2 (two-tone, white bg): ATTIC & KELLER slate-blue #34495E, & rust #A65D4A
+  # Logo 3 (black on white): black text #000000
+  # Logo 4 (white on black): white text #FFFFFF
   slate-blue: "#34495E"
   rust-red: "#A0522D"
   brick-red: "#B24D42"
   cream-logo: "#F7F3E9"
   parchment: "#F2EBE1"
-  # — Flyer palette (from 4 actual flyers, pixel analysis) —
-  # These are the REAL colors used in production flyers
+  # — Flyer palette (from 4 production flyers, pixel analysis) —
   flyer-black: "#0D1015"
   flyer-card: "#161B22"
   flyer-cream: "#F4ECE4"
@@ -18,7 +21,7 @@ colors:
   flyer-amber: "#E48C04"
   flyer-gold: "#FCCC04"
   flyer-steel: "#3C4C5C"
-  flyer-muted: "#6B7B8D"
+  flyer-muted: "#9BA8B7"
   # — Dark theme (from flyers, primary palette) —
   night: "#0D1015"
   night-card: "#161B22"
@@ -32,7 +35,7 @@ colors:
   amber: "#E48C04"
   amber-light: "#F0A030"
   gold: "#FCCC04"
-  gold-dim: "#C9A94E"
+  gold-dim: "#E48C04"
   borgona: "#B24D42"
   oliva: "#5C7A4D"
   # — Muted brand (from story-tipo flyer) —
@@ -157,7 +160,7 @@ components:
   bar-fill:
     background: "linear-gradient(90deg, {colors.rust}, {colors.amber})"
   bar-fill-gold:
-    background: "linear-gradient(90deg, {colors.gold-dim}, {colors.gold})"
+    background: "linear-gradient(90deg, {colors.amber}, {colors.gold})"
   badge:
     borderRadius: "{rounded.sm}"
     padding: "2px 8px"
@@ -189,7 +192,6 @@ components:
     opacity: "0.04"
     pointerEvents: none
     mixBlendMode: overlay
-
 ---
 
 ## Overview
@@ -200,7 +202,18 @@ The brand draws from vintage industrial signage, distressed print ephemera, and 
 
 ## Source of Truth
 
-Colors are extracted from **4 actual A&K production flyers** via pixel analysis:
+Colors are extracted from **4 actual A&K production flyers** and **4 logo variants** via pixel analysis:
+
+### Logo Colors (from ak_brand_kit.json + pixel analysis)
+
+| Logo | Background | Text Color | Accent Color | Notes |
+|------|-----------|------------|--------------|-------|
+| Logo 1 (K backdrop) | White `#FFFFFF` | Slate Blue `#34495E` | Rust `#9A4335` (K shape) | Full vertical logo with K |
+| Logo 2 (two-tone) | White `#FFFFFF` | Slate Blue `#4A6274` | Rust `#A65D4A` (& only) | ATTIC grunge vs KELLER clean |
+| Logo 3 (black on white) | White `#FFFFFF` | Black `#000000` | — | Monochrome, grunge vs clean |
+| Logo 4 (white on black) | Black `#000000` | White `#FFFFFF` | — | Dark variant, inverted |
+
+### Flyer Colors (from 4 production flyers)
 
 | Flyer | Background | Primary Accent | Secondary Accent |
 |-------|-----------|---------------|-----------------|
@@ -229,11 +242,18 @@ All 4 flyers share: **deep black background**, **warm cream text**, and **rust/t
 - **Borgoña `#B24D42`**: Brick red from the grunge texture. Danger, alerts, negative metrics. More saturated than rust.
 - **Oliva `#5C7A4D`**: Aged olive green. Success, positive metrics.
 
-### Logo Colors (for light contexts only)
+### Logo Colors (context-dependent)
 
-- **Slate Blue `#34495E`**: Logo text color. Only used in light-theme contexts or formal documents, NOT in the dark flyer aesthetic.
-- **Rust Red `#A0522D`**: The K-backdrop from logos. Lighter than the flyer rust — use only on cream/light backgrounds.
-- **Cream `#F7F3E9`**: Logo background paper. Only for light theme, NOT the dark flyer palette.
+**Dark theme (primary — flyers, app, dashboards):**
+- Logo text: **Flyer Cream `#F4ECE4`** (cal) or **White `#FFFFFF`** — matches Logo 4 (white on black)
+- Logo accent (K shape, &): **Rust `#8C4434`** or **Amber `#E48C04`**
+
+**Light theme (emails, print, formal documents):**
+- Logo text: **Slate Blue `#34495E`** — matches Logos 1 & 2
+- Logo accent (K shape, &): **Rust Red `#A0522D`** or **Rust `#9A4335`**
+- Background: **Cream `#F7F3E9`** or **White**
+
+**Never mix**: Do not use slate-blue (#34495E) in dark theme, or flyer-cream (#F4ECE4) in light theme logos.
 
 ### Accent Relationships
 
@@ -267,6 +287,7 @@ SmithyXT is the **identity font family**. It's a condensed sans-serif with grung
 4. **Body text is always Inter** — never SmithyXT or Old Press for paragraphs
 5. **The ATTIC/KELLER contrast**: When both words appear together, ATTIC uses Faded (opacity 0.6, wider letter-spacing), KELLER uses Heavy/VeryHeavy — this is the brand's signature dual identity
 6. **Limit to 3 fonts per slide**: SmithyXT (display) + Inter (body) + Caveat or Old Press (accent, pick one)
+7. **Logo text**: SmithyXT Heavy or VeryHeavy. Dark theme = cream/white. Light theme = slate-blue.
 
 ## Layout & Spacing
 
@@ -314,7 +335,7 @@ The grunge texture from the brand assets is applied as a **4% opacity overlay** 
 - **Border radius**: Cards use `10px`, badges `4px`, buttons `8px`
 - **Ornaments**: The ◆ diamond separator is the brand's signature divider. Used between title and content, between sections, and in the portada. Color: GOLD `#FCCC04`.
 - **Corner ornaments**: Decorative corner brackets `┌ ┐ └ ┘` in amber at `opacity: 0.3` on key cards
-- **Bar fills**: Always gradients, never flat colors. Rust-to-amber uses `linear-gradient(90deg, #8C4434, #E48C04)`. Gold uses `linear-gradient(90deg, #C9A94E, #FCCC04)`.
+- **Bar fills**: Always gradients, never flat colors. Rust-to-amber uses `linear-gradient(90deg, #8C4434, #E48C04)`. Gold uses `linear-gradient(90deg, #E48C04, #FCCC04)`.
 - **Dividers**: `1px solid` with `linear-gradient(90deg, transparent, #2D3748, transparent)` — mimics the subtle stitching lines in the brand flyer
 
 ## Components
@@ -381,6 +402,8 @@ Title in SmithyXT Heavy uppercase, body in Inter.
 - Use AMBER (#E48C04) for KPI values and section labels
 - Use GOLD (#FCCC04) sparingly for hero numbers and ornaments
 - Include the "K" backdrop letter in RUST on the portada slide
+- Use cream (#F4ECE4) or white (#FFFFFF) for logo text in dark theme
+- Use slate-blue (#34495E) for logo text in light theme only
 
 ### Don't
 - Never use SmithyXT below 14px — it becomes illegible noise
@@ -392,4 +415,5 @@ Title in SmithyXT Heavy uppercase, body in Inter.
 - Never remove the texture overlay — it's the brand's signature
 - Never use Playfair Display for A&K branded materials — SmithyXT is the identity font
 - Never use GOLD (#FCCC04) as primary accent — it's for emphasis/ornaments only, not headings
-- Never use cream-logo (#F7F3E9) or slate-blue (#34495E) in the dark flyer theme — those are logo/light-theme colors
+- Never use cream-logo (#F7F3E9) or slate-blue (#34495E) in the dark flyer theme — those are light-theme/logo colors
+- Never use DM Sans — Inter is the body font, SmithyXT is the identity font
