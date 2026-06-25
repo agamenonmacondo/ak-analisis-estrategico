@@ -1,35 +1,44 @@
 ---
-version: alpha
+version: "2.0"
 name: Attick & Keller Brand
-description: "Vintage industrial grunge meets premium dark analytics — the dual identity of ATTIC (raw, distressed) and KELLER (clean, refined). Inspired by the official A&K brand assets: SmithyXT typography, rust/terracotta accents, and stippled grunge textures."
+description: "Dark premium grunge — the dual identity of ATTIC (raw, distressed) and KELLER (clean, refined). Built from the actual A&K flyers: deep black backgrounds, warm cream text, rust/terracotta accents, and golden amber highlights. SmithyXT typography, grunge textures, and the signature K backdrop."
 colors:
   # — Core brand (from logos) —
   slate-blue: "#34495E"
   rust-red: "#A0522D"
   brick-red: "#B24D42"
-  cream: "#F7F3E9"
+  cream-logo: "#F7F3E9"
   parchment: "#F2EBE1"
-  # — Dark theme (analytics UI) —
-  night: "#1A1412"
-  night-card: "#2C2018"
-  night-input: "#362A22"
-  night-border: "#4A3A30"
-  night-text: "#E8DDD0"
-  night-muted: "#A89788"
-  # — Accents —
-  gold: "#C9A94E"
-  gold-dim: "#9A7B2E"
-  borgona: "#C44D63"
-  borgona-light: "#E06B82"
+  # — Flyer palette (from 4 actual flyers, pixel analysis) —
+  # These are the REAL colors used in production flyers
+  flyer-black: "#0D1015"
+  flyer-card: "#161B22"
+  flyer-cream: "#F4ECE4"
+  flyer-rust: "#8C4434"
+  flyer-amber: "#E48C04"
+  flyer-gold: "#FCCC04"
+  flyer-steel: "#3C4C5C"
+  flyer-muted: "#6B7B8D"
+  # — Dark theme (from flyers, primary palette) —
+  night: "#0D1015"
+  night-card: "#161B22"
+  night-input: "#1E2733"
+  night-border: "#2D3748"
+  night-text: "#F4ECE4"
+  night-muted: "#9BA8B7"
+  # — Accents (from flyers) —
+  rust: "#8C4434"
+  rust-light: "#A05840"
+  amber: "#E48C04"
+  amber-light: "#F0A030"
+  gold: "#FCCC04"
+  gold-dim: "#C9A94E"
+  borgona: "#B24D42"
   oliva: "#5C7A4D"
-  oliva-light: "#7BA86A"
-  ambar: "#D4922A"
-  ambar-light: "#E8A840"
   # — Muted brand (from story-tipo flyer) —
-  navy-flyer: "#2C435B"
-  rust-flyer: "#A5423A"
+  navy: "#2C435B"
+  navy-light: "#3C5A7A"
   foxing: "#A67B5B"
-  ink-black: "#1E1E1E"
 typography:
   display:
     fontFamily: SmithyXT
@@ -101,13 +110,13 @@ spacing:
   slide-padding: "24px 20px 100px"
 elevation:
   card:
-    boxShadow: "0 2px 8px rgba(0,0,0,0.3)"
-    border: "1px solid rgba(201,169,78,0.12)"
+    boxShadow: "0 2px 12px rgba(0,0,0,0.4)"
+    border: "1px solid rgba(140,68,52,0.2)"
   card-hover:
-    boxShadow: "0 8px 24px rgba(0,0,0,0.5)"
+    boxShadow: "0 8px 32px rgba(0,0,0,0.6)"
   kpi-hero:
-    boxShadow: "0 4px 20px rgba(201,169,78,0.15)"
-    border: "1px solid rgba(201,169,78,0.25)"
+    boxShadow: "0 4px 20px rgba(228,140,4,0.12)"
+    border: "1px solid rgba(228,140,4,0.25)"
 components:
   slide:
     backgroundColor: "{colors.night}"
@@ -118,10 +127,10 @@ components:
     fontFamily: SmithyXT
     fontWeight: "700"
     fontSize: "1.375rem"
-    color: "{colors.gold}"
+    color: "{colors.amber}"
     letterSpacing: "0.05em"
     textTransform: uppercase
-    borderBottom: "2px solid {colors.gold}"
+    borderBottom: "2px solid {colors.rust}"
     paddingBottom: "8px"
   slide-subtitle:
     fontFamily: Caveat
@@ -131,23 +140,23 @@ components:
     backgroundColor: "{colors.night-card}"
     borderRadius: "{rounded.card}"
     padding: "12px"
-    border: "1px solid rgba(201,169,78,0.12)"
+    border: "1px solid rgba(140,68,52,0.2)"
     boxShadow: "{elevation.card.boxShadow}"
   kpi-card-hover:
     transform: "translateY(-2px)"
     boxShadow: "{elevation.card-hover.boxShadow}"
-  kpi-value-gold:
-    color: "{colors.gold}"
+  kpi-value-amber:
+    color: "{colors.amber}"
     fontFamily: SmithyXT
     fontWeight: "900"
     fontSize: "2rem"
-  kpi-value-borgona:
-    color: "{colors.borgona}"
+  kpi-value-rust:
+    color: "{colors.rust-light}"
   kpi-value-green:
     color: "{colors.oliva}"
   bar-fill:
-    background: "linear-gradient(90deg, {colors.rust-red}, {colors.ambar})"
-  bar-fill-alt:
+    background: "linear-gradient(90deg, {colors.rust}, {colors.amber})"
+  bar-fill-gold:
     background: "linear-gradient(90deg, {colors.gold-dim}, {colors.gold})"
   badge:
     borderRadius: "{rounded.sm}"
@@ -157,27 +166,27 @@ components:
     letterSpacing: "0.05em"
     textTransform: uppercase
   badge-danger:
-    backgroundColor: "rgba(196,77,99,0.15)"
+    backgroundColor: "rgba(178,77,66,0.15)"
     color: "{colors.borgona}"
   badge-success:
-    backgroundColor: "rgba(93,184,122,0.15)"
-    color: "{colors.oliva-light}"
+    backgroundColor: "rgba(92,122,77,0.15)"
+    color: "#7BA86A"
   badge-warning:
-    backgroundColor: "rgba(212,146,42,0.15)"
-    color: "{colors.ambar-light}"
+    backgroundColor: "rgba(228,140,4,0.15)"
+    color: "{colors.amber-light}"
   badge-info:
-    backgroundColor: "rgba(90,158,196,0.15)"
+    backgroundColor: "rgba(60,76,92,0.2)"
     color: "{colors.night-muted}"
   divider:
     height: "1px"
     background: "linear-gradient(90deg, transparent, {colors.night-border}, transparent)"
     margin: "12px 0"
   ornament:
-    color: "{colors.gold}"
+    color: "{colors.amber}"
     fontSize: "0.625rem"
     letterSpacing: "0.3em"
   texture-overlay:
-    opacity: "0.03"
+    opacity: "0.04"
     pointerEvents: none
     mixBlendMode: overlay
 
@@ -187,33 +196,52 @@ components:
 
 **Attick & Keller** is a restaurant and bar brand defined by dual identity: **ATTIC** (raw, distressed, vintage) vs **KELLER** (clean, refined, modern). This tension — rough vs smooth, old vs new — is the core of every visual decision.
 
-The brand draws from vintage industrial signage, distressed print ephemera, and the warmth of aged leather and rusted metal. In the analytics context, this translates to a **dark premium** aesthetic: warm brown-blacks, gold and borgoña accents, SmithyXT headings, and grunge texture overlays that make data feel like it belongs in a leather-bound ledger, not a SaaS dashboard.
+The brand draws from vintage industrial signage, distressed print ephemera, and the warmth of aged leather and rusted metal. The visual identity is **dark premium**: deep black backgrounds, warm cream text, rust/terracotta and amber accents, SmithyXT headings, and grunge texture overlays that make data feel like it belongs in a leather-bound ledger, not a SaaS dashboard.
+
+## Source of Truth
+
+Colors are extracted from **4 actual A&K production flyers** via pixel analysis:
+
+| Flyer | Background | Primary Accent | Secondary Accent |
+|-------|-----------|---------------|-----------------|
+| Flyer 1 | `#0D1015` black | `#8C4434` rust/terracotta | `#FCCC04` gold |
+| Flyer 2 | `#090C11` black | `#84443C` rust | `#3C4C5C` steel blue |
+| Flyer 3 | `#090C11` black | `#E48C04` amber (dominant) | `#B07050` warm brown |
+| Flyer 4 | `#0B0E13` black | `#8C4434` rust | `#FCDC04` gold |
+
+All 4 flyers share: **deep black background**, **warm cream text**, and **rust/terracotta** as primary accent. Gold/amber appears in 3 of 4 as secondary accent.
 
 ## Colors
 
-### Brand Core (from official logos)
+### Primary Palette (from flyers)
 
-- **Slate Blue `#34495E`**: The text color of ATTIC & KELLER in the logo. Deep blue-grey with authority. Used for headings in light themes and as a secondary accent in dark mode.
-- **Rust Red `#A0522D`**: The signature K-backdrop color. Terracotta, earthy, warm. This is the primary brand accent — the color of aged brick, leather, and candlelight.
-- **Brick Red `#B24D42`**: The stippled grunge texture from `mancha roja.jpg`. More saturated than Rust Red, used for hover states, danger badges, and emphasis.
-- **Cream `#F7F3E9`**: Vintage paper background from `fondo-story.jpg`. The light theme foundation — warm, aged, inviting.
+- **Flyer Black `#0D1015`**: The deep blue-black base from all 4 flyers. Not pure black — slightly cool, like night sky with a hint of navy. This is the foundation.
+- **Flyer Cream `#F4ECE4`**: Warm off-white for all text. Not pure white — cream, like aged parchment. Easy on the eyes against the dark background.
+- **Rust `#8C4434`**: The primary accent from the flyers. Terracotta, warm leather, aged brick. The K-backdrop color darkened for dark backgrounds. Used for headings, borders, bar fills, the K letter.
+- **Amber `#E48C04`**: The golden accent from Flyer 3. Warm amber, firelight. Used for KPI values, interactive highlights, section labels.
+- **Gold `#FCCC04`**: Bright gold from Flyers 1 & 4. For emphasis, sparkle, the "candlelight on brass" effect. Used sparingly for hero numbers and decorative accents.
 
-### Dark Analytics Palette
+### Secondary Palette
 
-- **Night `#1A1412`**: The deep brown-black base. Not pure black — warmer, like dark wood.
-- **Night Card `#2C2018`**: Elevated surfaces, cards, panels. Warm brown.
-- **Night Text `#E8DDD0`**: Warm off-white for body text. Easy on the eyes.
-- **Gold `#C9A94E`**: Primary interactive accent. The color of candlelight on brass.
-- **Borgoña `#C44D63`**: Secondary accent, danger, alerts. Wine red.
-- **Ámbar `#D4922A`**: Warning, warmth, heat maps. Amber firelight.
-- **Oliva `#5C7A4D`**: Success, positive metrics. Aged olive green.
+- **Flyer Card `#161B22`**: Elevated surfaces. Slightly lighter than the base black, with a cool undertone. Cards, panels, elevated sections.
+- **Flyer Steel `#3C4C5C`**: Cool blue-steel from Flyer 2. Secondary text, muted labels, info badges. Like the slate-blue from the logos, darkened for dark backgrounds.
+- **Flyer Muted `#9BA8B7`**: Muted blue-grey for secondary text and context. Between steel and cream.
+- **Borgoña `#B24D42`**: Brick red from the grunge texture. Danger, alerts, negative metrics. More saturated than rust.
+- **Oliva `#5C7A4D`**: Aged olive green. Success, positive metrics.
+
+### Logo Colors (for light contexts only)
+
+- **Slate Blue `#34495E`**: Logo text color. Only used in light-theme contexts or formal documents, NOT in the dark flyer aesthetic.
+- **Rust Red `#A0522D`**: The K-backdrop from logos. Lighter than the flyer rust — use only on cream/light backgrounds.
+- **Cream `#F7F3E9`**: Logo background paper. Only for light theme, NOT the dark flyer palette.
 
 ### Accent Relationships
 
-- Gold is **always** the primary accent for interactive elements and headings
-- Borgoña is for **alerts, danger, negative metrics** — never as decorative accent
-- Ámbar sits between gold and borgoña — **warning, heat, caution**
-- Oliva is **success only** — never for decoration
+- **Rust** is the **primary accent** — headings, borders, the K letter, bar fill start, proposal borders
+- **Amber** is the **secondary accent** — KPI values, section labels, interactive highlights, bar fill end
+- **Gold** is **emphasis only** — hero numbers, sparkle accents, the ◆ ornament
+- **Borgoña** is for **danger/negative** — alerts, gaps, losses. Never decorative.
+- **Oliva** is for **success/positive** — growth, good metrics. Never decorative.
 
 ## Typography
 
@@ -224,7 +252,7 @@ SmithyXT is the **identity font family**. It's a condensed sans-serif with grung
 - **SmithyXT-VeryHeavy (900)**: Hero KPI values, portada titles, slide numbers. The heaviest, most impactful weight.
 - **SmithyXT-Heavy (700)**: Slide titles, section headings, badge labels. The workhorse.
 - **SmithyXT-Faded**: The ATTIC voice — distressed, weathered. Used sparingly for decorative labels, era stamps, or the word "ATTIC" when contrast with clean "KELLER" is needed.
-- **Old Press**: Distressed serif. For decorative accent text only — "est. 2024", location stamps, or handwritten-style asides. Never for data labels or body text.
+- **Old Press**: Distressed serif. For decorative accent text only — "est. 2024", location stamps. Never for data labels or body text.
 
 ### Body and Accent Fonts
 
@@ -234,10 +262,10 @@ SmithyXT is the **identity font family**. It's a condensed sans-serif with grung
 ### Typography Rules
 
 1. **Never use SmithyXT below 14px** — the grunge detail becomes noise at small sizes
-2. **Headings are always SmithyXT Heavy, uppercase, gold, with letter-spacing 0.05em**
-3. **KPI values are always SmithyXT VeryHeavy, large (2rem+), white or gold**
+2. **Headings are always SmithyXT Heavy, uppercase, AMBER, with letter-spacing 0.05em**
+3. **KPI values are always SmithyXT VeryHeavy, large (2rem+), AMBER or white**
 4. **Body text is always Inter** — never SmithyXT or Old Press for paragraphs
-5. **The ATTIC/KELLER contrast**: When both words appear together, ATTIC uses Faded, KELLER uses Heavy/VeryHeavy — this is the brand's signature dual identity
+5. **The ATTIC/KELLER contrast**: When both words appear together, ATTIC uses Faded (opacity 0.6, wider letter-spacing), KELLER uses Heavy/VeryHeavy — this is the brand's signature dual identity
 6. **Limit to 3 fonts per slide**: SmithyXT (display) + Inter (body) + Caveat or Old Press (accent, pick one)
 
 ## Layout & Spacing
@@ -260,21 +288,21 @@ SmithyXT is the **identity font family**. It's a condensed sans-serif with grung
 
 ## Elevation & Depth
 
-Cards use subtle warm shadows on the dark background:
+Cards use warm shadows on the dark background:
 
-- **Default card**: `0 2px 8px rgba(0,0,0,0.3)` with `1px solid rgba(201,169,78,0.12)` border
-- **Hover**: `0 8px 24px rgba(0,0,0,0.5)` with `translateY(-2px)`
-- **KPI hero**: `0 4px 20px rgba(201,169,78,0.15)` — gold glow for important numbers
+- **Default card**: `0 2px 12px rgba(0,0,0,0.4)` with `1px solid rgba(140,68,52,0.2)` border
+- **Hover**: `0 8px 32px rgba(0,0,0,0.6)` with `translateY(-2px)`
+- **KPI hero**: `0 4px 20px rgba(228,140,4,0.12)` — amber glow for important numbers
 
 ### Texture Overlays
 
-The grunge texture from the brand assets is applied as a **3% opacity overlay** across the entire slide deck. This is critical for the A&K identity — it makes the dark background feel like worn leather, not a flat screen.
+The grunge texture from the brand assets is applied as a **4% opacity overlay** across the entire slide deck. This is critical for the A&K identity — it makes the dark background feel like worn leather, not a flat screen.
 
 ```css
 .texture-overlay {
   position: fixed;
   inset: 0;
-  opacity: 0.03;
+  opacity: 0.04;
   pointer-events: none;
   mix-blend-mode: overlay;
   background: url("data:image/svg+xml,...") repeat;
@@ -284,56 +312,56 @@ The grunge texture from the brand assets is applied as a **3% opacity overlay** 
 ## Shapes & Ornaments
 
 - **Border radius**: Cards use `10px`, badges `4px`, buttons `8px`
-- **Ornaments**: The ◆ diamond separator is the brand's signature divider. Used between title and content, between sections, and in the portada.
-- **Corner ornaments**: Decorative corner brackets `┌ ┐ └ ┘` in gold at `opacity: 0.3` on key cards
-- **Bar fills**: Always gradients, never flat colors. Gold uses `linear-gradient(90deg, #9A7B2E, #C9A94E)`. Heat uses `linear-gradient(90deg, #A0522D, #D4922A)`.
-- **Dashed dividers**: `1px solid` with `linear-gradient(90deg, transparent, #4A3A30, transparent)` — mimics the stitching lines in the brand flyer
+- **Ornaments**: The ◆ diamond separator is the brand's signature divider. Used between title and content, between sections, and in the portada. Color: GOLD `#FCCC04`.
+- **Corner ornaments**: Decorative corner brackets `┌ ┐ └ ┘` in amber at `opacity: 0.3` on key cards
+- **Bar fills**: Always gradients, never flat colors. Rust-to-amber uses `linear-gradient(90deg, #8C4434, #E48C04)`. Gold uses `linear-gradient(90deg, #C9A94E, #FCCC04)`.
+- **Dividers**: `1px solid` with `linear-gradient(90deg, transparent, #2D3748, transparent)` — mimics the subtle stitching lines in the brand flyer
 
 ## Components
 
 ### Slide
 
-Dark brown-black background with warm text. Each slide has a numbered section label (e.g., "01 — ESTRUCTURA") in SmithyXT Heavy uppercase gold, followed by the title in larger SmithyXT, then a Caveat subtitle.
+Deep black background with warm cream text. Each slide has a numbered section label (e.g., "01 — ESTRUCTURA") in SmithyXT Heavy uppercase AMBER, followed by the title in larger SmithyXT, then a Caveat subtitle.
 
 ### KPI Card
 
-Elevated card with subtle gold border. Label in small uppercase Inter (0.625rem, 0.1em tracking). Value in SmithyXT VeryHeavy 2rem. Context text in muted Inter below.
+Elevated card with subtle rust border. Label in small uppercase Inter (0.625rem, 0.1em tracking). Value in SmithyXT VeryHeavy 2rem. Context text in muted Inter below.
 
 Variants:
-- **Gold value**: Default for positive metrics
-- **Borgoña value**: Negative metrics, alerts
+- **Amber value**: Default for positive metrics and main KPIs
+- **Rust value**: Secondary accent, headings, borders
 - **Oliva value**: Success metrics
 
 ### Bar Chart
 
-Horizontal bars with rounded ends. Labels in Inter 0.75rem, values right-aligned. Fill uses brand gradients. Track background is `rgba(201,169,78,0.08)`.
+Horizontal bars with rounded ends. Labels in Inter 0.75rem, values right-aligned. Fill uses brand gradients (rust → amber). Track background is `rgba(140,68,52,0.08)`.
 
 ### Heatmap Cell
 
 Grid cell with interpolated color between three stops:
-- Cold (low): `#362A22` (night-input)
-- Medium: `#D4922A` (ámbar)
-- Hot (high): `#C44D63` (borgoña)
+- Cold (low): `#161B22` (flyer-card)
+- Medium: `#E48C04` (amber)
+- Hot (high): `#B24D42` (borgoña)
 
 Cell size: `min 28px`, border-radius `3px`, gap `2px`.
 
 ### Badge
 
 Small pill-shaped labels for status indicators:
-- **Danger** (`borgoña` bg, `borgoña-light` text): PICO, INEFICIENTE, problems
-- **Success** (`oliva` bg, `oliva-light` text): Good metrics
-- **Warning** (`ámbar` bg, `ámbar-light` text): Gaps, caution
-- **Info** (`night-border` bg, `night-muted` text): Neutral labels
+- **Danger** (borgoña bg, borgoña text): PICO, INEFICIENTE, problems
+- **Success** (oliva bg, oliva-light text): Good metrics
+- **Warning** (amber bg, amber-light text): Gaps, caution
+- **Info** (steel bg, muted text): Neutral labels
 
 ### Divider
 
-Gradient line: `linear-gradient(90deg, transparent, #4A3A30, transparent)` — the stitching line from the brand flyer. Centered ◆ diamond optional.
+Gradient line: `linear-gradient(90deg, transparent, #2D3748, transparent)` — subtle separator. Centered ◆ diamond optional in GOLD.
 
 ### Proposal Card
 
 Numbered proposal with colored left border:
-- I → `gold` border
-- II → `ámbar` border
+- I → `amber` border
+- II → `rust` border
 - III → `oliva` border
 - IV → `borgoña` border
 
@@ -344,20 +372,24 @@ Title in SmithyXT Heavy uppercase, body in Inter.
 ### Do
 - Use SmithyXT for all headings and KPI values
 - Use Inter for all body text and data labels
-- Apply grunge texture overlay at 3% opacity
-- Use ◆ diamond ornaments as dividers
-- Use brand gradients for bar fills
-- Maintain the ATTIC (raw) vs KELLER (clean) contrast
-- Use warm brown-blacks (#1A1412, #2C2018) for dark mode — never pure black
-- Use gold (#C9A94E) as the primary interactive accent
-- Include the "K" backdrop letter on the portada slide
+- Apply grunge texture overlay at 4% opacity
+- Use ◆ diamond ornaments in GOLD as dividers
+- Use brand gradients for bar fills (rust → amber)
+- Maintain the ATTIC (raw/faded) vs KELLER (clean/bold) contrast
+- Use deep black (#0D1015) for backgrounds — not pure black (#000), not brown-black
+- Use RUST (#8C4434) as primary accent for headings and borders
+- Use AMBER (#E48C04) for KPI values and section labels
+- Use GOLD (#FCCC04) sparingly for hero numbers and ornaments
+- Include the "K" backdrop letter in RUST on the portada slide
 
 ### Don't
 - Never use SmithyXT below 14px — it becomes illegible noise
-- Never use borgoña as a decorative color — it's for alerts only
-- Never use pure black (#000) backgrounds — always warm brown-black
+- Never use borgoña as a decorative color — it's for danger/alerts only
+- Never use pure black (#000) backgrounds — always #0D1015
 - Never use emojis in data presentations
 - Never use flat single-color bar fills — always use gradients
 - Never mix Old Press and Caveat on the same slide — pick one accent font
 - Never remove the texture overlay — it's the brand's signature
 - Never use Playfair Display for A&K branded materials — SmithyXT is the identity font
+- Never use GOLD (#FCCC04) as primary accent — it's for emphasis/ornaments only, not headings
+- Never use cream-logo (#F7F3E9) or slate-blue (#34495E) in the dark flyer theme — those are logo/light-theme colors

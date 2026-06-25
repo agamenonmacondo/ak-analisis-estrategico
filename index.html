@@ -31,26 +31,29 @@
 }
 
 :root {
-  /* Brand core — from actual logos */
-  --cream: #F7F3E9;
-  --parchment: #F2EBE1;
-  --slate-blue: #34495E;
-  --navy: #2C435B;
-  --rust-red: #A0522D;
-  --rust-flyer: #A5423A;
-  --brick-red: #B24D42;
-  --foxing: #A67B5B;
+  /* Flyer palette — from 4 actual A&K production flyers */
+  --night: #0D1015;
+  --night-card: #161B22;
+  --night-input: #1E2733;
+  --night-border: #2D3748;
+  --night-text: #F4ECE4;
+  --night-muted: #9BA8B7;
   /* Accents */
+  --rust: #8C4434;
+  --rust-light: #A05840;
+  --amber: #E48C04;
+  --amber-light: #F0A030;
+  --gold: #FCCC04;
+  --gold-dim: #C9A94E;
+  --borgona: #B24D42;
   --oliva: #5C7A4D;
   --oliva-light: #7BA86A;
-  --ambar: #D4922A;
-  --ambar-light: #E8A840;
-  /* Card & surface */
-  --card-bg: #FFFFFF;
-  --card-alt: #F2EBE1;
-  --card-border: rgba(160,82,45,0.15);
-  --card-shadow: 0 2px 8px rgba(52,73,94,0.08);
-  --divider-line: rgba(160,82,45,0.2);
+  --steel: #3C4C5C;
+  /* Surfaces */
+  --card-bg: #161B22;
+  --card-border: rgba(140,68,52,0.2);
+  --card-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  --divider-line: rgba(140,68,52,0.15);
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -59,20 +62,20 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: var(--cream);
+  background: var(--night);
   font-family: 'Inter', -apple-system, sans-serif;
-  color: var(--slate-blue);
+  color: var(--night-text);
   -webkit-font-smoothing: antialiased;
 }
 
-/* ====== PAPER TEXTURE OVERLAY ====== */
+/* ====== NOISE TEXTURE OVERLAY ====== */
 .noise-overlay {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
   opacity: 0.04;
-  mix-blend-mode: multiply;
+  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px 256px;
 }
@@ -101,7 +104,7 @@ html, body {
   will-change: transform, opacity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  background: var(--cream);
+  background: var(--night);
 }
 .slide::-webkit-scrollbar { display: none; }
 
@@ -123,7 +126,7 @@ html, body {
   font-size: 0.75rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--rust-red);
+  color: var(--amber);
   margin-bottom: 6px;
   display: block;
 }
@@ -134,8 +137,8 @@ html, body {
   font-size: 1.375rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--slate-blue);
-  border-bottom: 2px solid var(--rust-red);
+  color: var(--rust);
+  border-bottom: 2px solid var(--rust);
   padding-bottom: 8px;
   margin-bottom: 4px;
 }
@@ -144,15 +147,15 @@ html, body {
   font-family: 'Caveat', cursive;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--foxing);
+  color: var(--night-muted);
 }
 
 /* ====== DIVIDERS ====== */
 .divider {
   position: relative;
-  height: 2px;
+  height: 1px;
   margin: 12px 0;
-  background: linear-gradient(90deg, transparent, var(--rust-red), var(--rust-flyer), var(--rust-red), transparent);
+  background: linear-gradient(90deg, transparent, var(--night-border), transparent);
 }
 .divider::after {
   content: '◆';
@@ -160,28 +163,27 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--rust-red);
+  color: var(--gold);
   font-size: 10px;
-  background: var(--cream);
+  background: var(--night);
   padding: 0 8px;
   line-height: 1;
 }
 .divider-sm {
   height: 1px;
   margin: 10px 0;
-  background: linear-gradient(90deg, transparent, var(--divider-line), transparent);
+  background: linear-gradient(90deg, transparent, var(--night-border), transparent);
 }
-/* Dotted separator like story-tipo flyer */
 .divider-dotted {
   height: 0;
   margin: 12px 0;
-  border-top: 2px dotted var(--divider-line);
+  border-top: 2px dotted rgba(140,68,52,0.25);
 }
 
 /* ====== KPI CARDS ====== */
 .kpi-card {
   position: relative;
-  background: var(--card-bg);
+  background: var(--night-card);
   border: 1px solid var(--card-border);
   border-radius: 10px;
   padding: 12px;
@@ -194,7 +196,7 @@ html, body {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: linear-gradient(135deg, rgba(160,82,45,0.03) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(140,68,52,0.04) 0%, transparent 50%);
   pointer-events: none;
 }
 .kpi-card .kpi-label {
@@ -203,7 +205,7 @@ html, body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--navy);
+  color: var(--steel);
   margin-bottom: 4px;
 }
 .kpi-card .kpi-value {
@@ -211,12 +213,12 @@ html, body {
   font-weight: 900;
   font-size: 2rem;
   line-height: 1;
-  color: var(--slate-blue);
+  color: var(--amber);
 }
 .kpi-card .kpi-sub {
   font-family: 'Inter', sans-serif;
   font-size: 0.6875rem;
-  color: var(--foxing);
+  color: var(--night-muted);
   margin-top: 2px;
   line-height: 1.5;
 }
@@ -233,20 +235,20 @@ html, body {
   border-radius: 4px;
 }
 .badge-danger {
-  background: rgba(178,77,66,0.12);
-  color: var(--brick-red);
+  background: rgba(178,77,66,0.15);
+  color: var(--borgona);
 }
 .badge-warning {
-  background: rgba(212,146,42,0.12);
-  color: var(--ambar);
+  background: rgba(228,140,4,0.15);
+  color: var(--amber-light);
 }
 .badge-success {
-  background: rgba(92,122,77,0.12);
-  color: var(--oliva);
+  background: rgba(92,122,77,0.15);
+  color: var(--oliva-light);
 }
 .badge-info {
-  background: rgba(44,67,91,0.08);
-  color: var(--navy);
+  background: rgba(60,76,92,0.2);
+  color: var(--night-muted);
 }
 
 /* ====== BAR CHART ====== */
@@ -276,7 +278,7 @@ html, body {
   font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
-  color: var(--foxing);
+  color: var(--night-muted);
   margin-top: 6px;
   letter-spacing: 0.03em;
 }
@@ -291,7 +293,7 @@ html, body {
   width: 28px;
   font-size: 9px;
   font-weight: 600;
-  color: var(--navy);
+  color: var(--steel);
   text-align: right;
   padding-right: 6px;
   flex-shrink: 0;
@@ -315,14 +317,14 @@ html, body {
   align-items: center;
   gap: 12px;
   padding: 10px 0;
-  border-bottom: 1px dashed var(--divider-line);
+  border-bottom: 1px dashed rgba(140,68,52,0.15);
 }
 .rank-item:last-child { border-bottom: none; }
 .rank-num {
   font-family: 'SmithyXT', sans-serif;
   font-weight: 900;
   font-size: 24px;
-  color: var(--ambar);
+  color: var(--amber);
   width: 36px;
   text-align: center;
   flex-shrink: 0;
@@ -333,26 +335,26 @@ html, body {
   font-weight: 700;
   font-size: 14px;
   text-transform: uppercase;
-  color: var(--slate-blue);
+  color: var(--night-text);
 }
 .rank-detail {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
-  color: var(--foxing);
+  color: var(--night-muted);
   margin-top: 2px;
 }
 .rank-bar {
   height: 4px;
   border-radius: 2px;
-  background: linear-gradient(90deg, var(--rust-red), var(--ambar));
+  background: linear-gradient(90deg, var(--rust), var(--amber));
   margin-top: 4px;
 }
 
 /* ====== STAFF CARD ====== */
 .staff-card {
-  background: var(--card-bg);
+  background: var(--night-card);
   border: 1px solid var(--card-border);
-  border-left: 3px solid var(--rust-red);
+  border-left: 3px solid var(--rust);
   border-radius: 10px;
   padding: 12px 14px;
   margin-bottom: 8px;
@@ -361,7 +363,7 @@ html, body {
 
 /* ====== GAP CARD ====== */
 .gap-card {
-  background: var(--card-bg);
+  background: var(--night-card);
   border: 1px solid var(--card-border);
   border-radius: 10px;
   padding: 14px 16px;
@@ -377,16 +379,16 @@ html, body {
   width: 3px; height: 100%;
   border-radius: 3px 0 0 3px;
 }
-.gap-card.g1::before { background: var(--brick-red); }
-.gap-card.g2::before { background: var(--ambar); }
-.gap-card.g3::before { background: var(--ambar); }
+.gap-card.g1::before { background: var(--borgona); }
+.gap-card.g2::before { background: var(--amber); }
+.gap-card.g3::before { background: var(--amber); }
 .gap-card.g4::before { background: var(--oliva); }
-.gap-card.g5::before { background: var(--rust-red); }
+.gap-card.g5::before { background: var(--rust); }
 .gap-num {
   font-family: 'SmithyXT', sans-serif;
   font-weight: 900;
   font-size: 32px;
-  color: rgba(52,73,94,0.06);
+  color: rgba(244,236,228,0.04);
   position: absolute;
   top: 4px; right: 12px;
   line-height: 1;
@@ -396,19 +398,19 @@ html, body {
   font-weight: 700;
   font-size: 14px;
   text-transform: uppercase;
-  color: var(--slate-blue);
+  color: var(--night-text);
   margin-bottom: 4px;
 }
 .gap-body {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   line-height: 1.5;
-  color: var(--navy);
+  color: var(--night-muted);
 }
 
 /* ====== PROPOSAL CARD ====== */
 .proposal-card {
-  background: var(--card-bg);
+  background: var(--night-card);
   border: 1px solid var(--card-border);
   border-radius: 10px;
   padding: 14px 16px;
@@ -424,15 +426,15 @@ html, body {
   width: 3px; height: 100%;
   border-radius: 3px 0 0 3px;
 }
-.proposal-card.pi::before { background: var(--rust-red); }
-.proposal-card.pii::before { background: var(--ambar); }
+.proposal-card.pi::before { background: var(--amber); }
+.proposal-card.pii::before { background: var(--rust); }
 .proposal-card.piii::before { background: var(--oliva); }
-.proposal-card.piv::before { background: var(--brick-red); }
+.proposal-card.piv::before { background: var(--borgona); }
 .proposal-num {
   font-family: 'SmithyXT', sans-serif;
   font-weight: 900;
   font-size: 32px;
-  color: rgba(52,73,94,0.06);
+  color: rgba(244,236,228,0.04);
   position: absolute;
   top: 4px; right: 12px;
   line-height: 1;
@@ -442,26 +444,26 @@ html, body {
   font-weight: 700;
   font-size: 14px;
   text-transform: uppercase;
-  color: var(--slate-blue);
+  color: var(--night-text);
   margin-bottom: 4px;
 }
 .proposal-body {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   line-height: 1.5;
-  color: var(--navy);
+  color: var(--night-muted);
 }
 
 /* ====== CORNER ORNAMENTS ====== */
 .corner-ornament {
   position: absolute;
   width: 40px; height: 40px;
-  opacity: 0.25;
+  opacity: 0.3;
 }
-.corner-ornament.tl { top: 12px; left: 12px; border-top: 2px solid var(--rust-red); border-left: 2px solid var(--rust-red); }
-.corner-ornament.tr { top: 12px; right: 12px; border-top: 2px solid var(--rust-red); border-right: 2px solid var(--rust-red); }
-.corner-ornament.bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(--rust-red); border-left: 2px solid var(--rust-red); }
-.corner-ornament.br { bottom: 12px; right: 12px; border-bottom: 2px solid var(--rust-red); border-right: 2px solid var(--rust-red); }
+.corner-ornament.tl { top: 12px; left: 12px; border-top: 2px solid var(--amber); border-left: 2px solid var(--amber); }
+.corner-ornament.tr { top: 12px; right: 12px; border-top: 2px solid var(--amber); border-right: 2px solid var(--amber); }
+.corner-ornament.bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(--amber); border-left: 2px solid var(--amber); }
+.corner-ornament.br { bottom: 12px; right: 12px; border-bottom: 2px solid var(--amber); border-right: 2px solid var(--amber); }
 
 /* ====== NAVIGATION ====== */
 .nav-container {
@@ -480,7 +482,7 @@ html, body {
   display: flex;
   gap: 8px;
   padding: 8px 16px;
-  background: rgba(247,243,233,0.9);
+  background: rgba(13,16,21,0.9);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   border: 1px solid var(--card-border);
@@ -490,14 +492,14 @@ html, body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--divider-line);
+  background: var(--steel);
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
   padding: 0;
 }
 .nav-dot.active {
-  background: var(--rust-red);
+  background: var(--rust);
   width: 22px;
   border-radius: 4px;
 }
@@ -508,9 +510,9 @@ html, body {
   pointer-events: auto;
 }
 .nav-arrow {
-  background: rgba(247,243,233,0.9);
+  background: rgba(22,27,34,0.9);
   border: 1px solid var(--card-border);
-  color: var(--rust-red);
+  color: var(--night-text);
   width: 40px; height: 40px;
   border-radius: 50%;
   display: flex;
@@ -521,7 +523,7 @@ html, body {
   transition: background 0.2s;
   backdrop-filter: blur(10px);
 }
-.nav-arrow:hover { background: rgba(242,235,225,0.95); }
+.nav-arrow:hover { background: rgba(30,39,51,0.95); }
 @media (min-width: 451px) {
   .nav-arrows { display: flex; }
 }
@@ -531,7 +533,7 @@ html, body {
   position: fixed;
   top: 0; left: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--rust-red), var(--ambar), var(--oliva));
+  background: linear-gradient(90deg, var(--rust), var(--amber), var(--oliva));
   z-index: 200;
   transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -544,7 +546,7 @@ html, body {
   transform: translateX(-50%);
   font-family: 'Caveat', cursive;
   font-size: 13px;
-  color: var(--foxing);
+  color: var(--night-muted);
   z-index: 99;
   opacity: 0.6;
   animation: fadeOut 3s ease forwards 2s;
@@ -565,13 +567,14 @@ html, body {
 .d6 { animation-delay: 0.6s; opacity: 0; }
 
 /* ====== UTILITY ====== */
-.text-rust { color: var(--rust-red); }
-.text-ambar { color: var(--ambar); }
-.text-brick { color: var(--brick-red); }
+.text-rust { color: var(--rust); }
+.text-amber { color: var(--amber); }
+.text-borgona { color: var(--borgona); }
 .text-oliva { color: var(--oliva); }
-.text-navy { color: var(--navy); }
-.text-foxing { color: var(--foxing); }
-.text-slate { color: var(--slate-blue); }
+.text-steel { color: var(--steel); }
+.text-muted { color: var(--night-muted); }
+.text-cream { color: var(--night-text); }
+.text-gold { color: var(--gold); }
 .mt-sm { margin-top: 6px; }
 .mt-md { margin-top: 12px; }
 .mt-lg { margin-top: 18px; }
@@ -587,55 +590,55 @@ html, body {
 <div class="presentation" id="presentation">
 
 <!-- ======== SLIDE 1: PORTADA ======== -->
-<div class="slide active" data-slide="0" style="background: linear-gradient(180deg, #F7F3E9 0%, #F2EBE1 100%);">
+<div class="slide active" data-slide="0">
   <div class="corner-ornament tl"></div>
   <div class="corner-ornament tr"></div>
   <div class="corner-ornament bl"></div>
   <div class="corner-ornament br"></div>
 
   <!-- GIANT K BACKDROP -->
-  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:'SmithyXT',sans-serif;font-weight:900;font-size:280px;color:#A0522D;opacity:0.08;line-height:1;pointer-events:none;z-index:1;user-select:none;">K</div>
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:'SmithyXT',sans-serif;font-weight:900;font-size:280px;color:#8C4434;opacity:0.12;line-height:1;pointer-events:none;z-index:1;user-select:none;">K</div>
 
   <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;text-align:center;position:relative;z-index:2;">
     <!-- Old Press date stamp -->
-    <div class="anim" style="font-family:'OldPress',serif;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--navy);margin-bottom:8px;">JUNIO 2026</div>
+    <div class="anim" style="font-family:'OldPress',serif;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--night-muted);margin-bottom:8px;">JUNIO 2026</div>
 
     <div class="divider-dotted anim d1" style="width:60px;margin:8px auto;"></div>
 
     <!-- ATTIC (distressed/faded) vs KELLER (heavy/clean) — dual identity -->
     <div class="anim d2" style="margin-top:4px;">
-      <span style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:2.8rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate-blue);opacity:0.6;">ATTIC</span>
+      <span style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:2.8rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--night-text);opacity:0.6;filter:blur(0.5px);">ATTIC</span>
     </div>
-    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--rust-red);opacity:0.5;margin:2px 0;">◆</div>
+    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);opacity:1;margin:2px 0;">◆</div>
     <div class="anim d2">
-      <span style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:2.8rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--slate-blue);">KELLER</span>
+      <span style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:2.8rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--night-text);">KELLER</span>
     </div>
 
     <!-- Tagline -->
-    <div class="anim d3" style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--rust-red);margin-top:12px;">
+    <div class="anim d3" style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--rust);margin-top:12px;">
       ANÁLISIS ESTRATÉGICO
     </div>
 
     <div class="divider-dotted anim d3" style="width:80px;margin:14px auto;"></div>
 
     <!-- Handwritten accent -->
-    <div class="anim d4" style="font-family:'Caveat',cursive;font-size:1.1rem;color:var(--foxing);">
+    <div class="anim d4" style="font-family:'Caveat',cursive;font-size:1.1rem;color:var(--night-muted);">
       datos con carácter
     </div>
 
     <!-- KPI counters -->
     <div class="anim d5" style="display:flex;gap:24px;margin-top:28px;">
       <div style="text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--rust-red);line-height:1;">$4,047M</div>
-        <div style="font-family:'Inter',sans-serif;font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--foxing);margin-top:3px;">Ventas</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--gold);line-height:1;">$4,047M</div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--night-muted);margin-top:3px;">Ventas</div>
       </div>
       <div style="text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--slate-blue);line-height:1;">42</div>
-        <div style="font-family:'Inter',sans-serif;font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--foxing);margin-top:3px;">Colaboradores</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--amber);line-height:1;">42</div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--night-muted);margin-top:3px;">Colaboradores</div>
       </div>
       <div style="text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--slate-blue);line-height:1;">1,660</div>
-        <div style="font-family:'Inter',sans-serif;font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--foxing);margin-top:3px;">Cheques Junio</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--amber);line-height:1;">1,660</div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--night-muted);margin-top:3px;">Cheques Junio</div>
       </div>
     </div>
   </div>
@@ -663,14 +666,14 @@ html, body {
     </div>
     <div class="kpi-card flex-1">
       <div class="kpi-label">Ventas Junio</div>
-      <div class="kpi-value" style="font-size:1.5rem;color:var(--brick-red);">$487M</div>
+      <div class="kpi-value" style="font-size:1.5rem;color:var(--borgona);">$487M</div>
       <div class="kpi-sub"><span class="badge badge-danger">31.6% caída</span></div>
     </div>
   </div>
 
   <div class="kpi-card anim d3">
     <div class="kpi-label">Nómina / Ventas</div>
-    <div class="kpi-value" style="font-size:1.5rem;color:var(--brick-red);">21.7%</div>
+    <div class="kpi-value" style="font-size:1.5rem;color:var(--borgona);">21.7%</div>
     <div class="kpi-sub">Factor empresa 1.81×</div>
   </div>
 
@@ -681,12 +684,12 @@ html, body {
   <div class="bar-chart anim d4" id="monthlyChart"></div>
 
   <div class="flex-row anim d4" style="gap:4px;">
-    <div style="flex:1;text-align:center;font-size:9px;color:var(--foxing);text-transform:uppercase;">Ene</div>
-    <div style="flex:1;text-align:center;font-size:9px;color:var(--foxing);text-transform:uppercase;">Feb</div>
-    <div style="flex:1;text-align:center;font-size:9px;color:var(--foxing);text-transform:uppercase;">Mar</div>
-    <div style="flex:1;text-align:center;font-size:9px;color:var(--foxing);text-transform:uppercase;">Abr</div>
-    <div style="flex:1;text-align:center;font-size:9px;color:var(--foxing);text-transform:uppercase;">May</div>
-    <div style="flex:1;text-align:center;font-size:9px;color:var(--brick-red);text-transform:uppercase;font-weight:700;">Jun</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">Ene</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">Feb</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">Mar</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">Abr</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--night-muted);text-transform:uppercase;">May</div>
+    <div style="flex:1;text-align:center;font-size:9px;color:var(--borgona);text-transform:uppercase;font-weight:700;">Jun</div>
   </div>
 </div>
 
@@ -746,9 +749,9 @@ html, body {
     </div>
   </div>
 
-  <div class="kpi-card anim d6" style="margin-top:10px;border-color:rgba(178,77,66,0.25);">
+  <div class="kpi-card anim d6" style="margin-top:10px;border-color:rgba(178,77,66,0.3);">
     <div class="kpi-label">Concentración Top 3</div>
-    <div class="kpi-value" style="font-size:1.5rem;color:var(--rust-red);">58.7%</div>
+    <div class="kpi-value" style="font-size:1.5rem;color:var(--borgona);">58.7%</div>
     <div class="kpi-sub"><span class="badge badge-danger">Alta dependencia</span></div>
   </div>
 </div>
@@ -765,23 +768,23 @@ html, body {
     <div class="kpi-label">Distribución del equipo</div>
     <div class="flex-row" style="margin-top:8px;gap:6px;">
       <div style="flex:1;text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--rust-red);line-height:1;">42</div>
-        <div style="font-family:'Inter',sans-serif;font-size:9px;color:var(--foxing);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Total</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--amber);line-height:1;">42</div>
+        <div style="font-family:'Inter',sans-serif;font-size:9px;color:var(--night-muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Total</div>
       </div>
-      <div style="width:1px;background:var(--divider-line);"></div>
+      <div style="width:1px;background:var(--night-border);"></div>
       <div style="flex:1;text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--ambar);line-height:1;">5</div>
-        <div style="font-family:'Inter',sans-serif;font-size:9px;color:var(--foxing);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Líderes</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--rust-light);line-height:1;">5</div>
+        <div style="font-family:'Inter',sans-serif;font-size:9px;color:var(--night-muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Líderes</div>
       </div>
-      <div style="width:1px;background:var(--divider-line);"></div>
+      <div style="width:1px;background:var(--night-border);"></div>
       <div style="flex:1;text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--navy);line-height:1;">8</div>
-        <div style="font-family:'Inter',sans-serif;font-size:9px;color:var(--foxing);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Fijos</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--steel);line-height:1;">8</div>
+        <div style="font-family:'Inter',sans-serif;font-size:9px;color:var(--night-muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Fijos</div>
       </div>
-      <div style="width:1px;background:var(--divider-line);"></div>
+      <div style="width:1px;background:var(--night-border);"></div>
       <div style="flex:1;text-align:center;">
-        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--slate-blue);line-height:1;">33</div>
-        <div style="font-family:'Inter',sans-serif;font-size:9px;color:var(--foxing);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Operativos</div>
+        <div style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:1.75rem;color:var(--night-text);line-height:1;">33</div>
+        <div style="font-family:'Inter',sans-serif;font-size:9px;color:var(--night-muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Operativos</div>
       </div>
     </div>
   </div>
@@ -790,26 +793,26 @@ html, body {
 
   <div class="staff-card anim d3">
     <span class="badge badge-warning">Barra</span>
-    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;color:var(--slate-blue);margin-top:4px;">WALTER</div>
-    <div style="font-family:'Inter',sans-serif;font-size:11px;color:var(--navy);margin-top:2px;">Líder de barra — Servicio de bebidas y cocktails</div>
+    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;color:var(--night-text);margin-top:4px;">WALTER</div>
+    <div style="font-family:'Inter',sans-serif;font-size:11px;color:var(--night-muted);margin-top:2px;">Líder de barra — Servicio de bebidas y cocktails</div>
   </div>
 
   <div class="staff-card anim d3">
     <span class="badge badge-danger">Cocina</span>
-    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;color:var(--slate-blue);margin-top:4px;">ESNEIDER</div>
-    <div style="font-family:'Inter',sans-serif;font-size:11px;color:var(--navy);margin-top:2px;">Líder de cocina — Producción y calidad</div>
+    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;color:var(--night-text);margin-top:4px;">ESNEIDER</div>
+    <div style="font-family:'Inter',sans-serif;font-size:11px;color:var(--night-muted);margin-top:2px;">Líder de cocina — Producción y calidad</div>
   </div>
 
   <div class="staff-card anim d4">
     <span class="badge badge-danger">Cocina</span>
-    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;color:var(--slate-blue);margin-top:4px;">RODRIGO</div>
-    <div style="font-family:'Inter',sans-serif;font-size:11px;color:var(--navy);margin-top:2px;">Líder de cocina — Operaciones y turnos</div>
+    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;color:var(--night-text);margin-top:4px;">RODRIGO</div>
+    <div style="font-family:'Inter',sans-serif;font-size:11px;color:var(--night-muted);margin-top:2px;">Líder de cocina — Operaciones y turnos</div>
   </div>
 
   <div class="staff-card anim d4">
     <span class="badge badge-success">Servicio</span>
-    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;color:var(--slate-blue);margin-top:4px;">VERÓNICA</div>
-    <div style="font-family:'Inter',sans-serif;font-size:11px;color:var(--navy);margin-top:2px;">Líder de servicio — Atención al comensal</div>
+    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;color:var(--night-text);margin-top:4px;">VERÓNICA</div>
+    <div style="font-family:'Inter',sans-serif;font-size:11px;color:var(--night-muted);margin-top:2px;">Líder de servicio — Atención al comensal</div>
   </div>
 
   <div class="kpi-card anim d5" style="margin-top:4px;">
@@ -830,7 +833,7 @@ html, body {
   <div class="flex-row anim d2" style="margin-bottom:12px;">
     <div class="kpi-card flex-1">
       <div class="kpi-label">Hora Pico</div>
-      <div class="kpi-value" style="font-size:1.5rem;color:var(--ambar);">19:00</div>
+      <div class="kpi-value" style="font-size:1.5rem;color:var(--amber);">19:00</div>
       <div class="kpi-sub">$118.8M <span class="badge badge-danger" style="margin-left:4px;">PICO</span></div>
     </div>
     <div class="kpi-card flex-1">
@@ -842,28 +845,28 @@ html, body {
 
   <div class="slide-label anim d3" style="font-size:0.6875rem;margin-bottom:8px;">MAPA DE CALOR POR HORA</div>
 
-  <div id="heatmapContainer" class="anim d3" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:12px 10px;">
+  <div id="heatmapContainer" class="anim d3" style="background:var(--night-card);border:1px solid var(--card-border);border-radius:10px;padding:12px 10px;">
     <!-- Filled by JS -->
   </div>
 
   <div class="flex-row anim d4" style="margin-top:10px;justify-content:center;gap:12px;">
     <div style="display:flex;align-items:center;gap:4px;">
-      <div style="width:12px;height:12px;border-radius:2px;background:var(--brick-red);"></div>
-      <span style="font-size:9px;color:var(--foxing);">Alto</span>
+      <div style="width:12px;height:12px;border-radius:2px;background:var(--borgona);"></div>
+      <span style="font-size:9px;color:var(--night-muted);">Alto</span>
     </div>
     <div style="display:flex;align-items:center;gap:4px;">
-      <div style="width:12px;height:12px;border-radius:2px;background:var(--ambar);"></div>
-      <span style="font-size:9px;color:var(--foxing);">Medio</span>
+      <div style="width:12px;height:12px;border-radius:2px;background:var(--amber);"></div>
+      <span style="font-size:9px;color:var(--night-muted);">Medio</span>
     </div>
     <div style="display:flex;align-items:center;gap:4px;">
-      <div style="width:12px;height:12px;border-radius:2px;background:var(--parchment);border:1px solid var(--divider-line);"></div>
-      <span style="font-size:9px;color:var(--foxing);">Bajo</span>
+      <div style="width:12px;height:12px;border-radius:2px;background:var(--night-card);border:1px solid var(--card-border);"></div>
+      <span style="font-size:9px;color:var(--night-muted);">Bajo</span>
     </div>
   </div>
 
-  <div class="kpi-card anim d5" style="margin-top:10px;border-color:rgba(178,77,66,0.25);">
+  <div class="kpi-card anim d5" style="margin-top:10px;border-color:rgba(178,77,66,0.3);">
     <div class="kpi-label">Zona Muerta</div>
-    <div class="kpi-value" style="font-size:1.25rem;color:var(--brick-red);">2:00 – 8:00</div>
+    <div class="kpi-value" style="font-size:1.25rem;color:var(--borgona);">2:00 – 8:00</div>
     <div class="kpi-sub">Sin ventas · 9:00–11:00 casi sin actividad</div>
   </div>
 </div>
@@ -885,12 +888,12 @@ html, body {
   <div class="flex-row anim d3" style="margin-top:10px;">
     <div class="kpi-card flex-1">
       <div class="kpi-label">Nómina / Ventas</div>
-      <div class="kpi-value" style="font-size:1.5rem;color:var(--brick-red);">21.7%</div>
+      <div class="kpi-value" style="font-size:1.5rem;color:var(--borgona);">21.7%</div>
       <div class="kpi-sub">Ratio de costo laboral</div>
     </div>
     <div class="kpi-card flex-1">
       <div class="kpi-label">Factor Empresa</div>
-      <div class="kpi-value" style="font-size:1.5rem;color:var(--ambar);">1.81×</div>
+      <div class="kpi-value" style="font-size:1.5rem;color:var(--amber);">1.81×</div>
       <div class="kpi-sub">Costo total / salario base</div>
     </div>
   </div>
@@ -900,31 +903,31 @@ html, body {
   <div class="slide-label anim d4" style="font-size:0.6875rem;margin-bottom:8px;">DESGLOSE DE COSTOS</div>
 
   <!-- Cost bar -->
-  <div class="anim d4" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px;overflow:hidden;">
+  <div class="anim d4" style="background:var(--night-card);border:1px solid var(--card-border);border-radius:10px;padding:14px;overflow:hidden;">
     <div style="height:28px;border-radius:4px;overflow:hidden;display:flex;margin-bottom:10px;">
-      <div style="width:21.7%;background:linear-gradient(90deg,var(--rust-red),var(--brick-red));height:100%;display:flex;align-items:center;justify-content:center;font-family:'SmithyXT',sans-serif;font-weight:700;font-size:9px;color:#FFF;">21.7%</div>
-      <div style="width:18%;background:linear-gradient(90deg,var(--ambar),#E8A840);height:100%;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:8px;font-weight:600;color:#FFF;"></div>
-      <div style="width:60.3%;background:var(--parchment);height:100%;"></div>
+      <div style="width:21.7%;background:linear-gradient(90deg,var(--rust),var(--borgona));height:100%;display:flex;align-items:center;justify-content:center;font-family:'SmithyXT',sans-serif;font-weight:700;font-size:9px;color:#FFF;">21.7%</div>
+      <div style="width:18%;background:linear-gradient(90deg,var(--amber),var(--amber-light));height:100%;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:8px;font-weight:600;color:#FFF;"></div>
+      <div style="width:60.3%;background:var(--night-input);height:100%;"></div>
     </div>
 
     <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-family:'Inter',sans-serif;font-size:11px;">
       <div style="display:flex;align-items:center;gap:6px;">
-        <div style="width:10px;height:10px;border-radius:2px;background:var(--brick-red);"></div>
-        <span style="color:var(--navy);">Nómina</span>
+        <div style="width:10px;height:10px;border-radius:2px;background:var(--borgona);"></div>
+        <span style="color:var(--night-text);">Nómina</span>
       </div>
-      <div style="text-align:right;font-weight:600;color:var(--brick-red);">21.7% ventas</div>
+      <div style="text-align:right;font-weight:600;color:var(--borgona);">21.7% ventas</div>
 
       <div style="display:flex;align-items:center;gap:6px;">
-        <div style="width:10px;height:10px;border-radius:2px;background:var(--ambar);"></div>
-        <span style="color:var(--navy);">Horas Extra</span>
+        <div style="width:10px;height:10px;border-radius:2px;background:var(--amber);"></div>
+        <span style="color:var(--night-text);">Horas Extra</span>
       </div>
-      <div style="text-align:right;font-weight:600;color:var(--ambar);">~18% nómina</div>
+      <div style="text-align:right;font-weight:600;color:var(--amber);">~18% nómina</div>
 
       <div style="display:flex;align-items:center;gap:6px;">
-        <div style="width:10px;height:10px;border-radius:2px;background:var(--navy);"></div>
-        <span style="color:var(--navy);">Otros costos fijos</span>
+        <div style="width:10px;height:10px;border-radius:2px;background:var(--steel);"></div>
+        <span style="color:var(--night-text);">Otros costos fijos</span>
       </div>
-      <div style="text-align:right;font-weight:600;color:var(--foxing);">Balance</div>
+      <div style="text-align:right;font-weight:600;color:var(--night-muted);">Balance</div>
     </div>
   </div>
 
@@ -933,19 +936,19 @@ html, body {
     <div class="kpi-label">Personal Fijo vs Operativo</div>
     <div style="display:flex;gap:8px;margin-top:10px;align-items:flex-end;">
       <div style="flex:8;display:flex;flex-direction:column;align-items:center;">
-        <div style="width:100%;background:linear-gradient(180deg,var(--ambar),rgba(212,146,42,0.6));border-radius:4px 4px 0 0;height:48px;display:flex;align-items:center;justify-content:center;">
+        <div style="width:100%;background:linear-gradient(180deg,var(--amber),rgba(228,140,4,0.5));border-radius:4px 4px 0 0;height:48px;display:flex;align-items:center;justify-content:center;">
           <span style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:16px;color:#FFF;">8</span>
         </div>
       </div>
       <div style="flex:33;display:flex;flex-direction:column;align-items:center;">
-        <div style="width:100%;background:linear-gradient(180deg,var(--rust-red),rgba(160,82,45,0.5));border-radius:4px 4px 0 0;height:48px;display:flex;align-items:center;justify-content:center;">
+        <div style="width:100%;background:linear-gradient(180deg,var(--rust),rgba(140,68,52,0.5));border-radius:4px 4px 0 0;height:48px;display:flex;align-items:center;justify-content:center;">
           <span style="font-family:'SmithyXT',sans-serif;font-weight:900;font-size:16px;color:#FFF;">33</span>
         </div>
       </div>
     </div>
     <div style="display:flex;gap:8px;margin-top:4px;">
-      <div style="flex:8;text-align:center;font-family:'Inter',sans-serif;font-size:8px;color:var(--foxing);text-transform:uppercase;letter-spacing:0.05em;">Fijos</div>
-      <div style="flex:33;text-align:center;font-family:'Inter',sans-serif;font-size:8px;color:var(--foxing);text-transform:uppercase;letter-spacing:0.05em;">Operativos</div>
+      <div style="flex:8;text-align:center;font-family:'Inter',sans-serif;font-size:8px;color:var(--night-muted);text-transform:uppercase;letter-spacing:0.05em;">Fijos</div>
+      <div style="flex:33;text-align:center;font-family:'Inter',sans-serif;font-size:8px;color:var(--night-muted);text-transform:uppercase;letter-spacing:0.05em;">Operativos</div>
     </div>
   </div>
 </div>
@@ -960,31 +963,31 @@ html, body {
 
   <div class="gap-card g1 anim d2">
     <div class="gap-num">1</div>
-    <div class="gap-title" style="color:var(--brick-red);">Caída de Junio</div>
+    <div class="gap-title" style="color:var(--borgona);">Caída de Junio</div>
     <div class="gap-body">
-      Junio registra $487M vs promedio $712M de Ene-May — una caída del <strong style="color:var(--brick-red);">31.6%</strong>. Pérdida estimada: <strong style="color:var(--brick-red);">~$225M</strong> respecto al promedio.
+      Junio registra $487M vs promedio $712M de Ene-May — una caída del <strong style="color:var(--borgona);">31.6%</strong>. Pérdida estimada: <strong style="color:var(--borgona);">~$225M</strong> respecto al promedio.
     </div>
   </div>
 
   <div class="gap-card g2 anim d3">
     <div class="gap-num">2</div>
-    <div class="gap-title" style="color:var(--ambar);">Horas Muertas</div>
+    <div class="gap-title" style="color:var(--amber);">Horas Muertas</div>
     <div class="gap-body">
-      Sin actividad de 2:00–8:00 (6 horas). 9:00–11:00 casi sin movimiento. <strong style="color:var(--ambar);">Ocho horas diarias</strong> sin generación de ingresos.
+      Sin actividad de 2:00–8:00 (6 horas). 9:00–11:00 casi sin movimiento. <strong style="color:var(--amber);">Ocho horas diarias</strong> sin generación de ingresos.
     </div>
   </div>
 
   <div class="gap-card g3 anim d3">
     <div class="gap-num">3</div>
-    <div class="gap-title" style="color:var(--ambar);">Concentración de Ventas</div>
+    <div class="gap-title" style="color:var(--amber);">Concentración de Ventas</div>
     <div class="gap-body">
-      Top 3 productos = <strong style="color:var(--ambar);">58.7%</strong> de las ventas de junio. Dependencia extrema. Si un plato falla, el restaurante se afecta significativamente.
+      Top 3 productos = <strong style="color:var(--amber);">58.7%</strong> de las ventas de junio. Dependencia extrema. Si un plato falla, el restaurante se afecta significativamente.
     </div>
   </div>
 
   <div class="gap-card g4 anim d4">
     <div class="gap-num">4</div>
-    <div class="gap-title" style="color:var(--oliva);">Nómina Pesada</div>
+    <div class="gap-title" style="color:var(--oliva-light);">Nómina Pesada</div>
     <div class="gap-body">
       Factor 1.81× significa que por cada $1 de salario, el costo real es $1.81. 8 personas de costo fijo sin impacto directo en servicio.
     </div>
@@ -992,22 +995,22 @@ html, body {
 
   <div class="gap-card g5 anim d5">
     <div class="gap-num">5</div>
-    <div class="gap-title" style="color:var(--rust-red);">Pico Nocturno Desbalanceado</div>
+    <div class="gap-title" style="color:var(--rust);">Pico Nocturno Desbalanceado</div>
     <div class="gap-body">
-      19h concentra $118.8M (24.4% del día). Solo 3 horas (18–20h) generan el <strong style="color:var(--rust-red);">54.6%</strong> de la facturación. El resto del día es marginal.
+      19h concentra $118.8M (24.4% del día). Solo 3 horas (18–20h) generan el <strong style="color:var(--rust);">54.6%</strong> de la facturación. El resto del día es marginal.
     </div>
   </div>
 
   <!-- Brecha visualization -->
-  <div class="anim d6" style="margin-top:12px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px;">
+  <div class="anim d6" style="margin-top:12px;background:var(--night-card);border:1px solid var(--card-border);border-radius:10px;padding:14px;">
     <div class="slide-label" style="font-size:0.6875rem;margin-bottom:8px;">BRECHA JUNIO vs PROMEDIO</div>
-    <div style="position:relative;height:24px;background:var(--parchment);border-radius:12px;overflow:hidden;">
-      <div style="position:absolute;left:0;top:0;height:100%;width:68.4%;background:linear-gradient(90deg,var(--oliva),var(--rust-red));border-radius:12px 0 0 12px;"></div>
-      <div style="position:absolute;left:68.4%;top:0;height:100%;width:31.6%;background:linear-gradient(90deg,var(--brick-red),rgba(178,77,66,0.5));border-radius:0 12px 12px 0;"></div>
+    <div style="position:relative;height:24px;background:var(--night-input);border-radius:12px;overflow:hidden;">
+      <div style="position:absolute;left:0;top:0;height:100%;width:68.4%;background:linear-gradient(90deg,var(--oliva),var(--rust));border-radius:12px 0 0 12px;"></div>
+      <div style="position:absolute;left:68.4%;top:0;height:100%;width:31.6%;background:linear-gradient(90deg,var(--borgona),rgba(178,77,66,0.4));border-radius:0 12px 12px 0;"></div>
     </div>
     <div style="display:flex;justify-content:space-between;margin-top:6px;font-family:'Inter',sans-serif;font-size:9px;">
-      <span style="color:var(--rust-red);">$487M junio (68.4%)</span>
-      <span style="color:var(--brick-red);">-$225M gap (31.6%)</span>
+      <span style="color:var(--rust);">$487M junio (68.4%)</span>
+      <span style="color:var(--borgona);">-$225M gap (31.6%)</span>
     </div>
   </div>
 </div>
@@ -1022,46 +1025,46 @@ html, body {
 
   <div class="proposal-card pi anim d2">
     <div class="proposal-num">I</div>
-    <div class="proposal-title" style="color:var(--rust-red);">Menú de Almuerzo Ejecutivo</div>
+    <div class="proposal-title" style="color:var(--amber);">Menú de Almuerzo Ejecutivo</div>
     <div class="proposal-body">
-      Aprovechar las horas muertas 11:30–14:00 con menú ejecutivo a precio accesible. Objetivo: captar <strong style="color:var(--ambar);">$50–80M adicionales</strong> en zona actualmente inactiva.
+      Aprovechar las horas muertas 11:30–14:00 con menú ejecutivo a precio accesible. Objetivo: captar <strong style="color:var(--amber);">$50–80M adicionales</strong> en zona actualmente inactiva.
     </div>
   </div>
 
   <div class="proposal-card pii anim d3">
     <div class="proposal-num">II</div>
-    <div class="proposal-title" style="color:var(--ambar);">Diversificar Cartera de Productos</div>
+    <div class="proposal-title" style="color:var(--rust);">Diversificar Cartera de Productos</div>
     <div class="proposal-body">
-      Reducir dependencia del top 3. Desarrollar 2–3 platos estrella nuevos con margen alto. Meta: bajar concentración de 58.7% a <strong style="color:var(--brick-red);">&lt;45%</strong>.
+      Reducir dependencia del top 3. Desarrollar 2–3 platos estrella nuevos con margen alto. Meta: bajar concentración de 58.7% a <strong style="color:var(--borgona);">&lt;45%</strong>.
     </div>
   </div>
 
   <div class="proposal-card piii anim d4">
     <div class="proposal-num">III</div>
-    <div class="proposal-title" style="color:var(--oliva);">Optimizar Turnos y Costos Fijos</div>
+    <div class="proposal-title" style="color:var(--oliva-light);">Optimizar Turnos y Costos Fijos</div>
     <div class="proposal-body">
-      Revisar las 8 posiciones fijas. Evaluar cuáles generan valor directo. Reducir factor empresa de 1.81× a <strong style="color:var(--oliva);">1.6×</strong> mediante mejor distribución de turnos.
+      Revisar las 8 posiciones fijas. Evaluar cuáles generan valor directo. Reducir factor empresa de 1.81× a <strong style="color:var(--oliva-light);">1.6×</strong> mediante mejor distribución de turnos.
     </div>
   </div>
 
   <div class="proposal-card piv anim d5">
     <div class="proposal-num">IV</div>
-    <div class="proposal-title" style="color:var(--brick-red);">Programa de Fidelización Nocturna</div>
+    <div class="proposal-title" style="color:var(--borgona);">Programa de Fidelización Nocturna</div>
     <div class="proposal-body">
-      El pico 19–20h ya es fuerte. Crear programa de loyalty para extender la estancia: happy hour 21–22h, cocktails posteriores. Objetivo: <strong style="color:var(--rust-red);">+15% revenue en horario 21–23h</strong>.
+      El pico 19–20h ya es fuerte. Crear programa de loyalty para extender la estancia: happy hour 21–22h, cocktails posteriores. Objetivo: <strong style="color:var(--rust);">+15% revenue en horario 21–23h</strong>.
     </div>
   </div>
 
   <!-- Footer -->
   <div style="margin-top:20px;text-align:center;" class="anim d6">
     <div class="divider" style="width:80px;margin:0 auto 12px;"></div>
-    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.05em;text-transform:uppercase;color:var(--slate-blue);margin-bottom:2px;">
-      <span style="opacity:0.6;">ATTIC</span>
-      <span style="opacity:0.4;margin:0 4px;color:var(--rust-red);">◆</span>
+    <div style="font-family:'SmithyXT',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.05em;text-transform:uppercase;color:var(--night-text);margin-bottom:2px;">
+      <span style="opacity:0.6;filter:blur(0.5px);letter-spacing:0.12em;">ATTIC</span>
+      <span style="opacity:1;margin:0 4px;color:var(--gold);">◆</span>
       <span>KELLER</span>
     </div>
-    <div style="font-family:'OldPress',serif;font-size:10px;color:var(--navy);letter-spacing:0.2em;text-transform:uppercase;">est. 2024</div>
-    <div style="font-family:'Caveat',cursive;font-size:15px;color:var(--foxing);margin-top:4px;">datos con carácter</div>
+    <div style="font-family:'OldPress',serif;font-size:10px;color:var(--steel);letter-spacing:0.2em;text-transform:uppercase;">est. 2024</div>
+    <div style="font-family:'Caveat',cursive;font-size:15px;color:var(--night-muted);margin-top:4px;">datos con carácter</div>
   </div>
 </div>
 
@@ -1115,21 +1118,21 @@ chartEl.innerHTML = monthlyData.map((d, i) => {
   const pct = (d.value / maxVal * 100);
   const isLast = i === monthlyData.length - 1;
   const bg = isLast
-    ? 'background:linear-gradient(180deg, var(--brick-red), var(--rust-red));'
-    : 'background:linear-gradient(180deg, var(--rust-red), var(--ambar));';
+    ? 'background:linear-gradient(180deg, var(--borgona), var(--rust));'
+    : 'background:linear-gradient(180deg, var(--amber), var(--rust));';
   return `<div class="bar-col">
     <div class="bar" style="height:${pct}%;${bg}"></div>
   </div>`;
 }).join('');
 
-// ===== HEATMAP — cream/parchment theme =====
+// ===== HEATMAP — dark theme: cold=#161B22, medium=#E48C04, hot=#B24D42 =====
 const heatmapEl = document.getElementById('heatmapContainer');
 const maxHourly = Math.max(...hourlyData.map(d => d.val));
 const days = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 
-// Color stops: cold=#F2EBE1 (parchment), medium=#D4922A (ámbar), hot=#B24D42 (brick red)
+// Color stops: cold=#161B22 (card), medium=#E48C04 (amber), hot=#B24D42 (borgoña)
 let headerHtml = '<div class="heatmap-row"><div class="hour-label"></div><div class="cells">';
-days.forEach(d => { headerHtml += `<div style="font-family:Inter,sans-serif;font-size:8px;font-weight:700;color:var(--rust-red);text-align:center;width:100%;">${d}</div>`; });
+days.forEach(d => { headerHtml += `<div style="font-family:Inter,sans-serif;font-size:8px;font-weight:700;color:var(--amber);text-align:center;width:100%;">${d}</div>`; });
 headerHtml += '</div></div>';
 
 let bodyHtml = '';
@@ -1140,23 +1143,23 @@ hourlyData.forEach(h => {
     const isWeekend = di >= 5;
     const dayFactor = isWeekend ? 1.15 : 0.9;
     const cellIntensity = Math.min(intensity * dayFactor, 1);
-    // Three-stop: parchment -> ámbar -> brick red
+    // Three-stop: #161B22 -> #E48C04 -> #B24D42
     let bg;
     if (cellIntensity < 0.02) {
-      bg = '#F2EBE1'; // parchment cold
+      bg = '#161B22'; // cold — flyer card
     } else if (cellIntensity < 0.5) {
-      // parchment to ámbar
+      // cold to amber
       const t = cellIntensity / 0.5;
-      const r = Math.round(242 + t * (212 - 242));
-      const g = Math.round(235 + t * (146 - 235));
-      const b = Math.round(225 + t * (42 - 225));
+      const r = Math.round(22 + t * (228 - 22));
+      const g = Math.round(27 + t * (140 - 27));
+      const b = Math.round(34 + t * (4 - 34));
       bg = `rgb(${r},${g},${b})`;
     } else {
-      // ámbar to brick red
+      // amber to borgoña
       const t = (cellIntensity - 0.5) / 0.5;
-      const r = Math.round(212 + t * (178 - 212));
-      const g = Math.round(146 + t * (77 - 146));
-      const b = Math.round(42 + t * (66 - 42));
+      const r = Math.round(228 + t * (178 - 228));
+      const g = Math.round(140 + t * (77 - 140));
+      const b = Math.round(4 + t * (66 - 4));
       bg = `rgb(${r},${g},${b})`;
     }
     bodyHtml += `<div class="heatmap-cell" style="background:${bg};"></div>`;
